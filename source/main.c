@@ -2,7 +2,9 @@
 
 int main(void)
 {
-    printf("main runing..");
+    printf("main runing..\r\n");
     
-    for(;;){};
+    printf("main complete.\r\n");
+    
+    return 0;
 }
