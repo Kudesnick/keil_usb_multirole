@@ -40,7 +40,6 @@
 //! [code_USBD_User_HID]
  
 #include "rl_usb.h"
-#include "Board_LED.h"
  
 // Called during USBD_Initialize to initialize the USB Device class.
 void USBD_HID0_Initialize (void) {
@@ -116,10 +115,10 @@ bool USBD_HID0_SetReport (uint8_t rtype, uint8_t req, uint8_t rid, const uint8_t
     case HID_REPORT_OUTPUT:
       for (i = 0; i < 8; i++) {
         if (i == 6) continue;
-        if (*buf & (1 << i))
-          LED_On  (i);
-        else 
-          LED_Off (i);
+        //if (*buf & (1 << i))
+        //    LED_On  (i);
+        //else 
+        //    LED_Off (i);
       }
       break;
     case HID_REPORT_FEATURE:
