@@ -1,5 +1,5 @@
 output/
-keilprj/JLinkLog.txt
+*/DebugConfig/
+*/JLinkLog.txt
 *.uvguix.*
-keilprj/DebugConfig/
 *.scvd
