@@ -28,17 +28,17 @@
 //   <o> High-speed Internal Clock <1-999999999>
 #define RTE_HSI                         8000000
 //   <o> High-speed External Clock <1-999999999>
-#define RTE_HSE                         8000000
+#define RTE_HSE                         25000000
 //   <o> System Clock <1-999999999>
-#define RTE_SYSCLK                      8000000
+#define RTE_SYSCLK                      72000000
 //   <o> HCLK Clock   <1-999999999>
-#define RTE_HCLK                        8000000
+#define RTE_HCLK                        72000000
 //   <o> APB1 Clock   <1-999999999>
-#define RTE_PCLK1                       8000000
+#define RTE_PCLK1                       36000000
 //   <o> APB2 Clock   <1-999999999>
-#define RTE_PCLK2                       8000000
+#define RTE_PCLK2                       72000000
 //   <o> ADC Clock    <1-999999999>
-#define RTE_ADCCLK                      8000000
+#define RTE_ADCCLK                      36000000
 //       USB Clock
 #define RTE_USBCLK                      48000000
 // </h>
@@ -1743,7 +1743,7 @@
 
 // <e> USB Device Full-speed
 // <i> Configuration settings for Driver_USBD0 in component ::Drivers:USB Device
-#define RTE_USB_DEVICE                  0
+#define RTE_USB_DEVICE                  1
 
 //     <e> CON On/Off Pin
 //     <i> Configure Pin for driving D+ pull-up
