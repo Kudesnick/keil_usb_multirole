@@ -16,10 +16,9 @@
  */
 #define CMSIS_device_header "stm32f10x.h"
 
-/*  ARM::CMSIS:RTOS2:Keil RTX5:Source:5.5.1 */
-#define RTE_CMSIS_RTOS2                 /* CMSIS-RTOS2 */
-        #define RTE_CMSIS_RTOS2_RTX5            /* CMSIS-RTOS2 Keil RTX5 */
-        #define RTE_CMSIS_RTOS2_RTX5_SOURCE     /* CMSIS-RTOS2 Keil RTX5 Source */
+/*  ARM::CMSIS:RTOS:Keil RTX:4.82.0 */
+#define RTE_CMSIS_RTOS                  /* CMSIS-RTOS */
+        #define RTE_CMSIS_RTOS_RTX              /* CMSIS-RTOS Keil RTX */
 /*  Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0 */
 #define RTE_Compiler_EventRecorder
           #define RTE_Compiler_EventRecorder_DAP
@@ -40,8 +39,6 @@
           #define RTE_USB_Core_Debug              /* USB Core Debug Version */
 /*  Keil.MDK-Plus::USB:Device:6.13.6 */
 #define RTE_USB_Device_0                /* USB Device 0 */
-#define RTE_USB_Device_1                /* USB Device 1 */
-#define RTE_USB_Device_2                /* USB Device 2 */
 
 /*  Keil.MDK-Plus::USB:Device:HID:6.13.6 */
 #define RTE_USB_Device_HID_0            /* USB Device HID instance 0 */
