@@ -1,53 +1,130 @@
 /*------------------------------------------------------------------------------
- * MDK Middleware - Component ::USB:Device
- * Copyright (c) 2004-2014 ARM Germany GmbH. All rights reserved.
+ * MDK Middleware - Component ::USB:Device:HID
+ * Copyright (c) 2004-2019 Arm Limited (or its affiliates). All rights reserved.
  *------------------------------------------------------------------------------
- * Name:    USBD_User_HID_0.c
+ * Name:    USBD_User_HID_Mouse_n.c
  * Purpose: USB Device Human Interface Device class (HID) User module
- * Rev.:    V6.2
+ * Rev.:    V6.3.3
  *----------------------------------------------------------------------------*/
-/**
- * \addtogroup usbd_hidFunctions
- *
- * USBD_User_HID_0.c implements the application specific functionality of the
- * HID class and is used to receive and send data reports to the USB Host.
- *
- * The implementation must match the configuration file USBD_Config_HID_0.h.
- * The following values in USBD_Config_HID_0.h affect the user code:
- *
- *  - 'Endpoint polling Interval' specifies the frequency of requests
- *    initiated by USB Host for \ref USBD_HIDn_GetReport.
- *
- *  - 'Number of Output Reports' configures the values for \em rid of
- *    \ref USBD_HIDn_SetReport.
- *
- *  - 'Number of Input Reports' configures the values for \em rid of
- *    \ref USBD_HIDn_GetReport and \ref USBD_HID_GetReportTrigger.
- *
- *  - 'Maximum Input Report Size' specifies the maximum value for:
- *       - return of \ref USBD_HIDn_GetReport
- *       - len of \ref USBD_HID_GetReportTrigger.
- *
- *  - 'Maximum Output Report Size' specifies the maximum value for \em len
- *    in \ref USBD_HIDn_SetReport for rtype=HID_REPORT_OUTPUT
- *
- *  - 'Maximum Feature Report Size' specifies the maximum value for \em len
- *    in \ref USBD_HIDn_SetReport for rtype=HID_REPORT_FEATURE
- *
- */
  
- 
-//! [code_USBD_User_HID]
+#include <stdint.h>
  
 #include "rl_usb.h"
+#include "usb_hid.h"
  
-// Called during USBD_Initialize to initialize the USB Device class.
+// User Provided HID Report Descriptor
+// for standard mouse (size of this descriptor is 52 bytes)
+extern 
+const uint8_t usbd_hid0_report_descriptor[];
+const uint8_t usbd_hid0_report_descriptor[] = {
+
+    // Keyboard Top-Level Collection (TLC)
+
+    0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
+    0x09, 0x06,                    // USAGE (Keyboard)
+    0xa1, 0x01,                    // COLLECTION (Application)
+    0x85, 0x01,                    //   REPORT_ID (1)
+    0x05, 0x07,                    //   USAGE_PAGE (Keyboard)
+    0x19, 0xe0,                    //   USAGE_MINIMUM (Keyboard LeftControl)
+    0x29, 0xe7,                    //   USAGE_MAXIMUM (Keyboard Right GUI)
+    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+    0x25, 0x01,                    //   LOGICAL_MAXIMUM (1)
+    0x75, 0x01,                    //   REPORT_SIZE (1)
+    0x95, 0x08,                    //   REPORT_COUNT (8)
+    0x81, 0x02,                    //   INPUT (Data,Var,Abs)
+    0x95, 0x01,                    //   REPORT_COUNT (1)
+    0x75, 0x08,                    //   REPORT_SIZE (8)
+    0x81, 0x03,                    //   INPUT (Cnst,Var,Abs)
+    0x95, 0x05,                    //   REPORT_COUNT (5)
+    0x75, 0x01,                    //   REPORT_SIZE (1)
+    0x05, 0x08,                    //   USAGE_PAGE (LEDs)
+    0x19, 0x01,                    //   USAGE_MINIMUM (Num Lock)
+    0x29, 0x05,                    //   USAGE_MAXIMUM (Kana)
+    0x91, 0x02,                    //   OUTPUT (Data,Var,Abs)
+    0x95, 0x01,                    //   REPORT_COUNT (1)
+    0x75, 0x03,                    //   REPORT_SIZE (3)
+    0x91, 0x03,                    //   OUTPUT (Cnst,Var,Abs)
+    0x95, 0x06,                    //   REPORT_COUNT (6)
+    0x75, 0x08,                    //   REPORT_SIZE (8)
+    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+    0x25, 0x65,                    //   LOGICAL_MAXIMUM (101)
+    0x05, 0x07,                    //   USAGE_PAGE (Keyboard)
+    0x19, 0x00,                    //   USAGE_MINIMUM (Reserved (no event indicated))
+    0x29, 0x65,                    //   USAGE_MAXIMUM (Keyboard Application)
+    0x81, 0x00,                    //   INPUT (Data,Ary,Abs)
+    0xc0,                          // END_COLLECTION
+
+    // Mouse TLC
+
+    0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
+    0x09, 0x02,                    // USAGE (Mouse)
+    0xa1, 0x01,                    // COLLECTION (Application)
+    0x85, 0x02,                    //   REPORT_ID (2)
+    0x09, 0x01,                    //   USAGE (Pointer)
+    0xa1, 0x00,                    //   COLLECTION (Physical)
+    0x05, 0x09,                    //     USAGE_PAGE (Button)
+    0x19, 0x01,                    //     USAGE_MINIMUM (Button 1)
+    0x29, 0x03,                    //     USAGE_MAXIMUM (Button 3)
+    0x15, 0x00,                    //     LOGICAL_MINIMUM (0)
+    0x25, 0x01,                    //     LOGICAL_MAXIMUM (1)
+    0x95, 0x03,                    //     REPORT_COUNT (3)
+    0x75, 0x01,                    //     REPORT_SIZE (1)
+    0x81, 0x02,                    //     INPUT (Data,Var,Abs)
+    0x95, 0x01,                    //     REPORT_COUNT (1)
+    0x75, 0x05,                    //     REPORT_SIZE (5)
+    0x81, 0x03,                    //     INPUT (Cnst,Var,Abs)
+    0x05, 0x01,                    //     USAGE_PAGE (Generic Desktop)
+    0x09, 0x30,                    //     USAGE (X)
+    0x09, 0x31,                    //     USAGE (Y)
+    0x15, 0x81,                    //     LOGICAL_MINIMUM (-127)
+    0x25, 0x7f,                    //     LOGICAL_MAXIMUM (127)
+    0x75, 0x08,                    //     REPORT_SIZE (8)
+    0x95, 0x02,                    //     REPORT_COUNT (2)
+    0x81, 0x06,                    //     INPUT (Data,Var,Rel)
+    0xc0,                          //   END_COLLECTION
+    0xc0                           // END_COLLECTION
+};
+/*    HID_UsagePage(HID_USAGE_PAGE_GENERIC),
+  HID_Usage(HID_USAGE_GENERIC_KEYBOARD),
+  HID_Collection(HID_Application),
+    HID_UsagePage(HID_USAGE_PAGE_KEYBOARD),
+    HID_UsageMin(HID_USAGE_KEYBOARD_LCTRL),
+    HID_UsageMax(HID_USAGE_KEYBOARD_RGUI),
+    HID_LogicalMin(0),
+    HID_LogicalMax(1),
+    HID_ReportSize(1),
+    HID_ReportCount(8),
+    HID_Input(HID_Data | HID_Variable | HID_Absolute),
+    HID_ReportCount(1),
+    HID_ReportSize(8),
+    HID_Input(HID_Data | HID_Variable | HID_Absolute),
+    HID_ReportCount(5),
+    HID_ReportSize(1),
+    HID_UsagePage(HID_USAGE_PAGE_LED),
+    HID_UsageMin(HID_USAGE_LED_NUM_LOCK),
+    HID_UsageMax(HID_USAGE_LED_KANA),
+    HID_Output(HID_Data | HID_Variable | HID_Absolute),
+    HID_ReportCount(1),
+    HID_ReportSize(3),
+    HID_Output(HID_Data | HID_Variable | HID_Absolute),
+    HID_ReportCount(6),
+    HID_ReportSize(8),
+    HID_LogicalMin(0),
+    HID_LogicalMax(101),
+    HID_UsagePage(HID_USAGE_PAGE_KEYBOARD),
+    HID_UsageMin(0),
+    HID_UsageMax(101),
+    HID_Input(HID_Data | HID_Variable | HID_Absolute),
+  HID_EndCollection,
+};*/
+ 
+// Called during USBD_Initialize to initialize the USB HID class instance.
 void USBD_HID0_Initialize (void) {
   // Add code for initialization
 }
  
  
-// Called during USBD_Uninitialize to de-initialize the USB Device class.
+// Called during USBD_Uninitialize to de-initialize the USB HID class instance.
 void USBD_HID0_Uninitialize (void) {
   // Add code for de-initialization
 }
@@ -67,7 +144,7 @@ void USBD_HID0_Uninitialize (void) {
 //              - value >= 0: number of report data bytes prepared to send
 //              - value = -1: invalid report requested
 int32_t USBD_HID0_GetReport (uint8_t rtype, uint8_t req, uint8_t rid, uint8_t *buf) {
-
+ 
   switch (rtype) {
     case HID_REPORT_INPUT:
       switch (rid) {
@@ -109,22 +186,16 @@ int32_t USBD_HID0_GetReport (uint8_t rtype, uint8_t req, uint8_t rid, uint8_t *b
 // \return      true    received report data processed.
 // \return      false   received report data not processed or request not supported.
 bool USBD_HID0_SetReport (uint8_t rtype, uint8_t req, uint8_t rid, const uint8_t *buf, int32_t len) {
-  uint8_t i;
-
+ 
   switch (rtype) {
     case HID_REPORT_OUTPUT:
-      for (i = 0; i < 8; i++) {
-        if (i == 6) continue;
-        //if (*buf & (1 << i))
-        //    LED_On  (i);
-        //else 
-        //    LED_Off (i);
-      }
+      /*
+        buf: Received Data
+        len: Received Data Length
+      */
       break;
     case HID_REPORT_FEATURE:
       break;
   }
   return true;
 }
-
-//! [code_USBD_User_HID]
