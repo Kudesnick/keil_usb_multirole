@@ -33,7 +33,7 @@
 //     <o.0..3>Interrupt IN Endpoint Number
 //               <1=>1   <2=>2   <3=>3   <4=>4   <5=>5   <6=>6   <7=>7
 //       <8=>8   <9=>9   <10=>10 <11=>11 <12=>12 <13=>13 <14=>14 <15=>15
-#define USBD_CDC0_EP_INT_IN              2
+#define USBD_CDC0_EP_INT_IN              1
 
 
 //     <h>Endpoint Settings
@@ -86,12 +86,12 @@
 //     <o.0..3>Bulk IN Endpoint Number
 //               <1=>1   <2=>2   <3=>3   <4=>4   <5=>5   <6=>6   <7=>7
 //       <8=>8   <9=>9   <10=>10 <11=>11 <12=>12 <13=>13 <14=>14 <15=>15
-#define USBD_CDC0_EP_BULK_IN             3
+#define USBD_CDC0_EP_BULK_IN             2
 
 //     <o.0..3>Bulk OUT Endpoint Number
 //               <1=>1   <2=>2   <3=>3   <4=>4   <5=>5   <6=>6   <7=>7
 //       <8=>8   <9=>9   <10=>10 <11=>11 <12=>12 <13=>13 <14=>14 <15=>15
-#define USBD_CDC0_EP_BULK_OUT            3
+#define USBD_CDC0_EP_BULK_OUT            2
 
 
 //     <h>Endpoint Settings

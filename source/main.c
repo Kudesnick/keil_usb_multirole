@@ -18,13 +18,13 @@ void usb_handle (void) {
 
   for (;;) {                           /* Loop forever                       */
     USBD_HID_GetReportTrigger(0, 0, &buf[0], 1);
-    osSignalWait(0U, 100);                       /* 100 ms delay for sampling buttons  */
+    osDelay(100);                       /* 100 ms delay for sampling buttons  */
   }
 }
 
 int main(void)
 {
-    printf("main runing..\r\n");
+//    printf("main runing..\r\n");
     
     usb_handle();
     
