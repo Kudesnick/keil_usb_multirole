@@ -16,9 +16,9 @@ void usb_handle (void) {
   USBD_Initialize    (0);               /* USB Device 0 Initialization        */
   USBD_Connect       (0);               /* USB Device 0 Connect               */
 
-  while (1) {                           /* Loop forever                       */
+  for (;;) {                           /* Loop forever                       */
     USBD_HID_GetReportTrigger(0, 0, &buf[0], 1);
-    osDelay(100);                       /* 100 ms delay for sampling buttons  */
+    osSignalWait(0U, 100);                       /* 100 ms delay for sampling buttons  */
   }
 }
 
