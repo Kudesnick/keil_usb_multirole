@@ -40,9 +40,18 @@
 /*  Keil.MDK-Plus::USB:Device:6.13.6 */
 #define RTE_USB_Device_0                /* USB Device 0 */
 
+/*  Keil.MDK-Plus::USB:Device:CDC:6.13.6 */
+#define RTE_USB_Device_CDC_0            /* USB Device CDC instance 0 */
+
 /*  Keil.MDK-Plus::USB:Device:HID:6.13.6 */
 #define RTE_USB_Device_HID_0            /* USB Device HID instance 0 */
 
+/*  Keil::CMSIS Driver:USART:2.3 */
+#define RTE_Drivers_USART1              /* Driver USART1 */
+        #define RTE_Drivers_USART2              /* Driver USART2 */
+        #define RTE_Drivers_USART3              /* Driver USART3 */
+        #define RTE_Drivers_USART4              /* Driver UART4  */
+        #define RTE_Drivers_USART5              /* Driver UART5  */
 /*  Keil::CMSIS Driver:USB Device:2.1 */
 #define RTE_Drivers_USBD0               /* Driver USBD0 */
 
