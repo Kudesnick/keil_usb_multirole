@@ -388,9 +388,9 @@
               <FilePath>..\source\main.c</FilePath>
             </File>
             <File>
-              <FileName>USBD_User_HID_0_mouse.c</FileName>
+              <FileName>USBD_User_HID_0.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\USBD_User_HID_0_mouse.c</FilePath>
+              <FilePath>..\source\USBD_User_HID_0.c</FilePath>
             </File>
           </Files>
         </Group>
