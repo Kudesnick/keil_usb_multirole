@@ -1,10 +1,10 @@
 /*------------------------------------------------------------------------------
  * MDK Middleware - Component ::USB:Device
- * Copyright (c) 2004-2015 ARM Germany GmbH. All rights reserved.
+ * Copyright (c) 2004-2019 Arm Limited (or its affiliates). All rights reserved.
  *------------------------------------------------------------------------------
  * Name:    USBD_Config_CDC_0.h
  * Purpose: USB Device Communication Device Class (CDC) Configuration
- * Rev.:    V5.1.2
+ * Rev.:    V5.2.0
  *----------------------------------------------------------------------------*/
 
 //-------- <<< Use Configuration Wizard in Context Menu >>> --------------------
@@ -20,6 +20,12 @@
 //     <13=>Network Control Model (NCM)
 #define USBD_CDC0_SUBCLASS               2
 
+//   <o>Communication Class Protocol
+//   <i>Specifies the protocol used by the CDC class.
+//     <0=>No protocol (Virtual COM)
+//     <255=>Vendor-specific (RNDIS)
+#define USBD_CDC0_PROTOCOL               0
+
 //   <h>Interrupt Endpoint Settings
 //   <i>By default, the settings match the first USB Class instance in a USB Device.
 //   <i>Endpoint conflicts are flagged by compile-time error messages.
@@ -31,8 +37,8 @@
 
 
 //     <h>Endpoint Settings
-//       <i>Parameters are used to create USB Descriptors and for memory
-//       <i>allocation in the USB component.
+//       <i>Parameters are used to create Endpoint Descriptors
+//       <i>and for memory allocation in the USB component.
 
 //       <h>Full/Low-speed (High-speed disabled)
 //       <i>Parameters apply when High-speed is disabled in USBD_Config_n.c
@@ -130,10 +136,36 @@
 
 //     <h>Abstract Control Model Settings
 
+//       <h>Call Management Capabilities
+//       <i>Specifies which call management functionality is supported.
+//         <o.1>Call Management channel
+//           <0=>Communication Class Interface only
+//           <1=>Communication and Data Class Interface
+//         <o.0>Device Call Management handling
+//           <0=>None
+//           <1=>All
+//       </h>
+#define USBD_CDC0_ACM_CM_BM_CAPABILITIES 0x03
+
+//       <h>Abstract Control Management Capabilities
+//       <i>Specifies which abstract control management functionality is supported.
+//         <o.3>D3 bit
+//           <i>Enabled = Supports the notification Network_Connection
+//         <o.2>D2 bit
+//           <i>Enabled = Supports the request Send_Break
+//         <o.1>D1 bit
+//           <i>Enabled = Supports the following requests: Set_Line_Coding, Get_Line_Coding,
+//           <i> Set_Control_Line_State, and notification Serial_State
+//         <o.0>D0 bit
+//           <i>Enabled = Supports the following requests: Set_Comm_Feature, Clear_Comm_Feature and Get_Comm_Feature
+//       </h>
+#define USBD_CDC0_ACM_ACM_BM_CAPABILITIES 0x06
+
 //       <o>Maximum Communication Device Send Buffer Size
 //       <i>Specifies size of buffer used for sending of data to USB Host.
-//         <8=>    8 Bytes <16=>  16 Bytes <32=>  32 Bytes <64=>    64 Bytes
-//         <128=>128 Bytes <256=>256 Bytes <512=>512 Bytes <1024=>1024 Bytes
+//         <8=>      8 Bytes <16=>    16 Bytes <32=>    32 Bytes <64=>      64 Bytes
+//         <128=>  128 Bytes <256=>  256 Bytes <512=>  512 Bytes <1024=>  1024 Bytes
+//         <2048=>2048 Bytes <4096=>4096 Bytes <8192=>8192 Bytes <16384=>16384 Bytes
 #define USBD_CDC0_ACM_SEND_BUF_SIZE      1024
 
 //       <o>Maximum Communication Device Receive Buffer Size

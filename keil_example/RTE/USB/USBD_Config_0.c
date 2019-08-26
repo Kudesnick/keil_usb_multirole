@@ -1,10 +1,10 @@
 /*------------------------------------------------------------------------------
  * MDK Middleware - Component ::USB:Device
- * Copyright (c) 2004-2014 ARM Germany GmbH. All rights reserved.
+ * Copyright (c) 2004-2019 Arm Limited (or its affiliates). All rights reserved.
  *------------------------------------------------------------------------------
  * Name:    USBD_Config_0.c
  * Purpose: USB Device Configuration
- * Rev.:    V5.00
+ * Rev.:    V5.2.0
  *------------------------------------------------------------------------------
  * Use the following configuration settings in the Device Class configuration
  * files to assign a Device Class to this USB Device 0.
@@ -38,7 +38,7 @@
 
 //     <o.0..15>Product ID <0x0000-0xFFFF>
 //     <i>Product ID assigned by manufacturer (idProduct).
-#define USBD0_DEV_DESC_IDPRODUCT        0x2005
+#define USBD0_DEV_DESC_IDPRODUCT        0x0000
 
 //     <o.0..15>Device Release Number <0x0000-0xFFFF>
 //     <i>Device Release Number in binary-coded decimal (bcdDevice)
@@ -75,19 +75,42 @@
 
 //     <s.126>Product String
 //     <i>String Descriptor describing Product.
-#define USBD0_STR_DESC_PROD             L"Keil USB Device"
+#define USBD0_STR_DESC_PROD             L"Keil USB Device 0"
 
-//     <e.0>Serial Number
+//     <e.0>Serial Number String
 //     <i>Enable Serial Number String.
 //     <i>If disabled Serial Number String will not be assigned to USB Device.
 #define USBD0_STR_DESC_SER_EN           1
 
-//       <s.126>Serial Number String
-//       <i>String Descriptor describing device's Serial Number.
+//       <s.126>Default value
+//       <i>Default device's Serial Number String.
 #define USBD0_STR_DESC_SER              L"0001A0000000"
+
+//       <o.0..7>Maximum Length (in characters) <0-126>
+//       <i>Specifies the maximum number of Serial Number String characters that can be set at run-time.
+//       <i>Maximum value is 126. Use value 0 to disable RAM allocation for string.
+#define USBD0_STR_DESC_SER_MAX_LEN      16
 
 //     </e>
 //   </h>
+
+//   <h>Microsoft OS Descriptors Settings
+//   <i>These settings are used to create the Microsoft OS Descriptors.
+//     <e.0>OS String
+//     <i>Enable creation of Microsoft OS String and Extended Compat ID OS Feature Descriptors.
+#define USBD0_OS_DESC_EN                1
+
+//       <o.0..7>Vendor Code <0x01-0xFF>
+//       <i>Specifies Vendor Code used to retrieve OS Feature Descriptors.
+#define USBD0_OS_DESC_VENDOR_CODE       0x01
+
+//     </e>
+//   </h>
+
+//   <o>Control Transfer Buffer Size <64-65536:64>
+//   <i>Specifies size of buffer used for Control Transfers.
+//   <i>It should be at least as big as maximum packet size for Endpoint 0.
+#define USBD0_EP0_BUF_SIZE              128
 
 //   <h>OS Resources Settings
 //   <i>These settings are used to optimize usage of OS resources.
@@ -153,6 +176,18 @@
 #endif
 #ifdef  RTE_USB_Device_CDC_3
 #include "USBD_Config_CDC_3.h"
+#endif
+#ifdef  RTE_USB_Device_CDC_4
+#include "USBD_Config_CDC_4.h"
+#endif
+#ifdef  RTE_USB_Device_CDC_5
+#include "USBD_Config_CDC_5.h"
+#endif
+#ifdef  RTE_USB_Device_CDC_6
+#include "USBD_Config_CDC_6.h"
+#endif
+#ifdef  RTE_USB_Device_CDC_7
+#include "USBD_Config_CDC_7.h"
 #endif
 
 #ifdef  RTE_USB_Device_ADC_0
