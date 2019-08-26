@@ -1,53 +1,98 @@
 /*------------------------------------------------------------------------------
- * MDK Middleware - Component ::USB:Device
- * Copyright (c) 2004-2014 ARM Germany GmbH. All rights reserved.
+ * MDK Middleware - Component ::USB:Device:HID
+ * Copyright (c) 2004-2019 Arm Limited (or its affiliates). All rights reserved.
  *------------------------------------------------------------------------------
- * Name:    USBD_User_HID_0.c
+ * Name:    USBD_User_HID_Mouse_n.c
  * Purpose: USB Device Human Interface Device class (HID) User module
- * Rev.:    V6.2
+ * Rev.:    V6.3.3
  *----------------------------------------------------------------------------*/
-/**
- * \addtogroup usbd_hidFunctions
- *
- * USBD_User_HID_0.c implements the application specific functionality of the
- * HID class and is used to receive and send data reports to the USB Host.
- *
- * The implementation must match the configuration file USBD_Config_HID_0.h.
- * The following values in USBD_Config_HID_0.h affect the user code:
- *
- *  - 'Endpoint polling Interval' specifies the frequency of requests
- *    initiated by USB Host for \ref USBD_HIDn_GetReport.
- *
- *  - 'Number of Output Reports' configures the values for \em rid of
- *    \ref USBD_HIDn_SetReport.
- *
- *  - 'Number of Input Reports' configures the values for \em rid of
- *    \ref USBD_HIDn_GetReport and \ref USBD_HID_GetReportTrigger.
- *
- *  - 'Maximum Input Report Size' specifies the maximum value for:
- *       - return of \ref USBD_HIDn_GetReport
- *       - len of \ref USBD_HID_GetReportTrigger.
- *
- *  - 'Maximum Output Report Size' specifies the maximum value for \em len
- *    in \ref USBD_HIDn_SetReport for rtype=HID_REPORT_OUTPUT
- *
- *  - 'Maximum Feature Report Size' specifies the maximum value for \em len
- *    in \ref USBD_HIDn_SetReport for rtype=HID_REPORT_FEATURE
- *
- */
  
- 
-//! [code_USBD_User_HID]
+#include <stdint.h>
  
 #include "rl_usb.h"
+#include "usb_hid.h"
  
-// Called during USBD_Initialize to initialize the USB Device class.
+// User Provided HID Report Descriptor
+// for standard mouse (size of this descriptor is 52 bytes)
+extern 
+const uint8_t usbd_hid0_report_descriptor[];
+const uint8_t usbd_hid0_report_descriptor[] = {
+
+    // Keyboard Top-Level Collection (TLC)
+
+    HID_UsagePage(HID_USAGE_PAGE_GENERIC),
+    HID_Usage(HID_USAGE_GENERIC_KEYBOARD),
+    HID_Collection(HID_Application),
+        HID_ReportID(0x01),
+        HID_UsagePage(HID_USAGE_PAGE_KEYBOARD),
+        HID_UsageMin(HID_USAGE_KEYBOARD_LCTRL),
+        HID_UsageMax(HID_USAGE_KEYBOARD_RGUI),
+        HID_LogicalMin(0),
+        HID_LogicalMax(1),
+        HID_ReportSize(1),
+        HID_ReportCount(8),
+        HID_Input(HID_Data | HID_Variable | HID_Absolute),
+        HID_ReportCount(1),
+        HID_ReportSize(8),
+        HID_Input(HID_Constant | HID_Variable | HID_Absolute),
+        HID_ReportCount(5),
+        HID_ReportSize(1),
+        HID_UsagePage(HID_USAGE_PAGE_LED),
+        HID_UsageMin(HID_USAGE_LED_NUM_LOCK),
+        HID_UsageMax(HID_USAGE_LED_KANA),
+        HID_Output(HID_Data | HID_Variable | HID_Absolute),
+        HID_ReportCount(1),
+        HID_ReportSize(3),
+        HID_Output(HID_Constant | HID_Variable | HID_Absolute),
+        HID_ReportCount(6),
+        HID_ReportSize(8),
+        HID_LogicalMin(0),
+        HID_LogicalMax(101),
+        HID_UsagePage(HID_USAGE_PAGE_KEYBOARD),
+        HID_UsageMin(0),
+        HID_UsageMax(101),
+        HID_Input(HID_Data | HID_Variable | HID_Absolute),
+    HID_EndCollection,
+
+    // Mouse TLC
+
+    HID_UsagePage(HID_USAGE_PAGE_GENERIC),
+    HID_Usage(HID_USAGE_GENERIC_MOUSE),
+    HID_Collection(HID_Application),
+        HID_ReportID(0x02),
+        HID_Usage(HID_USAGE_GENERIC_POINTER),
+        HID_Collection(HID_Physical),
+            HID_UsagePage(HID_USAGE_PAGE_BUTTON),
+            HID_UsageMin(1),
+            HID_UsageMax(3),
+            HID_LogicalMin(0),
+            HID_LogicalMax(1),
+            HID_ReportCount(3),
+            HID_ReportSize(1),
+            HID_Input(HID_Data | HID_Variable | HID_Absolute),
+            HID_ReportCount(1),
+            HID_ReportSize(5),
+            HID_Input(HID_Constant | HID_Variable | HID_Absolute),
+            HID_UsagePage(HID_USAGE_PAGE_GENERIC),
+            HID_Usage(HID_USAGE_GENERIC_X),
+            HID_Usage(HID_USAGE_GENERIC_Y),
+            HID_Usage(HID_USAGE_GENERIC_WHEEL),
+            HID_LogicalMin((uint8_t)(-127)),
+            HID_LogicalMax(127),
+            HID_ReportSize(8),
+            HID_ReportCount(3),
+            HID_Input(HID_Data | HID_Variable | HID_Relative),
+        HID_EndCollection,
+    HID_EndCollection,
+};
+
+// Called during USBD_Initialize to initialize the USB HID class instance.
 void USBD_HID0_Initialize (void) {
   // Add code for initialization
 }
  
  
-// Called during USBD_Uninitialize to de-initialize the USB Device class.
+// Called during USBD_Uninitialize to de-initialize the USB HID class instance.
 void USBD_HID0_Uninitialize (void) {
   // Add code for de-initialization
 }
@@ -67,7 +112,7 @@ void USBD_HID0_Uninitialize (void) {
 //              - value >= 0: number of report data bytes prepared to send
 //              - value = -1: invalid report requested
 int32_t USBD_HID0_GetReport (uint8_t rtype, uint8_t req, uint8_t rid, uint8_t *buf) {
-
+ 
   switch (rtype) {
     case HID_REPORT_INPUT:
       switch (rid) {
@@ -109,22 +154,16 @@ int32_t USBD_HID0_GetReport (uint8_t rtype, uint8_t req, uint8_t rid, uint8_t *b
 // \return      true    received report data processed.
 // \return      false   received report data not processed or request not supported.
 bool USBD_HID0_SetReport (uint8_t rtype, uint8_t req, uint8_t rid, const uint8_t *buf, int32_t len) {
-  uint8_t i;
-
+ 
   switch (rtype) {
     case HID_REPORT_OUTPUT:
-      for (i = 0; i < 8; i++) {
-        if (i == 6) continue;
-        //if (*buf & (1 << i))
-        //    LED_On  (i);
-        //else 
-        //    LED_Off (i);
-      }
+      /*
+        buf: Received Data
+        len: Received Data Length
+      */
       break;
     case HID_REPORT_FEATURE:
       break;
   }
   return true;
 }
-
-//! [code_USBD_User_HID]

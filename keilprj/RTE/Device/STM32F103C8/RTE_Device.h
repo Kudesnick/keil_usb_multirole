@@ -1756,7 +1756,7 @@
 //       <o3> Bit <0-15>
 //       <i>  Selects Port Bit
 //     </e>
-#define RTE_USB_DEVICE_CON_PIN          1
+#define RTE_USB_DEVICE_CON_PIN          0
 #define RTE_USB_DEVICE_CON_ACTIVE       0
 #define RTE_USB_DEVICE_CON_PORT         GPIO_PORT(1)
 #define RTE_USB_DEVICE_CON_BIT          14
