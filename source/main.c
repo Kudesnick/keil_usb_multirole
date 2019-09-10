@@ -6,6 +6,15 @@
 #include "cmsis_os.h"
 #include "rl_usb.h"
 
+#ifdef RTE_DEVICE_HAL_COMMON
+
+uint32_t HAL_GetTick(void)           // Add HAL_GetTick function for STM32Cube HAL
+{
+    return osKernelGetTickCount();
+}
+
+#endif
+
 /*------------------------------------------------------------------------------
  * MDK Middleware - Component ::USB:Device
  * Copyright (c) 2004-2014 ARM Germany GmbH. All rights reserved.
