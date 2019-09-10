@@ -48,8 +48,9 @@ void usb_handle (void const *argument)
 {
     uint8_t buf[1];
 
-    USBD_Initialize    (0);               /* USB Device 0 Initialization        */
-    USBD_Connect       (0);               /* USB Device 0 Connect               */
+    volatile usbStatus usb_init_status, usb_connect_status;
+    usb_init_status    = USBD_Initialize (0); /* USB Device 0 Initialization        */
+    usb_connect_status = USBD_Connect    (0); /* USB Device 0 Connect               */
 
     for (;;)
     {                           /* Loop forever                       */
@@ -73,14 +74,29 @@ int main(void)
 #ifdef RTE_DEVICE_HAL_COMMON
     HAL_Init();
 
-    /* Configure the system clock to 168 MHz */
+    /* Configure the system clock to 96 MHz */
     SystemClock_Config();
-    SystemCoreClockUpdate();
-#else
+#endif
     // System Initialization
     SystemCoreClockUpdate();
-#endif
+
     printf("main runing..\r\n");
+
+#ifdef RTE_DEVICE_HAL_COMMON    
+    // Emulate USB disconnect (USB_DP) ->
+    static GPIO_InitTypeDef GPIO_InitStruct = 
+    {
+        .Pin   = GPIO_PIN_12        ,
+        .Mode  = GPIO_MODE_OUTPUT_OD,
+        .Speed = GPIO_SPEED_FREQ_LOW,
+        .Pull  = GPIO_NOPULL        ,
+    };
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_WritePin(GPIOA, GPIO_InitStruct.Pin, GPIO_PIN_RESET);
+	
+	HAL_Delay(10);
+    // Emulate USB disconnect (USB_DP) <-
+#endif
     
     osKernelInitialize();
     osThreadCreate(osThread(usb_handle), NULL);
