@@ -3,3 +3,5 @@ output/
 */JLinkLog.txt
 *.uvguix.*
 *.scvd
+cubeprj/*/
+.mxproject
