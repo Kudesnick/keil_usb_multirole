@@ -34,7 +34,7 @@ int main(void)
     // System Initialization
     SystemCoreClockUpdate();
 
-    // printf("main runing..\r\n");
+    printf("main runing..\r\n");
     
     osKernelInitialize();
     osThreadCreate(osThread(usb_handle), NULL);

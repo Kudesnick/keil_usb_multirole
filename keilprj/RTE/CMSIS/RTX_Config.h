@@ -93,7 +93,7 @@
 //   <e>Object specific Memory allocation
 //   <i> Enables object specific memory allocation.
 #ifndef OS_THREAD_OBJ_MEM
-#define OS_THREAD_OBJ_MEM           1
+#define OS_THREAD_OBJ_MEM           0
 #endif
  
 //     <o>Number of user Threads <1-1000>

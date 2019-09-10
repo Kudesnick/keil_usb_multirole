@@ -24,41 +24,63 @@
  *
  * -----------------------------------------------------------------------------
  */
- 
+
+#include <stdio.h>
+
 #include "cmsis_compiler.h"
 #include "rtx_os.h"
  
 // OS Idle Thread
-__WEAK __NO_RETURN void osRtxIdleThread (void *argument) {
-  (void)argument;
+__WEAK __NO_RETURN void osRtxIdleThread (void *argument)
+{
+    (void)argument;
 
-  for (;;) {}
+    for (;;)
+    {
+        __WFE();
+    }
 }
  
 // OS Error Callback function
-__WEAK uint32_t osRtxErrorNotify (uint32_t code, void *object_id) {
-  (void)object_id;
+__WEAK uint32_t osRtxErrorNotify (uint32_t code, void *object_id)
+{
+    (void)object_id;
+    
+    switch (code)
+    {
+        case osRtxErrorStackUnderflow:
+            // Stack overflow detected for thread (thread_id=object_id)
+            printf("OS Stack overflow detected for thread");
+            break;
+        case osRtxErrorISRQueueOverflow:
+            // ISR Queue overflow detected when inserting object (object_id)
+            printf("OS ISR Queue overflow detected when inserting object");
+            break;
+        case osRtxErrorTimerQueueOverflow:
+            // User Timer Callback Queue overflow detected for timer (timer_id=object_id)
+            printf("OS User Timer Callback Queue overflow detected for timer");
+            break;
+        case osRtxErrorClibSpace:
+            // Standard C/C++ library libspace not available: increase OS_THREAD_LIBSPACE_NUM
+            printf("OS Standard C/C++ library libspace not available");
+            break;
+        case osRtxErrorClibMutex:
+            // Standard C/C++ library mutex initialization failed
+            printf("OS Standard C/C++ library mutex initialization failed");
+            break;
+        default:
+            // Reserved
+            printf("OS strange error.");
+            break;
+    }
+    for (;;) {__BKPT(0);}
+    //return 0U;
+}
 
-  switch (code) {
-    case osRtxErrorStackUnderflow:
-      // Stack overflow detected for thread (thread_id=object_id)
-      break;
-    case osRtxErrorISRQueueOverflow:
-      // ISR Queue overflow detected when inserting object (object_id)
-      break;
-    case osRtxErrorTimerQueueOverflow:
-      // User Timer Callback Queue overflow detected for timer (timer_id=object_id)
-      break;
-    case osRtxErrorClibSpace:
-      // Standard C/C++ library libspace not available: increase OS_THREAD_LIBSPACE_NUM
-      break;
-    case osRtxErrorClibMutex:
-      // Standard C/C++ library mutex initialization failed
-      break;
-    default:
-      // Reserved
-      break;
-  }
-  for (;;) {}
-//return 0U;
+// System hard fault
+void HardFault_Handler(void)
+{
+    printf("HardFault");
+    
+    for(;;) {__BKPT(0);}
 }
