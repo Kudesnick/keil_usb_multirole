@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "RTE_Components.h"
 #include CMSIS_device_header
@@ -37,6 +38,42 @@ uint32_t HAL_GetTick (void)
 #endif
 #endif
 
+static const char * const usb_status_print(usbStatus _state)
+{
+    switch(_state)
+    {
+        case usbOK              : return "Function completed with no error";
+
+        case usbTimeout         : return "Function completed; time-out occurred";
+        case usbInvalidParameter: return "Invalid Parameter error: a mandatory parameter was missing or specified an incorrect object";
+
+        case usbThreadError     : return "CMSIS-RTOS Thread creation/termination failed";
+        case usbTimerError      : return "CMSIS-RTOS Timer creation/deletion failed";
+        case usbSemaphoreError  : return "CMSIS-RTOS Semaphore creation failed";
+        case usbMutexError      : return "CMSIS-RTOS Mutex creation failed";
+
+        case usbControllerError : return "Controller does not exist";
+        case usbDeviceError     : return "Device does not exist";
+        case usbDriverError     : return "Driver function produced error";
+        case usbDriverBusy      : return "Driver function is busy";
+        case usbMemoryError     : return "Memory management function produced error";
+        case usbNotConfigured   : return "Device is not configured (is connected)";
+        case usbClassErrorADC   : return "Audio Device Class (ADC) error (no device or device produced error)";
+        case usbClassErrorCDC   : return "Communication Device Class (CDC) error (no device or device produced error)";
+        case usbClassErrorHID   : return "Human Interface Device (HID) error (no device or device produced error)";
+        case usbClassErrorMSC   : return "Mass Storage Device (MSC) error (no device or device produced error)";
+        case usbClassErrorCustom: return "Custom device Class (Class) error (no device or device produced error)";
+        case usbUnsupportedClass: return "Unsupported Class";
+
+        case usbTransferStall   : return "Transfer handshake was stall";
+        case usbTransferError   : return "Transfer error";
+
+        case usbUnknownError    : return "Unspecified USB error";
+        
+        default: return "Unkhown USB error code";
+    }
+};
+
 /*------------------------------------------------------------------------------
  * MDK Middleware - Component ::USB:Device
  * Copyright (c) 2004-2014 ARM Germany GmbH. All rights reserved.
@@ -44,22 +81,44 @@ uint32_t HAL_GetTick (void)
  * Name:    HID.c
  * Purpose: USB Device Human Interface Device example program
  *----------------------------------------------------------------------------*/
-void usb_handle (void const *argument)
+void usbd_handle (void const *argument)
 {
+#ifdef RTE_DEVICE_HAL_COMMON    
+    // Emulate USB disconnect (USB_DP) ->
+    static GPIO_InitTypeDef GPIO_InitStruct = 
+    {
+        .Pin   = GPIO_PIN_12        ,
+        .Mode  = GPIO_MODE_OUTPUT_OD,
+        .Speed = GPIO_SPEED_FREQ_LOW,
+        .Pull  = GPIO_NOPULL        ,
+    };
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_WritePin(GPIOA, GPIO_InitStruct.Pin, GPIO_PIN_RESET);
+	
+	HAL_Delay(10);
+    // Emulate USB disconnect (USB_DP) <-
+#endif
+    
     uint8_t buf[1];
 
     volatile usbStatus usb_init_status, usb_connect_status;
-    usb_init_status    = USBD_Initialize (0); /* USB Device 0 Initialization        */
-    usb_connect_status = USBD_Connect    (0); /* USB Device 0 Connect               */
+    
+    usb_init_status = USBD_Initialize(0); /* USB Device 0 Initialization */
+    printf("USB device init status: %s\r\n", usb_status_print(usb_init_status));
+    if (usb_init_status != usbOK) for(;;);
+    
+    usb_connect_status = USBD_Connect(0); /* USB Device 0 Connect */
+    printf("USB device connect status: %s\r\n", usb_status_print(usb_connect_status));
+    if (usb_connect_status != usbOK) for(;;);
 
     for (;;)
-    {                           /* Loop forever                       */
+    {   /* Loop forever */
         USBD_HID_GetReportTrigger(0, 0, &buf[0], 1);
-        osDelay(100);                       /* 100 ms delay for sampling buttons  */
+        osDelay(100); /* 100 ms delay for sampling buttons  */
     }
 }
 
-osThreadDef(usb_handle, osPriorityNormal, 1, 0);
+osThreadDef(usbd_handle, osPriorityNormal, 1, 0);
 
 
 #ifdef RTE_DEVICE_HAL_COMMON
@@ -82,24 +141,8 @@ int main(void)
 
     printf("main runing..\r\n");
 
-#ifdef RTE_DEVICE_HAL_COMMON    
-    // Emulate USB disconnect (USB_DP) ->
-    static GPIO_InitTypeDef GPIO_InitStruct = 
-    {
-        .Pin   = GPIO_PIN_12        ,
-        .Mode  = GPIO_MODE_OUTPUT_OD,
-        .Speed = GPIO_SPEED_FREQ_LOW,
-        .Pull  = GPIO_NOPULL        ,
-    };
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    HAL_GPIO_WritePin(GPIOA, GPIO_InitStruct.Pin, GPIO_PIN_RESET);
-	
-	HAL_Delay(10);
-    // Emulate USB disconnect (USB_DP) <-
-#endif
-    
     osKernelInitialize();
-    osThreadCreate(osThread(usb_handle), NULL);
+    osThreadCreate(osThread(usbd_handle), NULL);
     osKernelStart();
     
     for (;;);
