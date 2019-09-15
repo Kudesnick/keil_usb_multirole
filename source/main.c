@@ -276,8 +276,29 @@ int main(void)
     printf("main runing..\r\n");
 
     osKernelInitialize();
-    // osThreadCreate(osThread(usbd_handle), NULL);
-    osThreadNew(usbh_handle, NULL, &usbh_handle_attr);
+    
+    // USB OTG detect (USB_ID) ->
+    static GPIO_InitTypeDef GPIO_InitStruct = 
+    {
+        .Pin   = GPIO_PIN_10        ,
+        .Mode  = GPIO_MODE_INPUT    ,
+        .Speed = GPIO_SPEED_FREQ_LOW,
+        .Pull  = GPIO_PULLUP        ,
+    };
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    
+    HAL_Delay(10);
+    // USB OTG detect (USB_ID) <-
+    
+    if (HAL_GPIO_ReadPin(GPIOA, GPIO_InitStruct.Pin) == GPIO_PIN_RESET)
+    {
+        osThreadNew(usbh_handle, NULL, &usbh_handle_attr);
+    }
+    else
+    {
+        osThreadCreate(osThread(usbd_handle), NULL);
+    }
+
     osKernelStart();
     
     for (;;);
