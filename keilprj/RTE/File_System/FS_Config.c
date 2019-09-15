@@ -36,7 +36,7 @@
 //                          <7=>U0: <8=>U1:
 // <i>Set initial setting for current drive. Current drive is used for File System functions
 // <i>that are invoked with the "" string and can be altered anytime during run-time.
-#define FS_INITIAL_CDRIVE       2
+#define FS_INITIAL_CDRIVE       7
 
 #include "RTE_Components.h"
 

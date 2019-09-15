@@ -397,6 +397,11 @@
               <FileType>1</FileType>
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
+            <File>
+              <FileName>USBH_MSC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBH_MSC.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -809,6 +814,11 @@
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>USBH_MSC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBH_MSC.c</FilePath>
             </File>
           </Files>
         </Group>

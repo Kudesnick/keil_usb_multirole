@@ -17,7 +17,7 @@
 //                       <8=>8 KB <16=>16 KB <32=>32 KB
 //   <i>Drive Cache stores data sectors and may be increased to speed-up
 //   <i>file read/write operations on this drive (default: 4 KB)
-#define USB0_CACHE_SIZE         4
+#define USB0_CACHE_SIZE         8
 
 //   <o>Filename Cache Size <0-1000000>
 //   <i>Define number of cached file or directory names.

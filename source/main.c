@@ -9,7 +9,10 @@
 #endif
 
 #include "cmsis_os.h"
-#include "rl_usb.h"
+#include "rl_fs.h"                      // Keil.MDK-Pro::File System:CORE
+#include "rl_usb.h"                     // Keil.MDK-Pro::USB:CORE
+
+#include "USBH_MSC.h"
 
 #ifdef RTE_DEVICE_HAL_COMMON
 #ifdef RTE_CMSIS_RTOS2_RTX5
@@ -38,7 +41,7 @@ uint32_t HAL_GetTick (void)
 #endif
 #endif
 
-static const char * const usb_status_print(usbStatus _state)
+static const char * usb_status_print(usbStatus _state)
 {
     switch(_state)
     {
@@ -81,7 +84,7 @@ static const char * const usb_status_print(usbStatus _state)
  * Name:    HID.c
  * Purpose: USB Device Human Interface Device example program
  *----------------------------------------------------------------------------*/
-void usbd_handle (void const *argument)
+__NO_RETURN void usbd_handle (void const *argument)
 {
 #ifdef RTE_DEVICE_HAL_COMMON    
     // Emulate USB disconnect (USB_DP) ->
@@ -120,6 +123,79 @@ void usbd_handle (void const *argument)
 
 osThreadDef(usbd_handle, osPriorityNormal, 1, 0);
 
+/*------------------------------------------------------------------------------
+ * MDK Middleware - Component ::USB:Host
+ * Copyright (c) 2004-2019 Arm Limited (or its affiliates). All rights reserved.
+ *------------------------------------------------------------------------------
+ * Name:    MassStorage.c
+ * Purpose: USB Host - Mass Storage example
+ *----------------------------------------------------------------------------*/
+
+// Main stack size must be multiple of 8 Bytes
+#define USBH_STK_SZ (2048U)
+uint64_t usbh_stk[USBH_STK_SZ / 8];
+const osThreadAttr_t usbh_handle_attr =
+{
+    .stack_mem  = &usbh_stk[0],
+    .stack_size = sizeof(usbh_stk)
+};
+
+/*------------------------------------------------------------------------------
+ *        Application
+ *----------------------------------------------------------------------------*/
+
+__NO_RETURN void usbh_handle (void *arg) {
+    usbStatus usb_status;                 // USB status
+    int32_t   msc_status;                 // MSC status
+    FILE     *f;                          // Pointer to stream object
+    uint8_t   con = 0U;                   // Connection status of MSC(s)
+    
+    (void)arg;
+    
+    usb_status = USBH_Initialize (0U);    // Initialize USB Host 0
+    printf("USB device init status: %s\r\n", usb_status_print(usb_status));
+    if (usb_status != usbOK) for(;;);
+    
+    for (;;)
+    {
+        msc_status = USBH_MSC_DriveGetMediaStatus ("U0:");  // Get MSC device status
+        
+        if (msc_status == USBH_MSC_OK) 
+        {
+            if (con == 0U)                   // If stick was not connected previously
+            {
+                con = 1U;                       // Stick got connected
+                msc_status = USBH_MSC_DriveMount ("U0:");
+                if (msc_status != USBH_MSC_OK) 
+                {
+                    continue;                     // Handle U0: mount failure
+                }
+                f = fopen ("Test.txt", "w");    // Open/create file for writing
+                if (f == NULL) 
+                {
+                    continue;                     // Handle file opening/creation failure
+                }
+                fprintf (f, "USB Host Mass Storage!\n");
+                fclose (f);                     // Close file
+                
+                msc_status = USBH_MSC_DriveUnmount ("U0:");
+                
+                if (msc_status != USBH_MSC_OK) 
+                {
+                    continue;                     // Handle U0: dismount failure
+                }
+            }
+        }
+        else 
+        {
+            if (con == 1U)                   // If stick was connected previously
+            {
+                con = 0U;                       // Stick got disconnected
+            }
+        }
+        osDelay(100U);
+    }
+}
 
 #ifdef RTE_DEVICE_HAL_COMMON
 
@@ -142,7 +218,8 @@ int main(void)
     printf("main runing..\r\n");
 
     osKernelInitialize();
-    osThreadCreate(osThread(usbd_handle), NULL);
+    // osThreadCreate(osThread(usbd_handle), NULL);
+    osThreadNew(usbh_handle, NULL, &usbh_handle_attr);
     osKernelStart();
     
     for (;;);
