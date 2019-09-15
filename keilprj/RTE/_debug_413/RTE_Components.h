@@ -59,6 +59,8 @@
 /*  Keil.MDK-Pro::USB:Host:6.13.6 */
 #define RTE_USB_Host_0                  /* USB Host 0 */
 
+/*  Keil.MDK-Pro::USB:Host:HID:6.13.6 */
+#define RTE_USB_Host_HID                /* USB Host HID */
 /*  Keil.MDK-Pro::USB:Host:MSC:6.13.6 */
 #define RTE_USB_Host_MSC                /* USB Host MSC */
 /*  Keil::CMSIS Driver:USART:2.12 */
