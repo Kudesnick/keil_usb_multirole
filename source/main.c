@@ -173,15 +173,8 @@ __NO_RETURN void usbh_handle (void *arg) {
                 printf ("Keyboard connected!\n");
             }
         }
-        else
-        {
-            if (con_hid == 1U)                   // If keyboard was connected previously
-            {
-                con_hid = 0U;                       // Keyboard got disconnected
-                printf ("\nKeyboard disconnected!\n");
-            }
-        }
-        if (con_hid != 0U)                     // If keyboard is active
+        
+        while (con_hid != 0U)                     // If keyboard is active
         {
             ch = USBH_HID_GetKeyboardKey (0U);// Get pressed key
             if (ch != -1)                    // If valid key value
@@ -212,6 +205,14 @@ __NO_RETURN void usbh_handle (void *arg) {
                     fflush (stdout);
                 }
             }
+            
+            if (USBH_HID_GetDeviceStatus(0U) != usbOK) // Get HID device status
+            {
+                con_hid = 0U;                       // Keyboard got disconnected
+                printf ("\nKeyboard disconnected!\n");
+            }
+            
+            osDelay(10U);
         }
         
         // USB mass storage device
@@ -250,7 +251,7 @@ __NO_RETURN void usbh_handle (void *arg) {
                 con_mcs = 0U;                       // Stick got disconnected
             }
         }
-        osDelay(10U);
+        osDelay(100U);
     }
 }
 
