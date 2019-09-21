@@ -1,6 +1,8 @@
 V. Convert to RTX5 API v2
 2. Add double MMC driver
 3. Add mass storage usb device
-4. Add usb host to flash memory
-5. Add SPI display
-6. Add wheel-button
+4. Add autodetect otg mode
+V. Add usb host to keyboard
+V. Add usb host to flash memory
+7. Add SPI display
+8. Add wheel-button

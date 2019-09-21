@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "RTE_Components.h"
 #include CMSIS_device_header
@@ -8,7 +9,10 @@
 #endif
 
 #include "cmsis_os.h"
-#include "rl_usb.h"
+#include "rl_fs.h"                      // Keil.MDK-Pro::File System:CORE
+#include "rl_usb.h"                     // Keil.MDK-Pro::USB:CORE
+
+#include "USBH_MSC.h"
 
 #ifdef RTE_DEVICE_HAL_COMMON
 #ifdef RTE_CMSIS_RTOS2_RTX5
@@ -37,6 +41,42 @@ uint32_t HAL_GetTick (void)
 #endif
 #endif
 
+static const char * usb_status_print(usbStatus _state)
+{
+    switch(_state)
+    {
+        case usbOK              : return "Function completed with no error";
+
+        case usbTimeout         : return "Function completed; time-out occurred";
+        case usbInvalidParameter: return "Invalid Parameter error: a mandatory parameter was missing or specified an incorrect object";
+
+        case usbThreadError     : return "CMSIS-RTOS Thread creation/termination failed";
+        case usbTimerError      : return "CMSIS-RTOS Timer creation/deletion failed";
+        case usbSemaphoreError  : return "CMSIS-RTOS Semaphore creation failed";
+        case usbMutexError      : return "CMSIS-RTOS Mutex creation failed";
+
+        case usbControllerError : return "Controller does not exist";
+        case usbDeviceError     : return "Device does not exist";
+        case usbDriverError     : return "Driver function produced error";
+        case usbDriverBusy      : return "Driver function is busy";
+        case usbMemoryError     : return "Memory management function produced error";
+        case usbNotConfigured   : return "Device is not configured (is connected)";
+        case usbClassErrorADC   : return "Audio Device Class (ADC) error (no device or device produced error)";
+        case usbClassErrorCDC   : return "Communication Device Class (CDC) error (no device or device produced error)";
+        case usbClassErrorHID   : return "Human Interface Device (HID) error (no device or device produced error)";
+        case usbClassErrorMSC   : return "Mass Storage Device (MSC) error (no device or device produced error)";
+        case usbClassErrorCustom: return "Custom device Class (Class) error (no device or device produced error)";
+        case usbUnsupportedClass: return "Unsupported Class";
+
+        case usbTransferStall   : return "Transfer handshake was stall";
+        case usbTransferError   : return "Transfer error";
+
+        case usbUnknownError    : return "Unspecified USB error";
+        
+        default: return "Unkhown USB error code";
+    }
+};
+
 /*------------------------------------------------------------------------------
  * MDK Middleware - Component ::USB:Device
  * Copyright (c) 2004-2014 ARM Germany GmbH. All rights reserved.
@@ -44,23 +84,176 @@ uint32_t HAL_GetTick (void)
  * Name:    HID.c
  * Purpose: USB Device Human Interface Device example program
  *----------------------------------------------------------------------------*/
-void usb_handle (void const *argument)
+__NO_RETURN void usbd_handle (void const *argument)
 {
+#ifdef RTE_DEVICE_HAL_COMMON    
+    // Emulate USB disconnect (USB_DP) ->
+    static GPIO_InitTypeDef GPIO_InitStruct = 
+    {
+        .Pin   = GPIO_PIN_12        ,
+        .Mode  = GPIO_MODE_OUTPUT_OD,
+        .Speed = GPIO_SPEED_FREQ_LOW,
+        .Pull  = GPIO_NOPULL        ,
+    };
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_WritePin(GPIOA, GPIO_InitStruct.Pin, GPIO_PIN_RESET);
+	
+	HAL_Delay(10);
+    // Emulate USB disconnect (USB_DP) <-
+#endif
+    
     uint8_t buf[1];
 
     volatile usbStatus usb_init_status, usb_connect_status;
-    usb_init_status    = USBD_Initialize (0); /* USB Device 0 Initialization        */
-    usb_connect_status = USBD_Connect    (0); /* USB Device 0 Connect               */
+    
+    usb_init_status = USBD_Initialize(0); /* USB Device 0 Initialization */
+    printf("USB device init status: %s\r\n", usb_status_print(usb_init_status));
+    if (usb_init_status != usbOK) for(;;);
+    
+    usb_connect_status = USBD_Connect(0); /* USB Device 0 Connect */
+    printf("USB device connect status: %s\r\n", usb_status_print(usb_connect_status));
+    if (usb_connect_status != usbOK) for(;;);
 
     for (;;)
-    {                           /* Loop forever                       */
+    {   /* Loop forever */
         USBD_HID_GetReportTrigger(0, 0, &buf[0], 1);
-        osDelay(100);                       /* 100 ms delay for sampling buttons  */
+        osDelay(100); /* 100 ms delay for sampling buttons  */
     }
 }
 
-osThreadDef(usb_handle, osPriorityNormal, 1, 0);
+osThreadDef(usbd_handle, osPriorityNormal, 1, 0);
 
+/*------------------------------------------------------------------------------
+ * MDK Middleware - Component ::USB:Host
+ * Copyright (c) 2004-2019 Arm Limited (or its affiliates). All rights reserved.
+ *------------------------------------------------------------------------------
+ * Name:    MassStorage.c
+ * Purpose: USB Host - Mass Storage example
+ *----------------------------------------------------------------------------*/
+
+// Main stack size must be multiple of 8 Bytes
+#define USBH_STK_SZ (2048U)
+uint64_t usbh_stk[USBH_STK_SZ / 8];
+const osThreadAttr_t usbh_handle_attr =
+{
+    .stack_mem  = &usbh_stk[0],
+    .stack_size = sizeof(usbh_stk)
+};
+
+/*------------------------------------------------------------------------------
+ *        Application
+ *----------------------------------------------------------------------------*/
+
+__NO_RETURN void usbh_handle (void *arg) {
+    usbStatus usb_status;                 // USB status
+    int32_t   msc_status;                 // MSC status
+    FILE     *f;                          // Pointer to stream object
+    uint8_t   con_mcs = 0U;               // Connection status of MSC(s)
+
+    usbStatus hid_status;                 // HID status
+    uint8_t   con_hid = 0U;               // Connection status of MSC(s)
+    int       ch;                         // Character
+    
+    (void)arg;
+    
+    usb_status = USBH_Initialize (0U);    // Initialize USB Host 0
+    printf("USB device init status: %s\r\n", usb_status_print(usb_status));
+    if (usb_status != usbOK) for(;;);
+    
+    for (;;)
+    {
+        // USB HID device
+        hid_status = USBH_HID_GetDeviceStatus (0U); // Get HID device status
+        
+        if (hid_status == usbOK)
+        {
+            if (con_hid == 0U)                   // If keyboard was not connected previously
+            {
+                con_hid = 1U;                       // Keyboard got connected
+                printf ("Keyboard connected!\n");
+            }
+        }
+        
+        while (con_hid != 0U)                     // If keyboard is active
+        {
+            ch = USBH_HID_GetKeyboardKey (0U);// Get pressed key
+            if (ch != -1)                    // If valid key value
+            {
+                if ((ch & 0x10000) != 0)            // Handle non-ASCII translated keys (Keypad 0 .. 9)
+                {                                   // Bit  16:    non-ASCII bit (0 = ASCII, 1 = not ASCII)
+                                                    // Bits 15..8: modifiers (SHIFT, ALT, CTRL, GUI)
+                                                    // Bits  7..0: ASCII or HID key Usage ID if not ASCII
+                                                    // HID Usage ID values can be found in following link:
+                                                    // http://www.usb.org/developers/hidpage/Hut1_12v2.pdf
+                    ch &= 0xFF;                   // Remove non-ASCII bit and modifiers
+                    if ((ch>=0x59)&&(ch<=0x61))  // Keypad 1 .. 9 key convert to
+                    {
+                        ch = (ch - 0x59) + '1';     // ASCII  1 .. 9
+                    }
+                    else if (ch == 0x62)       // Keypad 0 key convert to
+                    {
+                        ch = '0';                   // ASCII  0
+                    } 
+                    else                       // If not Keypad 0 .. 9
+                    {
+                        ch = -1;                    // invalidate the key
+                    }
+                }
+                if ((ch > 0) && (ch < 128))    // Output ASCII 0 .. 127 range
+                {
+                    putchar (ch);
+                    fflush (stdout);
+                }
+            }
+            
+            if (USBH_HID_GetDeviceStatus(0U) != usbOK) // Get HID device status
+            {
+                con_hid = 0U;                       // Keyboard got disconnected
+                printf ("\nKeyboard disconnected!\n");
+            }
+            
+            osDelay(10U);
+        }
+        
+        // USB mass storage device
+        msc_status = USBH_MSC_DriveGetMediaStatus ("U0:");  // Get MSC device status
+        
+        if (msc_status == USBH_MSC_OK) 
+        {
+            if (con_mcs == 0U)                   // If stick was not connected previously
+            {
+                con_mcs = 1U;                       // Stick got connected
+                msc_status = USBH_MSC_DriveMount ("U0:");
+                if (msc_status != USBH_MSC_OK) 
+                {
+                    continue;                     // Handle U0: mount failure
+                }
+                f = fopen ("Test.txt", "w");    // Open/create file for writing
+                if (f == NULL) 
+                {
+                    continue;                     // Handle file opening/creation failure
+                }
+                fprintf (f, "USB Host Mass Storage!\n");
+                fclose (f);                     // Close file
+                
+                msc_status = USBH_MSC_DriveUnmount ("U0:");
+                
+                if (msc_status != USBH_MSC_OK) 
+                {
+                    continue;                     // Handle U0: dismount failure
+                }
+            }
+        }
+        else 
+        {
+            if (con_mcs == 1U)                   // If stick was connected previously
+            {
+                con_mcs = 0U;                       // Stick got disconnected
+            }
+        }
+        osDelay(100U);
+    }
+}
 
 #ifdef RTE_DEVICE_HAL_COMMON
 
@@ -82,24 +275,38 @@ int main(void)
 
     printf("main runing..\r\n");
 
-#ifdef RTE_DEVICE_HAL_COMMON    
-    // Emulate USB disconnect (USB_DP) ->
+    osKernelInitialize();
+    
+    // USB OTG detect (USB_ID) ->
+    bool usb_id_detect = false;
+    
+#ifdef RTE_DEVICE_HAL_COMMON
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    
     static GPIO_InitTypeDef GPIO_InitStruct = 
     {
-        .Pin   = GPIO_PIN_12        ,
-        .Mode  = GPIO_MODE_OUTPUT_OD,
+        .Pin   = GPIO_PIN_10        ,
+        .Mode  = GPIO_MODE_INPUT    ,
         .Speed = GPIO_SPEED_FREQ_LOW,
-        .Pull  = GPIO_NOPULL        ,
+        .Pull  = GPIO_PULLUP        ,
     };
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    HAL_GPIO_WritePin(GPIOA, GPIO_InitStruct.Pin, GPIO_PIN_RESET);
-	
-	HAL_Delay(10);
-    // Emulate USB disconnect (USB_DP) <-
-#endif
     
-    osKernelInitialize();
-    osThreadCreate(osThread(usb_handle), NULL);
+    HAL_Delay(10);
+    
+    usb_id_detect = (HAL_GPIO_ReadPin(GPIOA, GPIO_InitStruct.Pin) == GPIO_PIN_RESET);
+#endif
+    // USB OTG detect (USB_ID) <-
+    
+    if (usb_id_detect)
+    {
+        osThreadNew(usbh_handle, NULL, &usbh_handle_attr);
+    }
+    else
+    {
+        osThreadCreate(osThread(usbd_handle), NULL);
+    }
+
     osKernelStart();
     
     for (;;);

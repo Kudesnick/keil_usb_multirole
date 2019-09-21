@@ -2477,7 +2477,7 @@
 //   <e> Host [Driver_USBH0]
 //   <i> Configuration settings for Driver_USBH0 in component ::CMSIS Driver:USB Host
 
-#define RTE_USB_OTG_FS_HOST             0
+#define RTE_USB_OTG_FS_HOST             1
 
 //     <e> VBUS Power On/Off Pin
 //     <i> Configure Pin for driving VBUS
@@ -2491,9 +2491,9 @@
 //       <i>  Selects Port Bit
 //     </e>
 #define RTE_OTG_FS_VBUS_PIN             1
-#define RTE_OTG_FS_VBUS_ACTIVE          0
-#define RTE_OTG_FS_VBUS_PORT            GPIO_PORT(7)
-#define RTE_OTG_FS_VBUS_BIT             5
+#define RTE_OTG_FS_VBUS_ACTIVE          1
+#define RTE_OTG_FS_VBUS_PORT            GPIO_PORT(6)
+#define RTE_OTG_FS_VBUS_BIT             6
 
 //     <e> Overcurrent Detection Pin
 //     <i> Configure Pin for overcurrent detection
@@ -2508,8 +2508,8 @@
 //     </e>
 #define RTE_OTG_FS_OC_PIN               1
 #define RTE_OTG_FS_OC_ACTIVE            0
-#define RTE_OTG_FS_OC_PORT              GPIO_PORT(5)
-#define RTE_OTG_FS_OC_BIT               11
+#define RTE_OTG_FS_OC_PORT              GPIO_PORT(6)
+#define RTE_OTG_FS_OC_BIT               7
 //   </e>
 
 // </e>
