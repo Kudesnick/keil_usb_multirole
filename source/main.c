@@ -278,6 +278,11 @@ int main(void)
     osKernelInitialize();
     
     // USB OTG detect (USB_ID) ->
+    bool usb_id_detect = false;
+    
+#ifdef RTE_DEVICE_HAL_COMMON
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    
     static GPIO_InitTypeDef GPIO_InitStruct = 
     {
         .Pin   = GPIO_PIN_10        ,
@@ -288,9 +293,12 @@ int main(void)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
     
     HAL_Delay(10);
+    
+    usb_id_detect = (HAL_GPIO_ReadPin(GPIOA, GPIO_InitStruct.Pin) == GPIO_PIN_RESET);
+#endif
     // USB OTG detect (USB_ID) <-
     
-    if (HAL_GPIO_ReadPin(GPIOA, GPIO_InitStruct.Pin) == GPIO_PIN_RESET)
+    if (usb_id_detect)
     {
         osThreadNew(usbh_handle, NULL, &usbh_handle_attr);
     }
