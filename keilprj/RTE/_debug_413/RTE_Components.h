@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'pass' 
+ * Project: 'usb_mrd' 
  * Target:  'debug_413' 
  */
 
