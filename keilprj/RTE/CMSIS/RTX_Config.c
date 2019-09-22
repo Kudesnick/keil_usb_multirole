@@ -34,7 +34,7 @@
 __WEAK __NO_RETURN void osRtxIdleThread (void *argument)
 {
     (void)argument;
-
+    
     for (;;)
     {
         __WFE();
@@ -44,43 +44,59 @@ __WEAK __NO_RETURN void osRtxIdleThread (void *argument)
 // OS Error Callback function
 __WEAK uint32_t osRtxErrorNotify (uint32_t code, void *object_id)
 {
-    (void)object_id;
+    const char * ptr = "OS strange error";
     
     switch (code)
     {
         case osRtxErrorStackUnderflow:
             // Stack overflow detected for thread (thread_id=object_id)
-            printf("OS Stack overflow detected for thread");
+            ptr = "OS Stack overflow detected for thread";
             break;
         case osRtxErrorISRQueueOverflow:
             // ISR Queue overflow detected when inserting object (object_id)
-            printf("OS ISR Queue overflow detected when inserting object");
+            ptr = "OS ISR Queue overflow detected when inserting object";
             break;
         case osRtxErrorTimerQueueOverflow:
             // User Timer Callback Queue overflow detected for timer (timer_id=object_id)
-            printf("OS User Timer Callback Queue overflow detected for timer");
+            ptr = "OS User Timer Callback Queue overflow detected for timer";
             break;
         case osRtxErrorClibSpace:
             // Standard C/C++ library libspace not available: increase OS_THREAD_LIBSPACE_NUM
-            printf("OS Standard C/C++ library libspace not available");
+            ptr = "OS Standard C/C++ library libspace not available";
             break;
         case osRtxErrorClibMutex:
             // Standard C/C++ library mutex initialization failed
-            printf("OS Standard C/C++ library mutex initialization failed");
+            ptr = "OS Standard C/C++ library mutex initialization failed";
             break;
         default:
-            // Reserved
-            printf("OS strange error.");
             break;
     }
-    for (;;) {__BKPT(0);}
-    //return 0U;
+    
+    if (object_id != NULL)
+    {
+        const char * name = osThreadGetName(object_id);
+        
+        if (name == NULL)
+        {
+            printf("%s. ID = 0x%08X.\r\n", ptr, (uint32_t)object_id);
+        }
+        else
+        {
+            printf("%s. ID = 0x%08X. Name = '%s'.\r\n", ptr, (uint32_t)object_id, name);
+        }
+    }
+    else
+    {
+        printf("%s.\r\n", ptr);
+    }
+    
+    return 0U;
 }
 
 // System hard fault
 void HardFault_Handler(void)
 {
-    printf("HardFault");
+    printf("HardFault!!\r\n");
     
-    for(;;) {__BKPT(0);}
+    return;
 }

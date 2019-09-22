@@ -26,9 +26,12 @@ I'm using Keil IDE v5.28
 * Add usb host to flash memory (complete)
 * Add SPI display
 * Add wheel-button
-* Refactoring for standarting of thread settings and separate functions of usb devices
+* Refactoring for standarting of thread settings and separate functions of usb devices (complete)
 * Migrate to c++11
-* Add autodetect connection to PC
+* Add autodetect connection to PC or OTG cable (complete)
+
+## known bugs
+* if I call USBH_HID_GetMouseState and USBH_HID_GetKeyboardKey in one thread, then USBH_HID_GetKeyboardKey returned error code always. May be I must to read USBH_HID_ParseReportDescriptor and detect device type?
 
 ## license
 
