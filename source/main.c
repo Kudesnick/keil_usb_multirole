@@ -16,6 +16,8 @@
 
 #include "err_strings.h"
 
+#include "thread_usb_manager.h"
+
 #ifdef RTE_DEVICE_HAL_COMMON
 #ifdef RTE_CMSIS_RTOS2_RTX5
 /**
@@ -52,34 +54,14 @@ uint32_t HAL_GetTick (void)
  * Name:    HID.c
  * Purpose: USB Device Human Interface Device example program
  *----------------------------------------------------------------------------*/
-__NO_RETURN void usbd_handle (void const *argument)
+__NO_RETURN void usbd_handle (void *arg)
 {
-#ifdef RTE_DEVICE_HAL_COMMON    
-    // Emulate USB disconnect (USB_DP) ->
-    static GPIO_InitTypeDef GPIO_InitStruct = 
-    {
-        .Pin   = GPIO_PIN_12        ,
-        .Mode  = GPIO_MODE_OUTPUT_OD,
-        .Speed = GPIO_SPEED_FREQ_LOW,
-        .Pull  = GPIO_NOPULL        ,
-    };
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    HAL_GPIO_WritePin(GPIOA, GPIO_InitStruct.Pin, GPIO_PIN_RESET);
-	
-	HAL_Delay(10);
-    // Emulate USB disconnect (USB_DP) <-
-#endif
-    
     uint8_t buf[1];
 
-    volatile usbStatus usb_init_status, usb_connect_status;
-    
-    usb_init_status = USBD_Initialize(0); /* USB Device 0 Initialization */
-    printf("USB device init status: %s\r\n", err_str_usb_status(usb_init_status));
-    if (usb_init_status != usbOK) for(;;);
+    volatile usbStatus usb_connect_status;
     
     usb_connect_status = USBD_Connect(0); /* USB Device 0 Connect */
-    printf("USB device connect status: %s\r\n", err_str_usb_status(usb_connect_status));
+    printf("USB device connect status: %s\r\n", err_str_usb_status(usb_connect_status)); 
     if (usb_connect_status != usbOK) for(;;);
 
     for (;;)
@@ -89,8 +71,6 @@ __NO_RETURN void usbd_handle (void const *argument)
     }
 }
 
-osThreadDef(usbd_handle, osPriorityNormal, 1, 0);
-
 /*------------------------------------------------------------------------------
  * MDK Middleware - Component ::USB:Host
  * Copyright (c) 2004-2019 Arm Limited (or its affiliates). All rights reserved.
@@ -99,21 +79,8 @@ osThreadDef(usbd_handle, osPriorityNormal, 1, 0);
  * Purpose: USB Host - Mass Storage example
  *----------------------------------------------------------------------------*/
 
-// Main stack size must be multiple of 8 Bytes
-#define USBH_STK_SZ (2048U)
-uint64_t usbh_stk[USBH_STK_SZ / 8];
-const osThreadAttr_t usbh_handle_attr =
-{
-    .stack_mem  = &usbh_stk[0],
-    .stack_size = sizeof(usbh_stk)
-};
-
-/*------------------------------------------------------------------------------
- *        Application
- *----------------------------------------------------------------------------*/
 
 __NO_RETURN void usbh_handle (void *arg) {
-    usbStatus usb_status;                 // USB status
     int32_t   msc_status;                 // MSC status
     FILE     *f;                          // Pointer to stream object
     uint8_t   con_mcs = 0U;               // Connection status of MSC(s)
@@ -123,10 +90,6 @@ __NO_RETURN void usbh_handle (void *arg) {
     int       ch;                         // Character
     
     (void)arg;
-    
-    usb_status = USBH_Initialize (0U);    // Initialize USB Host 0
-    printf("USB host init status: %s\r\n", err_str_usb_status(usb_status));
-    if (usb_status != usbOK) for(;;);
     
     for (;;)
     {
@@ -245,6 +208,8 @@ static void Error_Handler(void);
 
 int main(void)
 {
+    printf("main runing.\r\n");
+    
 #ifdef RTE_DEVICE_HAL_COMMON
     HAL_Init();
 
@@ -254,37 +219,11 @@ int main(void)
     // System Initialization
     SystemCoreClockUpdate();
 
-    printf("main runing..\r\n");
-
     osKernelInitialize();
     
-    // USB OTG detect (USB_ID) ->
-    bool usb_id_detect = false;
+    thread_usb_manager_init(usbd_handle, usbh_handle);
     
-#ifdef RTE_DEVICE_HAL_COMMON
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    
-    static GPIO_InitTypeDef GPIO_InitStruct = 
-    {
-        .Pin   = GPIO_PIN_10        ,
-        .Mode  = GPIO_MODE_INPUT    ,
-        .Speed = GPIO_SPEED_FREQ_LOW,
-        .Pull  = GPIO_PULLUP        ,
-    };
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    
-    usb_id_detect = (HAL_GPIO_ReadPin(GPIOA, GPIO_InitStruct.Pin) == GPIO_PIN_RESET);
-#endif
-    // USB OTG detect (USB_ID) <-
-    
-    if (usb_id_detect)
-    {
-        osThreadNew(usbh_handle, NULL, &usbh_handle_attr);
-    }
-    else
-    {
-        osThreadCreate(osThread(usbd_handle), NULL);
-    }
+    printf("Kernel start.\r\n");
 
     osKernelStart();
     

@@ -383,9 +383,19 @@
           <GroupName>source</GroupName>
           <Files>
             <File>
+              <FileName>err_strings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\err_strings.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_usb_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\thread_usb_manager.c</FilePath>
             </File>
             <File>
               <FileName>USBD_User_HID_0.c</FileName>
@@ -401,11 +411,6 @@
               <FileName>USBH_MSC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
-            </File>
-            <File>
-              <FileName>err_strings.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\err_strings.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -806,9 +811,19 @@
           <GroupName>source</GroupName>
           <Files>
             <File>
+              <FileName>err_strings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\err_strings.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_usb_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\thread_usb_manager.c</FilePath>
             </File>
             <File>
               <FileName>USBD_User_HID_0.c</FileName>
@@ -824,11 +839,6 @@
               <FileName>USBH_MSC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
-            </File>
-            <File>
-              <FileName>err_strings.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\err_strings.c</FilePath>
             </File>
           </Files>
         </Group>
