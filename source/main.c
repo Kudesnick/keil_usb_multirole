@@ -125,7 +125,7 @@ __NO_RETURN void usbh_handle (void *arg) {
     (void)arg;
     
     usb_status = USBH_Initialize (0U);    // Initialize USB Host 0
-    printf("USB device init status: %s\r\n", err_str_usb_status(usb_status));
+    printf("USB host init status: %s\r\n", err_str_usb_status(usb_status));
     if (usb_status != usbOK) for(;;);
     
     for (;;)
@@ -138,7 +138,7 @@ __NO_RETURN void usbh_handle (void *arg) {
             if (con_hid == 0U)                   // If keyboard was not connected previously
             {
                 con_hid = 1U;                       // Keyboard got connected
-                printf ("Keyboard connected!\n");
+                printf ("Keyboard connected.\r\n");
             }
         }
         
@@ -177,7 +177,7 @@ __NO_RETURN void usbh_handle (void *arg) {
             if (USBH_HID_GetDeviceStatus(0U) != usbOK) // Get HID device status
             {
                 con_hid = 0U;                       // Keyboard got disconnected
-                printf ("\nKeyboard disconnected!\n");
+                printf ("Keyboard disconnected.\r\n");
             }
             
             osDelay(10U);
@@ -187,9 +187,11 @@ __NO_RETURN void usbh_handle (void *arg) {
         msc_status = USBH_MSC_DriveGetMediaStatus ("U0:");  // Get MSC device status
         
         if (msc_status == USBH_MSC_OK) 
-        {
+        {            
             if (con_mcs == 0U)                   // If stick was not connected previously
             {
+                printf("Mass storage connected.\r\n");
+
                 con_mcs = 1U;                       // Stick got connected
                 msc_status = USBH_MSC_DriveMount ("U0:");
                 if (msc_status != USBH_MSC_OK) 
@@ -216,6 +218,8 @@ __NO_RETURN void usbh_handle (void *arg) {
         {
             if (con_mcs == 1U)                   // If stick was connected previously
             {
+                printf("Mass storage disconnected.\r\n");
+                
                 con_mcs = 0U;                       // Stick got disconnected
             }
         }
@@ -268,8 +272,6 @@ int main(void)
         .Pull  = GPIO_PULLUP        ,
     };
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    
-    HAL_Delay(10);
     
     usb_id_detect = (HAL_GPIO_ReadPin(GPIOA, GPIO_InitStruct.Pin) == GPIO_PIN_RESET);
 #endif

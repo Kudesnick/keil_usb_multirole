@@ -62,7 +62,7 @@ const char * err_str_usb_status(const usbStatus _state)
 {
     switch(_state)
     {
-        case usbOK              : return "Function completed with no error";
+        case usbOK              : return "Ok";
 
         case usbTimeout         : return "Function completed; time-out occurred";
         case usbInvalidParameter: return "Invalid Parameter error: a mandatory parameter was missing or specified an incorrect object";
