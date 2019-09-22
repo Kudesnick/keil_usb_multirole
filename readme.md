@@ -30,6 +30,9 @@ I'm using Keil IDE v5.28
 * Migrate to c++11
 * Add autodetect connection to PC or OTG cable (complete)
 
+## known bugs
+* if I call USBH_HID_GetMouseState and USBH_HID_GetKeyboardKey in one thread, then USBH_HID_GetKeyboardKey returned error code always. May be I must to read USBH_HID_ParseReportDescriptor and detect device type?
+
 ## license
 
 I plan to extend the GNU GPLv3 license to my code, but at this stage I do not see the great value of the project for others. If you think otherwise, or are ready to help with the design of the code in accordance with the GNU GPLv3, write to me at kudesnick@inbox.ru or leave pull request.

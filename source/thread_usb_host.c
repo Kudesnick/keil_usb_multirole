@@ -75,30 +75,27 @@ static __INLINE void usb_hid(void)
         
         for (; hid_status == usbOK; hid_status = USBH_HID_GetDeviceStatus(0U), osDelay(10U))
         {
-            static uint8_t prev_btn;
-            usbHID_MouseState mouse_state;
+//          static uint8_t prev_btn;
+//          usbHID_MouseState mouse_state;
+//          
+//            usbStatus mouse_status = USBH_HID_GetMouseState(0U, &mouse_state);
+//            
+//            if (mouse_status == usbOK)
+//            {
+//                if (prev_btn != mouse_state.button)
+//                {
+//                    printf("Mouse btn code: 0x%02X\r\n", mouse_state.button);
+//                
+//                    prev_btn = mouse_state.button;
+//                }
+//            }
             
-            usbStatus mouse_status = USBH_HID_GetMouseState(0U, &mouse_state);
+            int ch = USBH_HID_GetKeyboardKey (0U);// Get pressed key
             
-            if (mouse_status == usbOK)
+            if (ch != -1)                    // If valid key value
             {
-                if (prev_btn != mouse_state.button)
-                {
-                    printf("Mouse btn code: 0x%02X\r\n", mouse_state.button);
-                
-                    prev_btn = mouse_state.button;
-                }
+                printf("Key code: 0x%08X\r\n", ch);
             }
-            else
-            {
-                int ch = USBH_HID_GetKeyboardKey (0U);// Get pressed key
-            
-                if (ch != -1)                    // If valid key value
-                {
-                    printf("Key code: 0x%08X\r\n", ch);
-                }
-            }
-            
         }
         
         printf ("USBH HID disconnected.\r\n");
