@@ -21,6 +21,7 @@
  **************************************************************************************************/
 
 #include "err_strings.h"
+#include "USBH_MSC.h"
 
 /***************************************************************************************************
  *                                       DEFINITIONS
@@ -93,6 +94,18 @@ const char * err_str_usb_status(const usbStatus _state)
         default: return "Unkhown USB error code";
     }
 };
+
+const char * err_str_usbh_msc_status(const int32_t _state)
+{
+    switch(_state)
+    {
+        case USBH_MSC_OK          : return "Ok";
+        case USBH_MSC_ERROR       : return "Unspecified error";
+        case USBH_MSC_ERROR_DRIVE : return "USB storage device not connected";
+        case USBH_MSC_ERROR_FORMAT: return "USB drive mounted, but unformatted";
+        default: return "Unkhown USB storage device error code";
+    }
+}
 
 /***************************************************************************************************
  *                                       END OF FILE
