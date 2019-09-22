@@ -393,6 +393,16 @@
               <FilePath>..\source\main.c</FilePath>
             </File>
             <File>
+              <FileName>thread_usb_device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\thread_usb_device.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_usb_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\thread_usb_host.c</FilePath>
+            </File>
+            <File>
               <FileName>thread_usb_manager.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\thread_usb_manager.c</FilePath>
@@ -819,6 +829,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_usb_device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\thread_usb_device.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_usb_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\thread_usb_host.c</FilePath>
             </File>
             <File>
               <FileName>thread_usb_manager.c</FileName>

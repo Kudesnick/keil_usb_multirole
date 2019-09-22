@@ -8,8 +8,8 @@
  *   MCU Family:    STM32F
  *   Compiler:      ARMCC
  ***************************************************************************************************
- *   File:          thread_usb_manager.h
- *   Description:   management multirole USB device
+ *   File:          thread_usb_host.h
+ *   Description:   USB host thread
  *
  ***************************************************************************************************
  *   History:       22.09.2019 - file created
@@ -38,7 +38,7 @@
  *                                PUBLIC FUNCTION PROTOTYPES
  **************************************************************************************************/
 
-int thread_usb_manager_init(void(* _host_thread)(void *), void(* _device_thread)(void *));
+void thread_usb_device (void *arg);
 
 /***************************************************************************************************
  *                                       END OF FILE

@@ -271,7 +271,7 @@ static void thread_usb_manager(void *argument)
  *                                       END OF FILE
  **************************************************************************************************/
 
-int thread_usb_manager_init(void(* _device_thread)(void *), void(* _host_thread)(void *))
+int thread_usb_manager_init(void(* _host_thread)(void *), void(* _device_thread)(void *))
 {
     device_thread = _device_thread;
     host_thread = _host_thread;

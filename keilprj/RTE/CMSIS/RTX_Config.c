@@ -78,11 +78,11 @@ __WEAK uint32_t osRtxErrorNotify (uint32_t code, void *object_id)
         
         if (name == NULL)
         {
-            printf("%s. ID = %08X.\r\n", ptr, (uint32_t)object_id);
+            printf("%s. ID = 0x%08X.\r\n", ptr, (uint32_t)object_id);
         }
         else
         {
-            printf("%s. ID = %08X. Name = '%s'.\r\n", ptr, (uint32_t)object_id, name);
+            printf("%s. ID = 0x%08X. Name = '%s'.\r\n", ptr, (uint32_t)object_id, name);
         }
     }
     else
