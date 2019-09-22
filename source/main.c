@@ -14,6 +14,8 @@
 
 #include "USBH_MSC.h"
 
+#include "err_strings.h"
+
 #ifdef RTE_DEVICE_HAL_COMMON
 #ifdef RTE_CMSIS_RTOS2_RTX5
 /**
@@ -41,41 +43,7 @@ uint32_t HAL_GetTick (void)
 #endif
 #endif
 
-static const char * usb_status_print(usbStatus _state)
-{
-    switch(_state)
-    {
-        case usbOK              : return "Function completed with no error";
 
-        case usbTimeout         : return "Function completed; time-out occurred";
-        case usbInvalidParameter: return "Invalid Parameter error: a mandatory parameter was missing or specified an incorrect object";
-
-        case usbThreadError     : return "CMSIS-RTOS Thread creation/termination failed";
-        case usbTimerError      : return "CMSIS-RTOS Timer creation/deletion failed";
-        case usbSemaphoreError  : return "CMSIS-RTOS Semaphore creation failed";
-        case usbMutexError      : return "CMSIS-RTOS Mutex creation failed";
-
-        case usbControllerError : return "Controller does not exist";
-        case usbDeviceError     : return "Device does not exist";
-        case usbDriverError     : return "Driver function produced error";
-        case usbDriverBusy      : return "Driver function is busy";
-        case usbMemoryError     : return "Memory management function produced error";
-        case usbNotConfigured   : return "Device is not configured (is connected)";
-        case usbClassErrorADC   : return "Audio Device Class (ADC) error (no device or device produced error)";
-        case usbClassErrorCDC   : return "Communication Device Class (CDC) error (no device or device produced error)";
-        case usbClassErrorHID   : return "Human Interface Device (HID) error (no device or device produced error)";
-        case usbClassErrorMSC   : return "Mass Storage Device (MSC) error (no device or device produced error)";
-        case usbClassErrorCustom: return "Custom device Class (Class) error (no device or device produced error)";
-        case usbUnsupportedClass: return "Unsupported Class";
-
-        case usbTransferStall   : return "Transfer handshake was stall";
-        case usbTransferError   : return "Transfer error";
-
-        case usbUnknownError    : return "Unspecified USB error";
-        
-        default: return "Unkhown USB error code";
-    }
-};
 
 /*------------------------------------------------------------------------------
  * MDK Middleware - Component ::USB:Device
@@ -107,11 +75,11 @@ __NO_RETURN void usbd_handle (void const *argument)
     volatile usbStatus usb_init_status, usb_connect_status;
     
     usb_init_status = USBD_Initialize(0); /* USB Device 0 Initialization */
-    printf("USB device init status: %s\r\n", usb_status_print(usb_init_status));
+    printf("USB device init status: %s\r\n", err_str_usb_status(usb_init_status));
     if (usb_init_status != usbOK) for(;;);
     
     usb_connect_status = USBD_Connect(0); /* USB Device 0 Connect */
-    printf("USB device connect status: %s\r\n", usb_status_print(usb_connect_status));
+    printf("USB device connect status: %s\r\n", err_str_usb_status(usb_connect_status));
     if (usb_connect_status != usbOK) for(;;);
 
     for (;;)
@@ -157,7 +125,7 @@ __NO_RETURN void usbh_handle (void *arg) {
     (void)arg;
     
     usb_status = USBH_Initialize (0U);    // Initialize USB Host 0
-    printf("USB device init status: %s\r\n", usb_status_print(usb_status));
+    printf("USB device init status: %s\r\n", err_str_usb_status(usb_status));
     if (usb_status != usbOK) for(;;);
     
     for (;;)

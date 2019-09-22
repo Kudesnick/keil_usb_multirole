@@ -402,6 +402,11 @@
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
             </File>
+            <File>
+              <FileName>err_strings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\err_strings.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -730,7 +735,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -819,6 +824,11 @@
               <FileName>USBH_MSC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
+            </File>
+            <File>
+              <FileName>err_strings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\err_strings.c</FilePath>
             </File>
           </Files>
         </Group>
