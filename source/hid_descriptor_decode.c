@@ -119,11 +119,11 @@ static uint8_t get_data_size(uint8_t _code)
  *                                    PUBLIC FUNCTIONS
  **************************************************************************************************/
 
-void hid_desc_print(const uint8_t * _desc, uint32_t len)
+void hid_desc_print(const uint8_t * _desc, uint32_t _len)
 {
     uint8_t tab_num = 0;
     
-    for(uint8_t * ptr = (uint8_t *)_desc; ptr < (_desc + len); ptr += 1 + get_data_size(*ptr))
+    for(uint8_t * ptr = (uint8_t *)_desc; ptr < (_desc + _len); ptr += 1 + get_data_size(*ptr))
     {
         bool err = true;
         
@@ -173,6 +173,101 @@ void hid_desc_print(const uint8_t * _desc, uint32_t len)
         }
     }
 }
+
+uint8_t hid_desc_get_generic(const uint8_t * _desc, uint32_t _len)
+{
+    static uint8_t * ptr = NULL;
+    static uint8_t * next_ptr = NULL;
+    static uint32_t len = 0;
+    
+    if (_desc != NULL)
+    {
+        ptr = next_ptr = (uint8_t *)_desc;
+        len = _len;
+    }
+    else if (ptr == NULL)
+    {
+        return 0;
+    }
+    
+    for(; next_ptr < (ptr + len); next_ptr += 1 + get_data_size(*next_ptr))
+    {
+        if (*next_ptr == 0x09U) // HID_Usage(x)
+        {
+            uint8_t id = *(next_ptr+1);
+            
+            next_ptr += 1 + get_data_size(*next_ptr);
+            
+            return id;
+        }
+    }
+    
+    ptr = NULL;
+    
+    return 0;
+}
+
+void hid_desc_usage_print(uint8_t _usage)
+{
+    static const struct
+    {
+        uint8_t id;
+        const char * const name;
+    } id_names[] =
+    {
+        {0x01U, "HID_USAGE_GENERIC_POINTER"            },   
+        {0x02U, "HID_USAGE_GENERIC_MOUSE"              },   
+        {0x04U, "HID_USAGE_GENERIC_JOYSTICK"           },   
+        {0x05U, "HID_USAGE_GENERIC_GAMEPAD"            },   
+        {0x06U, "HID_USAGE_GENERIC_KEYBOARD"           },   
+        {0x07U, "HID_USAGE_GENERIC_KEYPAD"             },   
+        {0x30U, "HID_USAGE_GENERIC_X"                  },   
+        {0x31U, "HID_USAGE_GENERIC_Y"                  },   
+        {0x32U, "HID_USAGE_GENERIC_Z"                  },   
+        {0x33U, "HID_USAGE_GENERIC_RX"                 },   
+        {0x34U, "HID_USAGE_GENERIC_RY"                 },   
+        {0x35U, "HID_USAGE_GENERIC_RZ"                 },   
+        {0x36U, "HID_USAGE_GENERIC_SLIDER"             },   
+        {0x37U, "HID_USAGE_GENERIC_DIAL"               },   
+        {0x38U, "HID_USAGE_GENERIC_WHEEL"              },   
+        {0x39U, "HID_USAGE_GENERIC_HATSWITCH"          },   
+        {0x3AU, "HID_USAGE_GENERIC_COUNTED_BUFFER"     },   
+        {0x3BU, "HID_USAGE_GENERIC_BYTE_COUNT"         },   
+        {0x3CU, "HID_USAGE_GENERIC_MOTION_WAKEUP"      },   
+        {0x40U, "HID_USAGE_GENERIC_VX"                 },   
+        {0x41U, "HID_USAGE_GENERIC_VY"                 },   
+        {0x42U, "HID_USAGE_GENERIC_VZ"                 },   
+        {0x43U, "HID_USAGE_GENERIC_VBRX"               },   
+        {0x44U, "HID_USAGE_GENERIC_VBRY"               },   
+        {0x45U, "HID_USAGE_GENERIC_VBRZ"               },   
+        {0x46U, "HID_USAGE_GENERIC_VNO"                },   
+        {0x80U, "HID_USAGE_GENERIC_SYSTEM_CTL"         },   
+        {0x81U, "HID_USAGE_GENERIC_SYSCTL_POWER"       },   
+        {0x82U, "HID_USAGE_GENERIC_SYSCTL_SLEEP"       },   
+        {0x83U, "HID_USAGE_GENERIC_SYSCTL_WAKE"        },   
+        {0x84U, "HID_USAGE_GENERIC_SYSCTL_CONTEXT_MENU"},   
+        {0x85U, "HID_USAGE_GENERIC_SYSCTL_MAIN_MENU"   },   
+        {0x86U, "HID_USAGE_GENERIC_SYSCTL_APP_MENU"    },   
+        {0x87U, "HID_USAGE_GENERIC_SYSCTL_HELP_MENU"   },   
+        {0x88U, "HID_USAGE_GENERIC_SYSCTL_MENU_EXIT"   },   
+        {0x89U, "HID_USAGE_GENERIC_SYSCTL_MENU_SELECT" },   
+        {0x8AU, "HID_USAGE_GENERIC_SYSCTL_MENU_RIGHT"  },   
+        {0x8BU, "HID_USAGE_GENERIC_SYSCTL_MENU_LEFT"   },   
+        {0x8CU, "HID_USAGE_GENERIC_SYSCTL_MENU_UP"     },   
+        {0x8DU, "HID_USAGE_GENERIC_SYSCTL_MENU_DOWN"   },
+    };
+    
+    for(uint8_t i = 0; i < (sizeof(id_names)/sizeof(id_names[0])); i++)
+    {
+        if (id_names[i].id == _usage)
+        {
+            printf("%s\r\n", id_names[i].name);
+            return;
+        }
+    }
+    
+    printf("HID_USAGE not valid!\r\n");
+};
 
 /***************************************************************************************************
  *                                       END OF FILE
