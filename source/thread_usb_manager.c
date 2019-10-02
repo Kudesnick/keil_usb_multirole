@@ -193,6 +193,13 @@ static void thread_usb_manager(void *argument)
 {
     hid_desc_print(usbd_hid0_report_descriptor, 119);
     
+    uint8_t id = hid_desc_get_generic(usbd_hid0_report_descriptor, 119);
+    while(id)
+    {
+        hid_desc_usage_print(id);
+        id = hid_desc_get_generic(NULL, 0);
+    }
+    
     for(;; osDelay(1000))
     {
         // Init usb host role
