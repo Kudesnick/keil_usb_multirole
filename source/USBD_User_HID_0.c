@@ -13,9 +13,7 @@
 #include "usb_hid.h"
  
 // User Provided HID Report Descriptor
-// for standard mouse (size of this descriptor is 52 bytes)
-extern 
-const uint8_t usbd_hid0_report_descriptor[];
+extern const uint8_t usbd_hid0_report_descriptor[];
 const uint8_t usbd_hid0_report_descriptor[] = {
 
     // Keyboard Top-Level Collection (TLC)
