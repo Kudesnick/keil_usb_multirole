@@ -37,6 +37,7 @@
 #include "rl_usb.h"
 
 #include "err_strings.h"
+#include "hid_descriptor_decode.h"
 
 /***************************************************************************************************
  *                                       DEFINITIONS
@@ -109,6 +110,8 @@ void(* host_thread)(void *);
 /***************************************************************************************************
  *                                      EXTERNAL DATA
  **************************************************************************************************/
+
+extern const uint8_t usbd_hid0_report_descriptor[];
 
 /***************************************************************************************************
  *                              EXTERNAL FUNCTION PROTOTYPES
@@ -188,6 +191,8 @@ static bool thread_kill(osThreadId_t * _id, uint32_t _tout)
 
 static void thread_usb_manager(void *argument)
 {
+    hid_desc_print(usbd_hid0_report_descriptor, 119);
+    
     for(;; osDelay(1000))
     {
         // Init usb host role
