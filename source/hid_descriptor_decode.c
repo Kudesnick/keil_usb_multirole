@@ -146,7 +146,7 @@ void hid_desc_print(const uint8_t * _desc, uint32_t _len)
     {
         char * const name = get_name(*ptr);
 
-        if (*ptr == 0xC0U && tab_num > 0) // HID_EndCollection
+        if (*ptr == HID_Field_EndCollection && tab_num > 0)
         {
             tab_num--;
         }
@@ -166,12 +166,12 @@ void hid_desc_print(const uint8_t * _desc, uint32_t _len)
             case 4: printf("%s[0x%02X](0x%08X)\r\n", name, *ptr, *((uint32_t *)(ptr + 1))); break;
         }
         
-        if (*ptr == 0xC0U && tab_num == 0) // HID_EndCollection
+        if (*ptr == HID_Field_EndCollection && tab_num == 0)
         {
             printf("\r\n");
         }
         
-        if (*ptr == 0xA1U) // HID_Collection
+        if (*ptr == HID_Field_Collection)
         {
             tab_num++;
         }
@@ -196,7 +196,7 @@ uint8_t hid_desc_get_generic(const uint8_t * _desc, uint32_t _len)
     
     for(; next_ptr < (ptr + len); next_ptr += 1 + get_data_size(*next_ptr))
     {
-        if (*next_ptr == 0x09U) // HID_Usage(x)
+        if (*next_ptr == HID_Field_Usage)
         {
             uint8_t id = *(next_ptr+1);
             
