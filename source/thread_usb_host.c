@@ -74,15 +74,15 @@ uint8_t hid_usage = 0;
 /// \return                             none.
 void USBH_HID_ParseReportDescriptor (uint8_t instance, const uint8_t *ptr_hid_report_desc, uint32_t len)
 {
-    printf("Hid descriptor parse:\r\n");
-    
-    hid_desc_print(ptr_hid_report_desc, len);
+    // print descriptor (for debugging)
+    // hid_desc_print(ptr_hid_report_desc, len);
     
     hid_usage = 0;
     uint8_t id = hid_desc_get_generic(ptr_hid_report_desc, len);
     while(id)
     {
-        hid_desc_usage_print(id);
+        // print value of hid_usage field (for debugging)
+        // hid_desc_usage_print(id);
         
         if (id == HID_USAGE_GENERIC_MOUSE || id == HID_USAGE_GENERIC_KEYBOARD)
         {
