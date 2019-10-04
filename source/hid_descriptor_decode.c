@@ -84,7 +84,11 @@ const struct
     // Local Items
     {0x09U, "HID_Usage"          },                  
     {0x19U, "HID_UsageMin"       },                  
+    {0x1AU, "HID_UsageMinS"      },                  
+    {0x1BU, "HID_UsageMinL"      },                  
     {0x29U, "HID_UsageMax"       },                  
+    {0x2AU, "HID_UsageMaxS"      },                  
+    {0x2BU, "HID_UsageMaxL"      },                  
 };
 
 /***************************************************************************************************
@@ -115,6 +119,21 @@ static uint8_t get_data_size(uint8_t _code)
     return 0;
 }
 
+static char * const get_name(uint8_t _code)
+{
+    static char * const noname = "HID_NonameParam";
+    
+    for(uint8_t i = 0; i < (sizeof(id_names)/sizeof(id_names[0])); i++)
+    {
+        if (_code == id_names[i].id)
+        {
+            return id_names[i].name;
+        }
+    }
+    
+    return noname;
+}
+
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS
  **************************************************************************************************/
@@ -125,51 +144,36 @@ void hid_desc_print(const uint8_t * _desc, uint32_t _len)
     
     for(uint8_t * ptr = (uint8_t *)_desc; ptr < (_desc + _len); ptr += 1 + get_data_size(*ptr))
     {
-        bool err = true;
-        
-        for(uint8_t i = 0; i < (sizeof(id_names)/sizeof(id_names[0])); i++)
+        char * const name = get_name(*ptr);
+
+        if (*ptr == 0xC0U && tab_num > 0) // HID_EndCollection
         {
-            if (*ptr == id_names[i].id)
-            {
-                if (*ptr == 0xC0U && tab_num > 0) // HID_EndCollection
-                {
-                    tab_num--;
-                }
-                
-                for(uint8_t t = tab_num; t > 0; t--)
-                {
-                    printf("  ");
-                }
-                
-                uint8_t sz = get_data_size(*ptr);
-                
-                switch(sz)
-                {
-                    case 0: printf("%s\r\n", id_names[i].name); break;
-                    case 1: printf("%s(0x%02X)\r\n", id_names[i].name, *((uint8_t *) (ptr + 1))); break;
-                    case 2: printf("%s(0x%04X)\r\n", id_names[i].name, *((uint16_t *)(ptr + 1))); break;
-                    case 4: printf("%s(0x%08X)\r\n", id_names[i].name, *((uint32_t *)(ptr + 1))); break;
-                }
-                
-                if (*ptr == 0xC0U && tab_num == 0) // HID_EndCollection
-                {
-                    printf("\r\n");
-                }
-                
-                if (*ptr == 0xA1U) // HID_Collection
-                {
-                    tab_num++;
-                }
-                
-                err = false;
-                break;
-            }
+            tab_num--;
         }
         
-        if (err)
+        for(uint8_t t = tab_num; t > 0; t--)
         {
-            printf("HID descriptor parsing error.\r\n");
-            return;
+            printf("  ");
+        }
+        
+        uint8_t sz = get_data_size(*ptr);
+        
+        switch(sz)
+        {
+            case 0: printf("%s[0x%02X]\r\n", name, *ptr); break;
+            case 1: printf("%s[0x%02X](0x%02X)\r\n", name, *ptr, *((uint8_t *) (ptr + 1))); break;
+            case 2: printf("%s[0x%02X](0x%04X)\r\n", name, *ptr, *((uint16_t *)(ptr + 1))); break;
+            case 4: printf("%s[0x%02X](0x%08X)\r\n", name, *ptr, *((uint32_t *)(ptr + 1))); break;
+        }
+        
+        if (*ptr == 0xC0U && tab_num == 0) // HID_EndCollection
+        {
+            printf("\r\n");
+        }
+        
+        if (*ptr == 0xA1U) // HID_Collection
+        {
+            tab_num++;
         }
     }
 }
