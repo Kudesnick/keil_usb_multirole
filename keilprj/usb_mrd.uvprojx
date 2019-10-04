@@ -422,6 +422,11 @@
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
             </File>
+            <File>
+              <FileName>hid_descriptor_decode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\hid_descriptor_decode.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -859,6 +864,11 @@
               <FileName>USBH_MSC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
+            </File>
+            <File>
+              <FileName>hid_descriptor_decode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\hid_descriptor_decode.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -31,6 +31,8 @@ I'm using Keil IDE v5.28
 * Add autodetect connection to PC or OTG cable (complete)
 
 ## known bugs
+
+## fixed bugs
 * if I call USBH_HID_GetMouseState and USBH_HID_GetKeyboardKey in one thread, then USBH_HID_GetKeyboardKey returned error code always. May be I must to read USBH_HID_ParseReportDescriptor and detect device type?
 
 ## license
