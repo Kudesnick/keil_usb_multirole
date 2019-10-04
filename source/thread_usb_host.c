@@ -29,8 +29,8 @@
 
 #include "USBH_MSC.h"
 #include "err_strings.h"
-
 #include "thread_usb_host.h"
+#include "hid_descriptor_decode.h"
 
 /***************************************************************************************************
  *                                       DEFINITIONS
@@ -63,6 +63,26 @@
 /***************************************************************************************************
  *                                    PRIVATE FUNCTIONS
  **************************************************************************************************/
+
+/// \brief Callback function called for parsing of the Human Interface Device report descriptor
+/// \details see rl_usb.h
+/// \param[in]     instance             instance index.
+/// \param[in]     ptr_hid_report_desc  pointer to HID report descriptor.
+/// \param[in]     len                  length of HID report descriptor.
+/// \return                             none.
+void USBH_HID_ParseReportDescriptor (uint8_t instance, const uint8_t *ptr_hid_report_desc, uint32_t len)
+{
+    printf("Hid descriptor parse:\r\n");
+    
+    hid_desc_print(ptr_hid_report_desc, len);
+    
+    uint8_t id = hid_desc_get_generic(ptr_hid_report_desc, len);
+    while(id)
+    {
+        hid_desc_usage_print(id);
+        id = hid_desc_get_generic(NULL, 0);
+    }
+};
 
 static __INLINE void usb_hid(void)
 {
