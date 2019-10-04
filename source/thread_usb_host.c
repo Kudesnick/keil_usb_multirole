@@ -48,6 +48,8 @@
  *                                       PRIVATE DATA
  **************************************************************************************************/
 
+uint8_t hid_usage = 0;
+
 /***************************************************************************************************
  *                                       PUBLIC DATA
  **************************************************************************************************/
@@ -76,47 +78,66 @@ void USBH_HID_ParseReportDescriptor (uint8_t instance, const uint8_t *ptr_hid_re
     
     hid_desc_print(ptr_hid_report_desc, len);
     
+    hid_usage = 0;
     uint8_t id = hid_desc_get_generic(ptr_hid_report_desc, len);
     while(id)
     {
         hid_desc_usage_print(id);
+        
+        if (id == HID_USAGE_GENERIC_MOUSE || id == HID_USAGE_GENERIC_KEYBOARD)
+        {
+            hid_usage = id;
+        }
+        
         id = hid_desc_get_generic(NULL, 0);
     }
 };
 
 static __INLINE void usb_hid(void)
 {
-    // USB HID device
     usbStatus hid_status = USBH_HID_GetDeviceStatus (0U); // Get HID device status
     
     if (hid_status == usbOK)
     {
-        printf ("USBH HID connected.\r\n");
-        
-        for (; hid_status == usbOK; hid_status = USBH_HID_GetDeviceStatus(0U), osDelay(10U))
+        switch (hid_usage)
         {
-//          static uint8_t prev_btn;
-//          usbHID_MouseState mouse_state;
-//          
-//            usbStatus mouse_status = USBH_HID_GetMouseState(0U, &mouse_state);
-//            
-//            if (mouse_status == usbOK)
-//            {
-//                if (prev_btn != mouse_state.button)
-//                {
-//                    printf("Mouse btn code: 0x%02X\r\n", mouse_state.button);
-//                
-//                    prev_btn = mouse_state.button;
-//                }
-//            }
-            
-            int ch = USBH_HID_GetKeyboardKey (0U);// Get pressed key
-            
-            if (ch != -1)                    // If valid key value
+            case HID_USAGE_GENERIC_MOUSE   : printf ("USBH HID mouse connected.\r\n"); break;
+            case HID_USAGE_GENERIC_KEYBOARD: printf ("USBH HID keyboard connected.\r\n"); break;
+            default: printf ("USBH HID unsupported device connected.\r\n"); break;
+        }
+        
+        for (; hid_status == usbOK; hid_status = USBH_HID_GetDeviceStatus(0U), osDelay(5U))
+        {
+            if (hid_usage == HID_USAGE_GENERIC_MOUSE)
             {
-                printf("Key code: 0x%08X\r\n", ch);
+                static uint8_t prev_btn;
+                usbHID_MouseState mouse_state;
+            
+                usbStatus mouse_status = USBH_HID_GetMouseState(0U, &mouse_state);
+                
+                if (mouse_status == usbOK)
+                {
+                    if (prev_btn != mouse_state.button)
+                    {
+                        printf("Mouse btn code: 0x%02X\r\n", mouse_state.button);
+                    
+                        prev_btn = mouse_state.button;
+                    }
+                }
+            }
+            
+            else if (hid_usage == HID_USAGE_GENERIC_KEYBOARD)
+            {
+                int ch = USBH_HID_GetKeyboardKey(0U); // Get pressed key
+                
+                if (ch != -1) // If valid key value
+                {
+                    printf("Key code: 0x%08X\r\n", ch);
+                }
             }
         }
+        
+        hid_usage = 0;
         
         printf ("USBH HID disconnected.\r\n");
     }
@@ -124,7 +145,6 @@ static __INLINE void usb_hid(void)
 
 static __INLINE void usb_masstorage(void)
 {
-    // USB mass storage device
     int32_t msc_status = USBH_MSC_DriveGetMediaStatus("U0:");  // Get MSC device status
         
     if (msc_status == USBH_MSC_OK) 
