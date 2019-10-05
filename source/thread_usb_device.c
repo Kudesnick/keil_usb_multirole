@@ -76,9 +76,17 @@ void thread_usb_device (void *arg)
     printf("USB device connect status: %s\r\n", err_str_usb_status(usb_connect_status)); 
     if (usb_connect_status != usbOK) for(;;);
 
+    if (!USBD_Configured(0))
+    {
+        printf("USB Device is not configured.\r\n");
+        for(;!USBD_Configured(0););
+    }
+    printf("USB Device is configured.\r\n");
+    
     for (;;)
     {   /* Loop forever */
         USBD_HID_GetReportTrigger(0, 0, &buf[0], 1);
+        USBD_HID_GetReportTrigger(1, 0, &buf[0], 1);
         osDelay(100); /* 100 ms delay for sampling buttons  */
     }
 }

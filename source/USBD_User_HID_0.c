@@ -14,10 +14,10 @@
  
 // User Provided HID Report Descriptor
 extern const uint8_t usbd_hid0_report_descriptor[];
+// Size of descriptor = 271 bytes
 const uint8_t usbd_hid0_report_descriptor[] = {
 
-    // Keyboard Top-Level Collection (TLC)
-
+    // Keyboard Top-Level Collection (TLC) [65 bytes]
     HID_UsagePage(HID_USAGE_PAGE_GENERIC),
     HID_Usage(HID_USAGE_GENERIC_KEYBOARD),
     HID_Collection(HID_Application),
@@ -52,8 +52,7 @@ const uint8_t usbd_hid0_report_descriptor[] = {
         HID_Input(HID_Data | HID_Variable | HID_Absolute),
     HID_EndCollection,
 
-    // Mouse TLC
-
+    // Mouse TLC [54 bytes]
     HID_UsagePage(HID_USAGE_PAGE_GENERIC),
     HID_Usage(HID_USAGE_GENERIC_MOUSE),
     HID_Collection(HID_Application),
@@ -82,7 +81,87 @@ const uint8_t usbd_hid0_report_descriptor[] = {
             HID_Input(HID_Data | HID_Variable | HID_Relative),
         HID_EndCollection,
     HID_EndCollection,
+    
+    // PS3 Gamepad TLC [152 bytes]
+    HID_UsagePage(HID_USAGE_PAGE_GENERIC),
+    HID_Usage(HID_USAGE_GENERIC_JOYSTICK),
+    HID_Collection(HID_Application),
+        HID_Collection(HID_Logical),
+            HID_ReportID(0x03),
+            HID_ReportSize(8),
+            HID_ReportCount(1),
+            HID_LogicalMin(0),
+            HID_LogicalMaxS(255),
+            HID_Input(HID_Constant | HID_Variable | HID_Absolute),
+            HID_ReportSize(1),
+            HID_ReportCount(19),
+            HID_LogicalMin(0),
+            HID_LogicalMax(1),
+            HID_PhysicalMin(0),
+            HID_PhysicalMax(1),
+            HID_UsagePage(HID_USAGE_PAGE_BUTTON),
+            HID_UsageMin(1),
+            HID_UsageMax(19),
+            HID_Input(HID_Data | HID_Variable | HID_Absolute),
+            HID_ReportSize(1),
+            HID_ReportCount(13),
+            HID_UsagePageVendor(0xFF),
+            HID_Input(HID_Constant | HID_Variable | HID_Absolute),
+            HID_LogicalMin(0),
+            HID_LogicalMaxS(255),
+            HID_UsagePage(HID_USAGE_PAGE_GENERIC),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Collection(HID_Physical),
+                HID_ReportSize(8),
+                HID_ReportCount(6),
+                HID_PhysicalMin(0),
+                HID_PhysicalMaxS(255),
+                HID_Usage(HID_USAGE_GENERIC_X),
+                HID_Usage(HID_USAGE_GENERIC_Y),
+                HID_Usage(HID_USAGE_GENERIC_Z),
+                HID_Usage(HID_USAGE_GENERIC_RX),
+                HID_Usage(HID_USAGE_GENERIC_RY),
+                HID_Usage(HID_USAGE_GENERIC_RZ),
+                HID_Input(HID_Data | HID_Variable | HID_Absolute),
+            HID_EndCollection,
+            HID_UsagePage(HID_USAGE_PAGE_GENERIC),
+            HID_ReportSize(8),
+            HID_ReportCount(39),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Input(HID_Data | HID_Variable | HID_Absolute),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Output(HID_Data | HID_Variable | HID_Absolute),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Feature(0x02),
+        HID_EndCollection,
+        HID_Collection(HID_Logical),
+            HID_ReportID(0x04),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Feature(0x02),
+        HID_EndCollection,
+        HID_Collection(HID_Logical),
+            HID_ReportID(0xEE),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Feature(0x02),
+        HID_EndCollection,
+        HID_Collection(HID_Logical),
+            HID_ReportID(0xEF),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Feature(0x02),
+        HID_EndCollection,
+    HID_EndCollection,
 };
+
 
 // Called during USBD_Initialize to initialize the USB HID class instance.
 void USBD_HID0_Initialize (void) {

@@ -166,16 +166,13 @@ void hid_desc_print(const uint8_t * _desc, uint32_t _len)
             case 4: printf("%s[0x%02X](0x%08X)\r\n", name, *ptr, *((uint32_t *)(ptr + 1))); break;
         }
         
-        if (*ptr == HID_Field_EndCollection && tab_num == 0)
-        {
-            printf("\r\n");
-        }
-        
         if (*ptr == HID_Field_Collection)
         {
             tab_num++;
         }
     }
+    
+    printf("HID descriptor size: %d bytes.\r\n", _len);
 }
 
 uint8_t hid_desc_get_generic(const uint8_t * _desc, uint32_t _len)
