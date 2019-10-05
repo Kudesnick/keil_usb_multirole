@@ -86,7 +86,7 @@ const uint8_t usbd_hid0_report_descriptor[] = {
     HID_EndCollection,
 };
 #else
-// Size of descriptor = 148 bytes
+// Size of descriptor = 152 bytes
 const uint8_t usbd_hid0_report_descriptor[] = {
     // PS3 Gamepad TLC
     HID_UsagePage(HID_USAGE_PAGE_GENERIC),
@@ -119,12 +119,14 @@ const uint8_t usbd_hid0_report_descriptor[] = {
             HID_Usage(HID_USAGE_GENERIC_POINTER),
             HID_Collection(HID_Physical),
                 HID_ReportSize(8),
-                HID_ReportCount(4),
+                HID_ReportCount(6),
                 HID_PhysicalMin(0),
                 HID_PhysicalMaxS(255),
                 HID_Usage(HID_USAGE_GENERIC_X),
                 HID_Usage(HID_USAGE_GENERIC_Y),
                 HID_Usage(HID_USAGE_GENERIC_Z),
+                HID_Usage(HID_USAGE_GENERIC_RX),
+                HID_Usage(HID_USAGE_GENERIC_RY),
                 HID_Usage(HID_USAGE_GENERIC_RZ),
                 HID_Input(HID_Data | HID_Variable | HID_Absolute),
             HID_EndCollection,
