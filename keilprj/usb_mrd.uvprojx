@@ -413,6 +413,11 @@
               <FilePath>..\source\USBD_User_HID_0.c</FilePath>
             </File>
             <File>
+              <FileName>USBD_User_HID_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_HID_1.c</FilePath>
+            </File>
+            <File>
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
@@ -856,6 +861,11 @@
               <FilePath>..\source\USBD_User_HID_0.c</FilePath>
             </File>
             <File>
+              <FileName>USBD_User_HID_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_HID_1.c</FilePath>
+            </File>
+            <File>
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
@@ -1040,8 +1050,8 @@
       <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4">
         <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
         <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_413"/>
+          <targetInfo instances="2" name="debug_103"/>
+          <targetInfo instances="2" name="debug_413"/>
         </targetInfos>
       </component>
       <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance and Host Driver" maxInstances="4">
@@ -1305,6 +1315,15 @@
       </file>
       <file attr="config" category="source" name="USB\Config\USBD_Config_HID.h" version="5.0.1">
         <instance index="0">RTE\USB\USBD_Config_HID_0.h</instance>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" name="USB\Config\USBD_Config_HID.h" version="5.0.1">
+        <instance index="1">RTE\USB\USBD_Config_HID_1.h</instance>
         <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4"/>
         <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
         <targetInfos>

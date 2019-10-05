@@ -79,6 +79,7 @@ void thread_usb_device (void *arg)
     for (;;)
     {   /* Loop forever */
         USBD_HID_GetReportTrigger(0, 0, &buf[0], 1);
+        USBD_HID_GetReportTrigger(1, 0, &buf[0], 1);
         osDelay(100); /* 100 ms delay for sampling buttons  */
     }
 }

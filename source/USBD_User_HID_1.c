@@ -13,87 +13,97 @@
 #include "usb_hid.h"
  
 // User Provided HID Report Descriptor
-extern const uint8_t usbd_hid0_report_descriptor[];
-// Size of descriptor = 119 bytes
-const uint8_t usbd_hid0_report_descriptor[] = {
-
-    // Keyboard Top-Level Collection (TLC)
-
+extern const uint8_t usbd_hid1_report_descriptor[];
+// Size of descriptor = 152 bytes
+const uint8_t usbd_hid1_report_descriptor[] = {
+    // PS3 Gamepad TLC
     HID_UsagePage(HID_USAGE_PAGE_GENERIC),
-    HID_Usage(HID_USAGE_GENERIC_KEYBOARD),
+    HID_Usage(HID_USAGE_GENERIC_JOYSTICK),
     HID_Collection(HID_Application),
-        HID_ReportID(0x01),
-        HID_UsagePage(HID_USAGE_PAGE_KEYBOARD),
-        HID_UsageMin(HID_USAGE_KEYBOARD_LCTRL),
-        HID_UsageMax(HID_USAGE_KEYBOARD_RGUI),
-        HID_LogicalMin(0),
-        HID_LogicalMax(1),
-        HID_ReportSize(1),
-        HID_ReportCount(8),
-        HID_Input(HID_Data | HID_Variable | HID_Absolute),
-        HID_ReportCount(1),
-        HID_ReportSize(8),
-        HID_Input(HID_Constant | HID_Variable | HID_Absolute),
-        HID_ReportCount(5),
-        HID_ReportSize(1),
-        HID_UsagePage(HID_USAGE_PAGE_LED),
-        HID_UsageMin(HID_USAGE_LED_NUM_LOCK),
-        HID_UsageMax(HID_USAGE_LED_KANA),
-        HID_Output(HID_Data | HID_Variable | HID_Absolute),
-        HID_ReportCount(1),
-        HID_ReportSize(3),
-        HID_Output(HID_Constant | HID_Variable | HID_Absolute),
-        HID_ReportCount(6),
-        HID_ReportSize(8),
-        HID_LogicalMin(0),
-        HID_LogicalMax(101),
-        HID_UsagePage(HID_USAGE_PAGE_KEYBOARD),
-        HID_UsageMin(0),
-        HID_UsageMax(101),
-        HID_Input(HID_Data | HID_Variable | HID_Absolute),
-    HID_EndCollection,
-
-    // Mouse TLC
-
-    HID_UsagePage(HID_USAGE_PAGE_GENERIC),
-    HID_Usage(HID_USAGE_GENERIC_MOUSE),
-    HID_Collection(HID_Application),
-        HID_ReportID(0x02),
-        HID_Usage(HID_USAGE_GENERIC_POINTER),
-        HID_Collection(HID_Physical),
-            HID_UsagePage(HID_USAGE_PAGE_BUTTON),
-            HID_UsageMin(1),
-            HID_UsageMax(3),
+        HID_Collection(HID_Logical),
+            HID_ReportID(0x01),
+            HID_ReportSize(8),
+            HID_ReportCount(1),
+            HID_LogicalMin(0),
+            HID_LogicalMaxS(255),
+            HID_Input(HID_Constant | HID_Variable | HID_Absolute),
+            HID_ReportSize(1),
+            HID_ReportCount(19),
             HID_LogicalMin(0),
             HID_LogicalMax(1),
-            HID_ReportCount(3),
-            HID_ReportSize(1),
+            HID_PhysicalMin(0),
+            HID_PhysicalMax(1),
+            HID_UsagePage(HID_USAGE_PAGE_BUTTON),
+            HID_UsageMin(1),
+            HID_UsageMax(19),
             HID_Input(HID_Data | HID_Variable | HID_Absolute),
-            HID_ReportCount(1),
-            HID_ReportSize(5),
+            HID_ReportSize(1),
+            HID_ReportCount(13),
+            HID_UsagePageVendor(0xFF),
             HID_Input(HID_Constant | HID_Variable | HID_Absolute),
+            HID_LogicalMin(0),
+            HID_LogicalMaxS(255),
             HID_UsagePage(HID_USAGE_PAGE_GENERIC),
-            HID_Usage(HID_USAGE_GENERIC_X),
-            HID_Usage(HID_USAGE_GENERIC_Y),
-            HID_Usage(HID_USAGE_GENERIC_WHEEL),
-            HID_LogicalMin((uint8_t)(-127)),
-            HID_LogicalMax(127),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Collection(HID_Physical),
+                HID_ReportSize(8),
+                HID_ReportCount(6),
+                HID_PhysicalMin(0),
+                HID_PhysicalMaxS(255),
+                HID_Usage(HID_USAGE_GENERIC_X),
+                HID_Usage(HID_USAGE_GENERIC_Y),
+                HID_Usage(HID_USAGE_GENERIC_Z),
+                HID_Usage(HID_USAGE_GENERIC_RX),
+                HID_Usage(HID_USAGE_GENERIC_RY),
+                HID_Usage(HID_USAGE_GENERIC_RZ),
+                HID_Input(HID_Data | HID_Variable | HID_Absolute),
+            HID_EndCollection,
+            HID_UsagePage(HID_USAGE_PAGE_GENERIC),
             HID_ReportSize(8),
-            HID_ReportCount(3),
-            HID_Input(HID_Data | HID_Variable | HID_Relative),
+            HID_ReportCount(39),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Input(HID_Data | HID_Variable | HID_Absolute),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Output(HID_Data | HID_Variable | HID_Absolute),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Feature(0x02),
+        HID_EndCollection,
+        HID_Collection(HID_Logical),
+            HID_ReportID(0x02),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Feature(0x02),
+        HID_EndCollection,
+        HID_Collection(HID_Logical),
+            HID_ReportID(0xEE),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Feature(0x02),
+        HID_EndCollection,
+        HID_Collection(HID_Logical),
+            HID_ReportID(0xEF),
+            HID_ReportSize(8),
+            HID_ReportCount(48),
+            HID_Usage(HID_USAGE_GENERIC_POINTER),
+            HID_Feature(0x02),
         HID_EndCollection,
     HID_EndCollection,
 };
 
-
 // Called during USBD_Initialize to initialize the USB HID class instance.
-void USBD_HID0_Initialize (void) {
+void USBD_HID1_Initialize (void) {
   // Add code for initialization
 }
  
  
 // Called during USBD_Uninitialize to de-initialize the USB HID class instance.
-void USBD_HID0_Uninitialize (void) {
+void USBD_HID1_Uninitialize (void) {
   // Add code for de-initialization
 }
  
@@ -111,7 +121,7 @@ void USBD_HID0_Uninitialize (void) {
 // \return              number of report data bytes prepared to send or invalid report requested.
 //              - value >= 0: number of report data bytes prepared to send
 //              - value = -1: invalid report requested
-int32_t USBD_HID0_GetReport (uint8_t rtype, uint8_t req, uint8_t rid, uint8_t *buf) {
+int32_t USBD_HID1_GetReport (uint8_t rtype, uint8_t req, uint8_t rid, uint8_t *buf) {
  
   switch (rtype) {
     case HID_REPORT_INPUT:
@@ -153,7 +163,7 @@ int32_t USBD_HID0_GetReport (uint8_t rtype, uint8_t req, uint8_t rid, uint8_t *b
 // \param[in]   len     length of received report data.
 // \return      true    received report data processed.
 // \return      false   received report data not processed or request not supported.
-bool USBD_HID0_SetReport (uint8_t rtype, uint8_t req, uint8_t rid, const uint8_t *buf, int32_t len) {
+bool USBD_HID1_SetReport (uint8_t rtype, uint8_t req, uint8_t rid, const uint8_t *buf, int32_t len) {
  
   switch (rtype) {
     case HID_REPORT_OUTPUT:

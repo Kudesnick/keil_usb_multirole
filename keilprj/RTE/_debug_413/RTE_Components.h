@@ -55,6 +55,7 @@
 
 /*  Keil.MDK-Pro::USB:Device:HID:6.13.6 */
 #define RTE_USB_Device_HID_0            /* USB Device HID instance 0 */
+#define RTE_USB_Device_HID_1            /* USB Device HID instance 1 */
 
 /*  Keil.MDK-Pro::USB:Host:6.13.6 */
 #define RTE_USB_Host_0                  /* USB Host 0 */
