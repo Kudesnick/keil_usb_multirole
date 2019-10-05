@@ -154,7 +154,7 @@
 #define USBD_HID0_USER_REPORT_DESCRIPTOR          1
 
 //       <o>User Provided HID Report Descriptor Size (in bytes) <1-65535>
-#define USBD_HID0_USER_REPORT_DESCRIPTOR_SIZE     119
+#define USBD_HID0_USER_REPORT_DESCRIPTOR_SIZE     148
 
 //     </e>
 //   </h>
