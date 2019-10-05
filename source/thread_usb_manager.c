@@ -241,7 +241,7 @@ static void thread_usb_manager(void *argument)
                 if (usb_status != usbOK) continue;
             }
             
-            // Start host thread
+            // Start device thread
             usbStatus usb_status = USBD_Initialize (0U);
             printf("USBD_Initialize: %s\r\n", err_str_usb_status(usb_status));
             
