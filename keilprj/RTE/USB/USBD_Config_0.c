@@ -115,7 +115,7 @@
 //   <h>OS Resources Settings
 //   <i>These settings are used to optimize usage of OS resources.
 //     <o>Core Thread Stack Size <64-65536>
-#define USBD0_CORE_THREAD_STACK_SIZE    512
+#define USBD0_CORE_THREAD_STACK_SIZE    1024
 
 //        Core Thread Priority
 #define USBD0_CORE_THREAD_PRIORITY      osPriorityAboveNormal
