@@ -101,9 +101,9 @@ static __INLINE void usb_hid(void)
     {
         switch (hid_usage)
         {
-            case HID_USAGE_GENERIC_MOUSE   : printf ("USBH HID mouse connected.\r\n"); break;
-            case HID_USAGE_GENERIC_KEYBOARD: printf ("USBH HID keyboard connected.\r\n"); break;
-            default: printf ("USBH HID unsupported device connected.\r\n"); break;
+            case HID_USAGE_GENERIC_MOUSE   : printf ("<USBH> HID mouse connected.\r\n"); break;
+            case HID_USAGE_GENERIC_KEYBOARD: printf ("<USBH> HID keyboard connected.\r\n"); break;
+            default: printf ("<USBH> HID unsupported device connected.\r\n"); break;
         }
         
         for (; hid_status == usbOK; hid_status = USBH_HID_GetDeviceStatus(0U), osDelay(5U))
@@ -119,7 +119,7 @@ static __INLINE void usb_hid(void)
                 {
                     if (prev_btn != mouse_state.button)
                     {
-                        printf("Mouse btn code: 0x%02X\r\n", mouse_state.button);
+                        printf("<USBH> Mouse btn code: 0x%02X\r\n", mouse_state.button);
                     
                         prev_btn = mouse_state.button;
                     }
@@ -132,14 +132,14 @@ static __INLINE void usb_hid(void)
                 
                 if (ch != -1) // If valid key value
                 {
-                    printf("Key code: 0x%08X\r\n", ch);
+                    printf("<USBH> Key code: 0x%08X\r\n", ch);
                 }
             }
         }
         
         hid_usage = 0;
         
-        printf ("USBH HID disconnected.\r\n");
+        printf ("<USBH> HID disconnected.\r\n");
     }
 }
 
@@ -149,7 +149,7 @@ static __INLINE void usb_masstorage(void)
         
     if (msc_status == USBH_MSC_OK) 
     {
-        printf("USBH mass storage connected.\r\n");
+        printf("<USBH> mass storage connected.\r\n");
         
         for (bool first_iter = true;
              msc_status == USBH_MSC_OK;
@@ -159,24 +159,24 @@ static __INLINE void usb_masstorage(void)
             if (first_iter) // If stick was not connected previously
             {
                 msc_status = USBH_MSC_DriveMount("U0:");
-                printf("USBH_MSC_DriveMount U0: %s\r\n", err_str_usbh_msc_status(msc_status));
+                printf("<USBH> MSC_DriveMount U0: %s\r\n", err_str_usbh_msc_status(msc_status));
                 if (msc_status != USBH_MSC_OK) continue; // Handle U0: mount failure
 
                 FILE * f = fopen ("Test.txt", "w"); // Open/create file for writing
-                printf("Fopen 'Test.txt': %s\r\n", (f != NULL) ? "Ok" : "failure");
+                printf("<USBH> Fopen 'Test.txt': %s\r\n", (f != NULL) ? "Ok" : "failure");
                 if (f == NULL) continue; // Handle file opening/creation failure
 
                 fprintf (f, "USB Host Mass Storage!\n");
                 fclose (f); // Close file
                 
                 msc_status = USBH_MSC_DriveUnmount ("U0:");
-                printf("USBH_MSC_DriveUnmount U0: %s\r\n", err_str_usbh_msc_status(msc_status));
+                printf("<USBH> MSC_DriveUnmount U0: %s\r\n", err_str_usbh_msc_status(msc_status));
                 if (msc_status != USBH_MSC_OK) continue; // Handle U0: dismount failure
                 
                 first_iter = false;
             }
         }
-        printf("USBH mass storage disconnected.\r\n");
+        printf("<USBH> mass storage disconnected.\r\n");
     }
 }
 
@@ -184,15 +184,11 @@ static __INLINE void usb_masstorage(void)
  *                                    PUBLIC FUNCTIONS
  **************************************************************************************************/
 
-void thread_usb_host(void *arg)
+void thread_usb_host(void)
 {
-    (void)arg;
-    
-    for (;;)
-    {
-        usb_hid();
-        usb_masstorage();
-    }
+    osDelay(1000);
+    usb_hid();
+    usb_masstorage();
 }
 
 /***************************************************************************************************

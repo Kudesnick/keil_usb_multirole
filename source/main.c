@@ -59,7 +59,7 @@ static void Error_Handler(void);
 
 int main(void)
 {
-    printf("main runing.\r\n");
+    printf("<main> runing.\r\n");
     
 #ifdef RTE_DEVICE_HAL_COMMON
     HAL_Init();
@@ -74,7 +74,7 @@ int main(void)
     
     thread_usb_manager_init(thread_usb_host, thread_usb_device);
     
-    printf("Kernel start.\r\n");
+    printf("<main> kernel start.\r\n");
 
     osKernelStart();
     

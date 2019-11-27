@@ -38,7 +38,7 @@
  *                                PUBLIC FUNCTION PROTOTYPES
  **************************************************************************************************/
 
-int thread_usb_manager_init(void(* _host_thread)(void *), void(* _device_thread)(void *));
+int thread_usb_manager_init(void(* _host_thread)(void), void(* _device_thread)(void));
 
 /***************************************************************************************************
  *                                       END OF FILE

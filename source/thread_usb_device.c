@@ -66,29 +66,34 @@
  *                                    PUBLIC FUNCTIONS
  **************************************************************************************************/
 
-void thread_usb_device (void *arg)
+void thread_usb_device (void)
 {
+    
     uint8_t buf[1];
 
     volatile usbStatus usb_connect_status;
     
     usb_connect_status = USBD_Connect(0); /* USB Device 0 Connect */
-    printf("USB device connect status: %s\r\n", err_str_usb_status(usb_connect_status)); 
-    if (usb_connect_status != usbOK) for(;;);
-
-    if (!USBD_Configured(0))
+    printf("<USBD> device connect status: %s\r\n", err_str_usb_status(usb_connect_status)); 
+    if (usb_connect_status != usbOK)
     {
-        printf("USB Device is not configured.\r\n");
-        for(;!USBD_Configured(0););
+        osThreadExit();
     }
-    printf("USB Device is configured.\r\n");
     
-    for (;;)
+    osDelay(500);
+
+    if (USBD_Configured(0))
+    {
+        printf("<USBD> Device is configured.\r\n");
+    }
+    
+    for (;USBD_Configured(0); osDelay(100))
     {   /* Loop forever */
         USBD_HID_GetReportTrigger(0, 0, &buf[0], 1);
         USBD_HID_GetReportTrigger(1, 0, &buf[0], 1);
-        osDelay(100); /* 100 ms delay for sampling buttons  */
     }
+    
+    printf("<USBD> Device is not configured.\r\n");
 }
 
 /***************************************************************************************************
