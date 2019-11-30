@@ -32,10 +32,6 @@
 
 #include "cpp_os.h"
 
-#include "thread_usb_manager.h"
-#include "thread_usb_host.h"
-#include "thread_usb_device.h"
-
 using namespace std;
 
 /***************************************************************************************************
@@ -333,8 +329,6 @@ int main(void)
     printf("<main> Runing main function.\r\n");
     
     printf("<main> Starting OS.\r\n");
-    
-    thread_usb_manager_init(thread_usb_host, thread_usb_device);
 
     cpp_os::create_os();
     

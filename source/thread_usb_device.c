@@ -23,11 +23,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include "cmsis_os.h"
 #include "rl_usb.h"
-
 #include "err_strings.h"
-
 #include "thread_usb_device.h"
 
 /***************************************************************************************************

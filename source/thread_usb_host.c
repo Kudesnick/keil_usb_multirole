@@ -72,7 +72,10 @@ uint8_t hid_usage = 0;
 /// \param[in]     ptr_hid_report_desc  pointer to HID report descriptor.
 /// \param[in]     len                  length of HID report descriptor.
 /// \return                             none.
-void USBH_HID_ParseReportDescriptor (uint8_t instance, const uint8_t *ptr_hid_report_desc, uint32_t len)
+void USBH_HID_ParseReportDescriptor(
+    uint8_t instance,
+    const uint8_t *ptr_hid_report_desc, 
+    uint32_t len)
 {
     // print descriptor (for debugging)
     // hid_desc_print(ptr_hid_report_desc, len);
