@@ -1,6 +1,6 @@
 /***************************************************************************************************
- *   Project:       usb mrd
- *   Author:        Stulov Tikhon
+ *   Project:       
+ *   Author:        
  ***************************************************************************************************
  *   Distribution:  
  *
@@ -8,37 +8,88 @@
  *   MCU Family:    STM32F
  *   Compiler:      ARMCC
  ***************************************************************************************************
- *   File:          thread_usb_manager.h
- *   Description:   management multirole USB device
+ *   File:          cpp_os.cpp
+ *   Description:   see cpp_os.h
  *
  ***************************************************************************************************
- *   History:       22.09.2019 - file created
+ *   History:       27.05.2019 - file created
  *
  **************************************************************************************************/
-
-#pragma once
 
 /***************************************************************************************************
  *                                      INCLUDED FILES
  **************************************************************************************************/
+
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdio.h>
+
+#include "cpp_list.h"
+#include "cpp_os.h"
+
+#ifdef __cplusplus
+    using namespace std;
+#endif
 
 /***************************************************************************************************
  *                                       DEFINITIONS
  **************************************************************************************************/
 
 /***************************************************************************************************
- *                                      PUBLIC TYPES
+ *                                    PRIVATE FUNCTIONS
  **************************************************************************************************/
+
+//-- os_elements
+
+void cpp_os::all_elements_create(void)
+{
+    enumerate([](cpp_os *& _el_os)
+    {
+        _el_os->create();
+        
+        return true;
+    });
+};
+
+osStatus_t cpp_os::os_chck(osStatus_t _status)
+{
+    if (_status != osOK)
+    {
+        printf("<cpp_os> os_chck not complete.");
+    };
+    
+    return _status;
+};
+
+void * cpp_os::os_chck(void * _ptr)
+{
+    if (_ptr == NULL)
+    {
+        printf("<cpp_os> os_chck not complete.");
+    };
+    
+    return _ptr;
+};
+
+void thread_run(void * argument)
+{
+    static_cast<cpp_os_thread<> *>(argument)->thread_func();
+}
 
 /***************************************************************************************************
- *                                     GLOBAL VARIABLES
+ *                                    PUBLIC FUNCTIONS
  **************************************************************************************************/
 
-/***************************************************************************************************
- *                                PUBLIC FUNCTION PROTOTYPES
- **************************************************************************************************/
+//-- os_elements
 
-int thread_usb_manager_init(void(* _host_thread)(void), void(* _device_thread)(void));
+void cpp_os::create_os(void)
+{
+    os_chck(osKernelInitialize()); // initialize RTX
+
+    all_elements_create();
+
+    os_chck(osKernelStart()); // start RTX kernel
+};
 
 /***************************************************************************************************
  *                                       END OF FILE

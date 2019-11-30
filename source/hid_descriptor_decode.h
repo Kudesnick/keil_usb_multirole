@@ -84,11 +84,19 @@
  *                                PUBLIC FUNCTION PROTOTYPES
  **************************************************************************************************/
 
+#ifdef __cplusplus
+} // extern "C"
+#endif
+
 void hid_desc_print(const uint8_t * _desc, uint32_t len);
 
 uint8_t hid_desc_get_generic(const uint8_t * _desc, uint32_t len);
 
 void hid_desc_usage_print(uint8_t _usage);
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 /***************************************************************************************************
  *                                       END OF FILE
