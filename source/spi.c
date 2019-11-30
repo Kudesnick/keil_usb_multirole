@@ -68,22 +68,28 @@
  **************************************************************************************************/
 
 //-- see. SPI_MultiSlave.h
-void SPI_Control_SlaveSelect (uint32_t device, uint32_t ss_state)
+void SPI_Control_SlaveSelect(uint32_t device, uint32_t ss_state)
 {
     static bool pins_is_initialized = false;
     
     if (!pins_is_initialized)
     {
-        gpio_out_od_config(PIN_CS_MICROSD_0);
-        gpio_out_od_config(PIN_CS_MICROSD_1);
-        gpio_out_od_config(PIN_CS_ONBOARD);
+        gpio_out_pp_config(PIN_CS_MICROSD_0);
+        gpio_out_pp_config(PIN_CS_MICROSD_1);
+        gpio_out_pp_config(PIN_CS_ONBOARD  );
+        gpio_write(PIN_CS_MICROSD_0, true);
+        gpio_write(PIN_CS_MICROSD_1, true);
+        gpio_write(PIN_CS_ONBOARD  , true);
     }
     
     switch(device)
     {
-        case 0: gpio_write(PIN_CS_MICROSD_0, (ss_state == ARM_SPI_SS_INACTIVE)); break;
-        case 1: gpio_write(PIN_CS_MICROSD_1, (ss_state == ARM_SPI_SS_INACTIVE)); break;
-        case 2: gpio_write(PIN_CS_ONBOARD  , (ss_state == ARM_SPI_SS_INACTIVE)); break;
+        case 0:
+            gpio_write(PIN_CS_MICROSD_0, (ss_state == ARM_SPI_SS_INACTIVE)); break;
+        case 1:
+            gpio_write(PIN_CS_MICROSD_1, (ss_state == ARM_SPI_SS_INACTIVE)); break;
+        case 2:
+            gpio_write(PIN_CS_ONBOARD  , (ss_state == ARM_SPI_SS_INACTIVE)); break;
         default:
             printf("<spi> access error. Device %d not found.", device);
             break;

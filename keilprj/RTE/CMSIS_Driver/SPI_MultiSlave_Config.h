@@ -63,7 +63,7 @@
 //     <o1>Export control block Driver_SPI# <0-255>
 //     <i>Define exported driver control block number
 //   </e>
-#define SPI_ENABLE_SLAVE_2      1
+#define SPI_ENABLE_SLAVE_2      0
 #define SPI_DRIVER_SLAVE_2      12
 
 //   <e0>Slave Device 3
