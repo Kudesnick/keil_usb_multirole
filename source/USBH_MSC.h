@@ -7,8 +7,7 @@
  * Rev.:    V6.2.0
  *----------------------------------------------------------------------------*/
 
-#ifndef USBH_MSC_H
-#define USBH_MSC_H
+#pragma once
 
 #include "stdint.h"                     // data type definitions
 #include "stdio.h"                      // file I/O functions
@@ -21,6 +20,9 @@
 #define USBH_MSC_ERROR_DRIVE         -2 ///< USB storage device not connected
 #define USBH_MSC_ERROR_FORMAT        -3 ///< USB drive mounted, but unformatted
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /// \brief Get status of drive media (USB storage connected or not connected)
 /// \param[in]  drive_name     USB storage drive name ("U0:", "U1:")
@@ -55,4 +57,6 @@ extern int32_t USBH_MSC_DriveUnmount (const char *drive_name);
 ///               - value == 0            = no drive connected or unspecified error
 extern uint64_t USBH_MSC_DriveGetCapacity (const char *drive_name);
 
+#ifdef __cplusplus
+} // extern "C"
 #endif

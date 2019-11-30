@@ -38,7 +38,15 @@
  *                                PUBLIC FUNCTION PROTOTYPES
  **************************************************************************************************/
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void thread_usb_device (void);
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 /***************************************************************************************************
  *                                       END OF FILE

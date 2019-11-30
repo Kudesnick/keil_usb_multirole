@@ -38,7 +38,15 @@
  *                                PUBLIC FUNCTION PROTOTYPES
  **************************************************************************************************/
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int thread_usb_manager_init(void(* _host_thread)(void), void(* _device_thread)(void));
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 /***************************************************************************************************
  *                                       END OF FILE
