@@ -24,6 +24,10 @@
 #include CMSIS_device_header
 #include "cmsis_compiler.h"
 
+#ifdef RTE_DEVICE_HAL_COMMON
+    #include "stm32f4xx_hal.h" // Device header
+#endif
+
 #include <stdio.h>
 
 #include "cpp_os.h"

@@ -22,9 +22,10 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdio.h>
+
 #include "cpp_list.h"
 #include "cpp_os.h"
-#include "misc_macro.h"
 
 #ifdef __cplusplus
     using namespace std;
@@ -54,7 +55,7 @@ osStatus_t cpp_os::os_chck(osStatus_t _status)
 {
     if (_status != osOK)
     {
-        BRK_PTR("cpp_os::os_chck not complete.");
+        printf("<cpp_os> os_chck not complete.");
     };
     
     return _status;
@@ -64,7 +65,7 @@ void * cpp_os::os_chck(void * _ptr)
 {
     if (_ptr == NULL)
     {
-        BRK_PTR("cpp_os::os_chck not complete.");
+        printf("<cpp_os> os_chck not complete.");
     };
     
     return _ptr;
