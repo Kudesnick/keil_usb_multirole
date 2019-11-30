@@ -126,81 +126,6 @@ void assert_failed(uint8_t* file, uint32_t line)
 }
 #endif
 
-#endif
-
-/// System hard fault
-void HardFault_Handler(void)
-{
-    printf("<main> HardFault!\r\n");
-    
-    return;
-}
-
-#ifdef RTE_CMSIS_RTOS2_RTX5
-
-/// OS Idle Thread (weakly function)
-void osRtxIdleThread(void *argument)
-{
-    (void)argument;
-
-    for (;;)
-    {
-        __WFE();
-    }
-}
- 
-/// OS Error Callback function (weakly function)
-uint32_t osRtxErrorNotify (uint32_t code, void *object_id)
-{
-    const char * ptr = "strange error";
-    
-    switch (code)
-    {
-        case osRtxErrorStackUnderflow:
-            // Stack overflow detected for thread (thread_id=object_id)
-            ptr = "Stack overflow detected for thread";
-            break;
-        case osRtxErrorISRQueueOverflow:
-            // ISR Queue overflow detected when inserting object (object_id)
-            ptr = "ISR Queue overflow detected when inserting object";
-            break;
-        case osRtxErrorTimerQueueOverflow:
-            // User Timer Callback Queue overflow detected for timer (timer_id=object_id)
-            ptr = "User Timer Callback Queue overflow detected for timer";
-            break;
-        case osRtxErrorClibSpace:
-            // Standard C/C++ library libspace not available: increase OS_THREAD_LIBSPACE_NUM
-            ptr = "Standard C/C++ library libspace not available";
-            break;
-        case osRtxErrorClibMutex:
-            // Standard C/C++ library mutex initialization failed
-            ptr = "Standard C/C++ library mutex initialization failed";
-            break;
-        default:
-            break;
-    }
-    
-    if (object_id != NULL)
-    {
-        printf("<main> OS %s. ID = 0x%08X.", ptr, (uint32_t)object_id);
-
-        const char *name = osThreadGetName(object_id);
-        
-        if (name != NULL)
-        {
-             printf(" Name = '%s'.", name);
-        }
-    }
-    else
-    {
-        printf("\r\n");
-    }
-    
-    return 0U;
-}
-
-#endif
-
 /**
   * @brief  System Clock Configuration (core clock = 98 MHz)
   * @note   This funtion is generated from CubeMX project
@@ -292,6 +217,81 @@ void SystemClock_Config(void)
 }
 #else
     #error Invalid hardware!
+#endif
+
+#endif
+
+/// System hard fault
+void HardFault_Handler(void)
+{
+    printf("<main> HardFault!\r\n");
+    
+    return;
+}
+
+#ifdef RTE_CMSIS_RTOS2_RTX5
+
+/// OS Idle Thread (weakly function)
+void osRtxIdleThread(void *argument)
+{
+    (void)argument;
+
+    for (;;)
+    {
+        __WFE();
+    }
+}
+ 
+/// OS Error Callback function (weakly function)
+uint32_t osRtxErrorNotify (uint32_t code, void *object_id)
+{
+    const char * ptr = "strange error";
+    
+    switch (code)
+    {
+        case osRtxErrorStackUnderflow:
+            // Stack overflow detected for thread (thread_id=object_id)
+            ptr = "Stack overflow detected for thread";
+            break;
+        case osRtxErrorISRQueueOverflow:
+            // ISR Queue overflow detected when inserting object (object_id)
+            ptr = "ISR Queue overflow detected when inserting object";
+            break;
+        case osRtxErrorTimerQueueOverflow:
+            // User Timer Callback Queue overflow detected for timer (timer_id=object_id)
+            ptr = "User Timer Callback Queue overflow detected for timer";
+            break;
+        case osRtxErrorClibSpace:
+            // Standard C/C++ library libspace not available: increase OS_THREAD_LIBSPACE_NUM
+            ptr = "Standard C/C++ library libspace not available";
+            break;
+        case osRtxErrorClibMutex:
+            // Standard C/C++ library mutex initialization failed
+            ptr = "Standard C/C++ library mutex initialization failed";
+            break;
+        default:
+            break;
+    }
+    
+    if (object_id != NULL)
+    {
+        printf("<main> OS %s. ID = 0x%08X.", ptr, (uint32_t)object_id);
+
+        const char *name = osThreadGetName(object_id);
+        
+        if (name != NULL)
+        {
+             printf(" Name = '%s'.", name);
+        }
+    }
+    else
+    {
+        printf("\r\n");
+    }
+    
+    return 0U;
+}
+
 #endif
 
 } // extern "C"

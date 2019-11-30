@@ -1,6 +1,6 @@
 /***************************************************************************************************
- *   Project:       usb mrd
- *   Author:        Stulov Tikhon
+ *   Project:       
+ *   Author:        
  ***************************************************************************************************
  *   Distribution:  
  *
@@ -8,11 +8,11 @@
  *   MCU Family:    STM32F
  *   Compiler:      ARMCC
  ***************************************************************************************************
- *   File:          thread_usb_manager.c
- *   Description:   management multirole USB device
+ *   File:          spi.c
+ *   Description:   
  *
  ***************************************************************************************************
- *   History:       22.09.2019 - file created
+ *   History:       01.12.2019 - file created
  *
  **************************************************************************************************/
 
@@ -20,31 +20,20 @@
  *                                      INCLUDED FILES
  **************************************************************************************************/
 
-
-#include "RTE_Components.h"
-#include CMSIS_device_header
-
+#include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
 
-#include "cpp_os.h"
-#include "err_strings.h"
-#include "thread_usb_device.h"
-#include "thread_usb_host.h"
+#include "Driver_SPI.h"
+
 #include "gpio.h"
-
-using namespace std;
 
 /***************************************************************************************************
  *                                       DEFINITIONS
  **************************************************************************************************/
 
-#define PIN_DISCONNECT PORTA_12
-
-#define USBM_STK_SZ (2048U)
-
-#define TERMINATE_TOUT 2000
+#define PIN_CS_MICROSD_0 PORTA_02
+#define PIN_CS_MICROSD_1 PORTA_03
+#define PIN_CS_ONBOARD   PORTA_04
 
 /***************************************************************************************************
  *                                      PRIVATE TYPES
@@ -74,71 +63,32 @@ using namespace std;
  *                                    PRIVATE FUNCTIONS
  **************************************************************************************************/
 
-class: public cpp_os_thread<USBM_STK_SZ>
-{
-private:
-    void(* device_thread)(void) = thread_usb_device;
-    void(* host_thread)(void) = thread_usb_host;
-
-    /// Emulate USB disconnect (USB_DP)
-    void usb_disconnect_emulate(void)
-    {
-        gpio_out_od_config(PIN_DISCONNECT);
-        gpio_write(PIN_DISCONNECT, false);
-        cpp_os::delay(10);
-    }
-
-    void thread_func(void)
-    {
-        for(uint8_t otg = 1; true; osDelay(TERMINATE_TOUT), otg ^=1)
-        {
-            usbStatus usb_status;
-            
-            // Init usb host role
-            if (otg)
-            {
-                usb_status = USBH_Initialize (0U);
-                printf("<USBH> Initialize: %s\r\n", err_str_usb_status(usb_status));
-                
-                if (usb_status == usbOK)
-                {
-                    uint32_t time = osKernelGetTickCount();
-    
-                    while (osKernelGetTickCount() - time < 4000)
-                    {
-                        host_thread();
-                    }
-                }
-                
-                usb_status = USBH_Uninitialize(0);
-                printf("<USBH> Uninitialize: %s\r\n", err_str_usb_status(usb_status));
-            }
-            
-            // init usbdevice device role
-            else
-            {
-                usb_status = USBD_Initialize (0U);
-                printf("<USBD> Initialize: %s\r\n", err_str_usb_status(usb_status));
-                
-                if (usb_status == usbOK)
-                {
-                    device_thread();
-                }
-                
-                usb_status = USBD_Uninitialize(0);
-                printf("<USBD> Uninitialize: %s\r\n", err_str_usb_status(USBD_Uninitialize(0)));
-            }
-        }
-    };
-    
-public:
-    using cpp_os_thread::cpp_os_thread;
-    
-} thread_usb_manager;
-
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS
  **************************************************************************************************/
+
+//-- see. SPI_MultiSlave.h
+void SPI_Control_SlaveSelect (uint32_t device, uint32_t ss_state)
+{
+    static bool pins_is_initialized = false;
+    
+    if (!pins_is_initialized)
+    {
+        gpio_out_od_config(PIN_CS_MICROSD_0);
+        gpio_out_od_config(PIN_CS_MICROSD_1);
+        gpio_out_od_config(PIN_CS_ONBOARD);
+    }
+    
+    switch(device)
+    {
+        case 0: gpio_write(PIN_CS_MICROSD_0, (ss_state == ARM_SPI_SS_INACTIVE)); break;
+        case 1: gpio_write(PIN_CS_MICROSD_1, (ss_state == ARM_SPI_SS_INACTIVE)); break;
+        case 2: gpio_write(PIN_CS_ONBOARD  , (ss_state == ARM_SPI_SS_INACTIVE)); break;
+        default:
+            printf("<spi> access error. Device %d not found.", device);
+            break;
+    }
+}
 
 /***************************************************************************************************
  *                                       END OF FILE

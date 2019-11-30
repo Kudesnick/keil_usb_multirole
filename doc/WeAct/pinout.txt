@@ -27,9 +27,9 @@ RGHT - B15 + + B10 - LFT
 DN** - A11 + +  A7 - MOSI
 DP** - A12 + +  A6 - MISO
        A15 + +  A5 - CLK
-       B3  + +  A4 - CS0***
+       B3  + +  A4 - CS2***
        B4  + +  A3 - CS1
-       B5  + +  A2 - CS2
+       B5  + +  A2 - CS0
  SCK - B6  + +  A1
  SDA - B7  + +  A0 - BTN****
        B8  + +   R

@@ -63,6 +63,8 @@
 #define RTE_USB_Host_HID                /* USB Host HID */
 /*  Keil.MDK-Pro::USB:Host:MSC:6.13.6 */
 #define RTE_USB_Host_MSC                /* USB Host MSC */
+/*  Keil::CMSIS Driver:SPI:Multi-Slave:1.0.1 */
+#define RTE_Drivers_SPI_MultiSlave      /* Driver SPI Multi-Slave */
 /*  Keil::CMSIS Driver:USART:2.3 */
 #define RTE_Drivers_USART1              /* Driver USART1 */
         #define RTE_Drivers_USART2              /* Driver USART2 */
