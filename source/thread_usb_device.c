@@ -77,12 +77,13 @@ void thread_usb_device (void)
         return;
     }
     
-    USBD_Configured(0);
-    osDelay(20000);
-
-    if (USBD_Configured(0))
+    for (uint8_t i = 20; i > 0; i++, osDelay(1000))
     {
-        printf("<USBD> Device is configured.\r\n");
+        if (USBD_Configured(0))
+        {
+            printf("<USBD> Device is configured.\r\n");
+            break;
+        }
     }
     
     for (;USBD_Configured(0); osDelay(100))
