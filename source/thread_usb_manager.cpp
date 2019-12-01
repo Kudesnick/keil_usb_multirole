@@ -134,7 +134,7 @@ private:
 public:
     using cpp_os_thread::cpp_os_thread;
     
-} thread_usb_manager = {false};
+} thread_usb_manager = {};
 
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS

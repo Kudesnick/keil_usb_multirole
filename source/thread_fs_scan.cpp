@@ -145,7 +145,10 @@ private:
         
     };
 
-} thread_fs_scan = {};
+public:
+    using cpp_os_thread::cpp_os_thread;
+    
+} thread_fs_scan = {false};
 
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS

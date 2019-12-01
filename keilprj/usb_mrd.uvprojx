@@ -418,6 +418,11 @@
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
             <File>
+              <FileName>USBD_User_MSC_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_MSC_0.c</FilePath>
+            </File>
+            <File>
               <FileName>USBH_MSC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
@@ -899,6 +904,11 @@
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>USBD_User_MSC_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_MSC_0.c</FilePath>
             </File>
             <File>
               <FileName>USBH_MSC.c</FileName>
@@ -1384,6 +1394,11 @@
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
             <File>
+              <FileName>USBD_User_MSC_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_MSC_0.c</FilePath>
+            </File>
+            <File>
               <FileName>USBH_MSC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
@@ -1599,9 +1614,9 @@
       <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="Memory Card" Cvendor="Keil" Cversion="6.13.0" condition="File System and SD/MMC Driver" maxInstances="2">
         <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
-          <targetInfo instances="2" name="debug_103"/>
-          <targetInfo instances="2" name="debug_411"/>
-          <targetInfo instances="2" name="debug_413"/>
+          <targetInfo instances="2" name="debug_103" versionMatchMode=""/>
+          <targetInfo instances="2" name="debug_411" versionMatchMode=""/>
+          <targetInfo instances="2" name="debug_413" versionMatchMode=""/>
         </targetInfos>
       </component>
       <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="USB" Cvendor="Keil" Cversion="6.13.0" condition="File System and USB Host MSC" maxInstances="2">
@@ -1642,6 +1657,14 @@
           <targetInfo name="debug_103" versionMatchMode=""/>
           <targetInfo name="debug_411" versionMatchMode=""/>
           <targetInfo name="debug_413" versionMatchMode=""/>
+        </targetInfos>
+      </component>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="MSC" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="4">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
       <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Host Instance and Host Driver" maxInstances="4">
@@ -2029,6 +2052,16 @@
         <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4"/>
         <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
         <targetInfos/>
+      </file>
+      <file attr="config" category="header" name="USB\Config\USBD_Config_MSC.h" version="5.1.1">
+        <instance index="0">RTE\USB\USBD_Config_MSC_0.h</instance>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="MSC" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="4"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
       </file>
       <file attr="config" category="source" name="USB\Config\USBH_Config.c" version="5.2.1">
         <instance index="0">RTE\USB\USBH_Config_0.c</instance>
