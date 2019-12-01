@@ -463,9 +463,9 @@
               <FilePath>..\source\spi.c</FilePath>
             </File>
             <File>
-              <FileName>thread_sdcard.cpp</FileName>
+              <FileName>thread_fs_scan.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\source\thread_sdcard.cpp</FilePath>
+              <FilePath>..\source\thread_fs_scan.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -946,9 +946,9 @@
               <FilePath>..\source\spi.c</FilePath>
             </File>
             <File>
-              <FileName>thread_sdcard.cpp</FileName>
+              <FileName>thread_fs_scan.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\source\thread_sdcard.cpp</FilePath>
+              <FilePath>..\source\thread_fs_scan.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1429,9 +1429,9 @@
               <FilePath>..\source\spi.c</FilePath>
             </File>
             <File>
-              <FileName>thread_sdcard.cpp</FileName>
+              <FileName>thread_fs_scan.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\source\thread_sdcard.cpp</FilePath>
+              <FilePath>..\source\thread_fs_scan.cpp</FilePath>
             </File>
           </Files>
         </Group>
