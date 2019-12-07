@@ -77,7 +77,7 @@ void thread_usb_device (void)
         return;
     }
     
-    for (uint8_t i = 20; i > 0; i++, osDelay(1000))
+    for (uint8_t i = 10; i > 0; i++, osDelay(1000))
     {
         if (USBD_Configured(0))
         {
@@ -88,8 +88,7 @@ void thread_usb_device (void)
     
     for (;USBD_Configured(0); osDelay(100))
     {   /* Loop forever */
-        USBD_HID_GetReportTrigger(0, 0, &buf[0], 1);
-        USBD_HID_GetReportTrigger(1, 0, &buf[0], 1);
+
     }
     
     printf("<USBD> Device is not configured.\r\n");
