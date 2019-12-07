@@ -204,7 +204,15 @@ __INLINE void gpio_out_pp_config(const uint8_t _port_pin)
     GPIO_PinConfigure(GPIO_PORT(_port_pin),
                       GPIO_PIN_SOURCE(_port_pin),
                       GPIO_OUT_PUSH_PULL,
-                      GPIO_MODE_OUT10MHZ);
+                      GPIO_MODE_OUT2MHZ);
+}
+
+__INLINE void gpio_out_od_config(const uint8_t _port_pin)
+{
+    GPIO_PinConfigure(GPIO_PORT(_port_pin),
+                      GPIO_PIN_SOURCE(_port_pin),
+                      GPIO_OUT_OPENDRAIN,
+                      GPIO_MODE_OUT2MHZ);
 }
 
 __INLINE void gpio_in_flt_config(const uint8_t _port_pin)

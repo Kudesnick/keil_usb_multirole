@@ -76,10 +76,12 @@ void SPI_Control_SlaveSelect(uint32_t device, uint32_t ss_state)
     
     if (!pins_is_initialized)
     {
-        gpio_out_pp_config(PIN_CS_MICROSD_0);
+        pins_is_initialized = true;
+    
+        gpio_out_od_config(PIN_CS_MICROSD_0);
         gpio_write(PIN_CS_MICROSD_0, true);
+        gpio_out_od_config(PIN_CS_MICROSD_1);
         gpio_write(PIN_CS_MICROSD_1, true);
-        gpio_out_pp_config(PIN_CS_MICROSD_1);
 #ifdef PIN_CS_ONBOARD
         gpio_out_pp_config(PIN_CS_ONBOARD  );
         gpio_write(PIN_CS_ONBOARD  , true);
@@ -89,9 +91,11 @@ void SPI_Control_SlaveSelect(uint32_t device, uint32_t ss_state)
     switch(device)
     {
         case 0:
-            gpio_write(PIN_CS_MICROSD_0, (ss_state == ARM_SPI_SS_INACTIVE)); break;
+            gpio_write(PIN_CS_MICROSD_0, (ss_state == ARM_SPI_SS_INACTIVE));
+            break;
         case 1:
-            gpio_write(PIN_CS_MICROSD_1, (ss_state == ARM_SPI_SS_INACTIVE)); break;
+            gpio_write(PIN_CS_MICROSD_1, (ss_state == ARM_SPI_SS_INACTIVE));
+            break;
 #ifdef PIN_CS_ONBOARD
         case 2:
             gpio_write(PIN_CS_ONBOARD  , (ss_state == ARM_SPI_SS_INACTIVE)); break;
