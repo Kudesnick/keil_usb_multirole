@@ -85,7 +85,7 @@ private:
     
     bool otg_detect(void)
     {
-        id_simulate != id_simulate;
+        id_simulate = !id_simulate;
         
         return id_simulate;
     }
@@ -110,12 +110,10 @@ private:
     {
         for(;; osDelay(TERMINATE_TOUT))
         {
-            usbStatus usb_status;
-            
             // Init usb host role
             if (otg_detect())
             {
-                usb_status = USBH_Initialize (0U);
+                usbStatus usb_status = USBH_Initialize (0U);
                 printf("<USBH> Initialize: %s\r\n", err_str_usb_status(usb_status));
                 
                 if (usb_status == usbOK)
@@ -135,7 +133,7 @@ private:
             // init usbdevice device role
             else
             {
-                usb_status = USBD_Initialize (0U);
+                usbStatus usb_status = USBD_Initialize (0U);
                 printf("<USBD> Initialize: %s\r\n", err_str_usb_status(usb_status));
                 
                 if (usb_status == usbOK)

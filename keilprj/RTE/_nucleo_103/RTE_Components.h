@@ -45,31 +45,6 @@
 #define RTE_FileSystem_Drive_MC_0       /* File System Memory Card Drive 0 */
 #define RTE_FileSystem_Drive_MC_1       /* File System Memory Card Drive 1 */
 
-/*  Keil.MDK-Plus::File System:Drive:USB:6.13.0 */
-#define RTE_FileSystem_Drive_USB_0      /* File System USB Drive 0 */
-
-/*  Keil.MDK-Pro::USB:CORE:Release:6.13.7 */
-#define RTE_USB_Core                    /* USB Core */
-          #define RTE_USB_Core_Release            /* USB Core Release Version */
-/*  Keil.MDK-Pro::USB:Device:6.13.7 */
-#define RTE_USB_Device_0                /* USB Device 0 */
-
-/*  Keil.MDK-Pro::USB:Device:CDC:6.13.7 */
-#define RTE_USB_Device_CDC_0            /* USB Device CDC instance 0 */
-
-/*  Keil.MDK-Pro::USB:Device:HID:6.13.7 */
-#define RTE_USB_Device_HID_0            /* USB Device HID instance 0 */
-
-/*  Keil.MDK-Pro::USB:Device:MSC:6.13.7 */
-#define RTE_USB_Device_MSC_0            /* USB Device MSC instance 0 */
-
-/*  Keil.MDK-Pro::USB:Host:6.13.7 */
-#define RTE_USB_Host_0                  /* USB Host 0 */
-
-/*  Keil.MDK-Pro::USB:Host:HID:6.13.7 */
-#define RTE_USB_Host_HID                /* USB Host HID */
-/*  Keil.MDK-Pro::USB:Host:MSC:6.13.7 */
-#define RTE_USB_Host_MSC                /* USB Host MSC */
 /*  Keil::CMSIS Driver:SPI:2.2 */
 #define RTE_Drivers_SPI1                /* Driver SPI1 */
         #define RTE_Drivers_SPI2                /* Driver SPI2 */
@@ -82,8 +57,6 @@
         #define RTE_Drivers_USART3              /* Driver USART3 */
         #define RTE_Drivers_USART4              /* Driver UART4  */
         #define RTE_Drivers_USART5              /* Driver UART5  */
-/*  Keil::CMSIS Driver:USB Device:2.1 */
-#define RTE_Drivers_USBD0               /* Driver USBD0 */
 
 
 #endif /* RTE_COMPONENTS_H */
