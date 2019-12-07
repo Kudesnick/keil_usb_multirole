@@ -106,7 +106,7 @@ class : public cpp_os_thread<SDCARD_STK_SZ>
 private:
     void thread_func(void)
     {
-        // Собираем информацию обо всех дисках     
+        // Printed info about SPI drive
         for (auto i = 0; i < fs_ndrv; i++)
         {
             char drive[4];
@@ -141,14 +141,13 @@ private:
 
         printf("<sd> fs_fat_fh_cnt = %d\r\n", fs_fat_fh_cnt);
 
-        for(;;){};
-        
+        exit();
     };
 
 public:
     using cpp_os_thread::cpp_os_thread;
     
-} thread_fs_scan = {false};
+} thread_fs_scan = {};
 
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS

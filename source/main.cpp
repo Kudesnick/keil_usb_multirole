@@ -126,12 +126,11 @@ void assert_failed(uint8_t* file, uint32_t line)
 }
 #endif
 
-/**
-  * @brief  System Clock Configuration (core clock = 98 MHz)
-  * @note   This funtion is generated from CubeMX project
-  * @return None
-  */
 #if defined(STM32F413xx)
+/**
+  * @brief  System Clock Configuration (core clock = 96 MHz)
+  * @note   This funtion is generated from CubeMX project
+  */
 void SystemClock_Config(void)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
@@ -177,7 +176,12 @@ void SystemClock_Config(void)
         Error_Handler();
     }
 }
+
 #elif defined(STM32F411xE)
+/**
+  * @brief  System Clock Configuration (core clock = 96 MHz)
+  * @note   This funtion is generated from CubeMX project
+  */
 void SystemClock_Config(void)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
