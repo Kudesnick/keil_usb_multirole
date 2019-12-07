@@ -47,17 +47,17 @@ GND  | GND + +   D8 |
 CLK  | A5  + +  A12 | 
 MISO | A6  + +  A11 |
 MOSI | A7  + +  B12 | RST
-     | B6  + +  B11 | SET
-     | C7  + +  GND |
-CS2  | A9  + +   B2 | MID
-CS1  | A8  + +   B1 | RGHT
+CS1  | B6  + +  B11 | SET
+CS2  | C7  + +  GND |
+     | A9  + +   B2 | MID
+     | A8  + +   B1 | RGHT
      | B10 + +  B15 | LFT
      | B4  + +  B14 | DWN
      | B5  + +  B13 | UP
      | B3  + + AGND |
      | A10 + +   C4 |
-TX2  | A2  + +   F5 |
-RX2  | A3  + +   F4 |
+     | A2  + +   F5 |
+     | A3  + +   F4 |
 
 "Black Pill" (We Act) shield
 
@@ -112,8 +112,8 @@ DP** | A12 + +  A6 | MISO
 #define PIN_BTN_UP   PORTB_13
 
 //#define PIN_SPI_CS0  
-#define PIN_SPI_CS1  PORTA_08
-#define PIN_SPI_CS2  PORTA_09
+#define PIN_SPI_CS1  PORTB_06
+#define PIN_SPI_CS2  PORTC_07
 
 #define PIN_USB_DB   PORTA_12
 #define PIN_USB_ID   PORTA_10
@@ -129,8 +129,8 @@ DP** | A12 + +  A6 | MISO
 #define PIN_BTN_UP   PORTB_13
 
 //#define PIN_SPI_CS0  
-#define PIN_SPI_CS1  PORTA_08
-#define PIN_SPI_CS2  PORTA_09
+#define PIN_SPI_CS1  PORTB_06
+#define PIN_SPI_CS2  PORTC_07
 
 #define PIN_USB_DB   PORTA_12
 //#define PIN_USB_ID
