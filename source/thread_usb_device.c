@@ -74,14 +74,16 @@ void thread_usb_device (void)
     printf("<USBD> device connect status: %s\r\n", err_str_usb_status(usb_connect_status)); 
     if (usb_connect_status != usbOK)
     {
-        osThreadExit();
+        return;
     }
     
-    osDelay(500);
-
-    if (USBD_Configured(0))
+    for (uint8_t i = 20; i > 0; i++, osDelay(1000))
     {
-        printf("<USBD> Device is configured.\r\n");
+        if (USBD_Configured(0))
+        {
+            printf("<USBD> Device is configured.\r\n");
+            break;
+        }
     }
     
     for (;USBD_Configured(0); osDelay(100))

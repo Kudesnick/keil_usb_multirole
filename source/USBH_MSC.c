@@ -111,6 +111,8 @@ int32_t USBH_MSC_DriveMount (const char *drive_name) {
     case fsFileNotFound:
     case fsDirNotEmpty:
     case fsTooManyOpenFiles:
+    case fsAlreadyExists:
+    case fsNotDirectory:
       return USBH_MSC_ERROR;
   }
  

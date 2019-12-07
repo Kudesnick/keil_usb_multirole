@@ -1,6 +1,6 @@
 /***************************************************************************************************
- *   Project:       usb mrd
- *   Author:        Stulov Tikhon
+ *   Project:       
+ *   Author:        
  ***************************************************************************************************
  *   Distribution:  
  *
@@ -8,11 +8,11 @@
  *   MCU Family:    STM32F
  *   Compiler:      ARMCC
  ***************************************************************************************************
- *   File:          thread_usb_manager.c
- *   Description:   management multirole USB device
+ *   File:          test_sdcard.cpp
+ *   Description:   
  *
  ***************************************************************************************************
- *   History:       22.09.2019 - file created
+ *   History:       23.06.2019 - file created
  *
  **************************************************************************************************/
 
@@ -20,19 +20,14 @@
  *                                      INCLUDED FILES
  **************************************************************************************************/
 
-
-#include "RTE_Components.h"
-#include CMSIS_device_header
-
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
+
+#include "rl_fs.h"
+#include "rl_fs_lib.h"
 
 #include "cpp_os.h"
-#include "err_strings.h"
-#include "thread_usb_device.h"
-#include "thread_usb_host.h"
-#include "gpio.h"
 
 using namespace std;
 
@@ -40,11 +35,7 @@ using namespace std;
  *                                       DEFINITIONS
  **************************************************************************************************/
 
-#define PIN_DISCONNECT PORTA_12
-
-#define USBM_STK_SZ (2048U)
-
-#define TERMINATE_TOUT 2000
+#define SDCARD_STK_SZ (2048U)
 
 /***************************************************************************************************
  *                                      PRIVATE TYPES
@@ -53,6 +44,42 @@ using namespace std;
 /***************************************************************************************************
  *                               PRIVATE FUNCTION PROTOTYPES
  **************************************************************************************************/
+
+fsStatus _print_result(const fsStatus _status, const char *_drive, const char *_action)
+{
+    printf("<sd> drive \"%s\" is %s ", _drive, _action);
+    
+    if (_status != fsOK)
+    {
+        printf("error: ");
+    }
+
+    switch(_status)
+    {
+        case fsOK                : printf("fsOK"); break;
+        case fsError             : printf("fsError - Unspecified error"); break;
+        case fsUnsupported       : printf("fsUnsupported - Operation not supported"); break;
+        case fsAccessDenied      : printf("fsAccessDenied - Resource access denied"); break;
+        case fsInvalidParameter  : printf("fsInvalidParameter - Invalid parameter specified"); break;
+        case fsInvalidDrive      : printf("fsInvalidDrive - Nonexistent drive"); break;
+        case fsInvalidPath       : printf("fsInvalidPath - Invalid path specified"); break;
+        case fsUninitializedDrive: printf("fsUninitializedDrive - Drive is uninitialized"); break;
+        case fsDriverError       : printf("fsDriverError - Read/write error"); break;
+        case fsMediaError        : printf("fsMediaError - Media error"); break;
+        case fsNoMedia           : printf("fsNoMedia - No media, or not initialized"); break;
+        case fsNoFileSystem      : printf("fsNoFileSystem - File system is not formatted"); break;
+        case fsNoFreeSpace       : printf("fsNoFreeSpace - No free space available"); break;
+        case fsFileNotFound      : printf("fsFileNotFound - Requested file not found"); break;
+        case fsDirNotEmpty       : printf("fsDirNotEmpty - The directory is not empty"); break;
+        case fsTooManyOpenFiles  : printf("fsTooManyOpenFiles - Too many open files"); break;
+        case fsAlreadyExists     : printf("fsAlreadyExists - File or directory already exists"); break;
+        case fsNotDirectory      : printf("fsNotDirectory - Path is not a directory"); break;
+    }
+
+    printf(".\r\n");
+    
+    return _status;
+}
 
 /***************************************************************************************************
  *                                       PRIVATE DATA
@@ -74,67 +101,54 @@ using namespace std;
  *                                    PRIVATE FUNCTIONS
  **************************************************************************************************/
 
-class: public cpp_os_thread<USBM_STK_SZ>
+class : public cpp_os_thread<SDCARD_STK_SZ>
 {
 private:
-    void(* device_thread)(void) = thread_usb_device;
-    void(* host_thread)(void) = thread_usb_host;
-
-    /// Emulate USB disconnect (USB_DP)
-    void usb_disconnect_emulate(void)
-    {
-        gpio_out_od_config(PIN_DISCONNECT);
-        gpio_write(PIN_DISCONNECT, false);
-        cpp_os::delay(10);
-    }
-
     void thread_func(void)
     {
-        for(uint8_t otg = 1; true; osDelay(TERMINATE_TOUT), otg ^=1)
+        // Собираем информацию обо всех дисках     
+        for (auto i = 0; i < fs_ndrv; i++)
         {
-            usbStatus usb_status;
+            char drive[4];
+            sprintf(drive, "%2s:", fs_DevPool[i].id);
             
-            // Init usb host role
-            if (otg)
+            printf("<sd> %s init..\r\n", drive);
+            
+            if (_print_result(fchdrive(drive), drive, (const char *)"fchdrive") != fsOK)
             {
-                usb_status = USBH_Initialize (0U);
-                printf("<USBH> Initialize: %s\r\n", err_str_usb_status(usb_status));
-                
-                if (usb_status == usbOK)
-                {
-                    uint32_t time = osKernelGetTickCount();
-    
-                    while (osKernelGetTickCount() - time < 4000)
-                    {
-                        host_thread();
-                    }
-                }
-                
-                usb_status = USBH_Uninitialize(0);
-                printf("<USBH> Uninitialize: %s\r\n", err_str_usb_status(usb_status));
+                continue;
+            }
+
+            if (_print_result(finit(drive), drive, (const char *)"finit") != fsOK)
+            {
+                continue;
             }
             
-            // init usbdevice device role
-            else
+            if (_print_result(fmount(drive), drive, (const char *)"fmount") != fsOK)
             {
-                usb_status = USBD_Initialize (0U);
-                printf("<USBD> Initialize: %s\r\n", err_str_usb_status(usb_status));
-                
-                if (usb_status == usbOK)
-                {
-                    device_thread();
-                }
-                
-                usb_status = USBD_Uninitialize(0);
-                printf("<USBD> Uninitialize: %s\r\n", err_str_usb_status(USBD_Uninitialize(0)));
+                continue;
             }
+            
+            char label[12];
+            uint32_t serial;
+            if (_print_result(fvol(drive, label, &serial), drive, (const char *)"fmount") != fsOK)
+            {
+                continue;
+            }
+            
+            printf("<sd> drive \"%s\" label: \"%s\", serial number: %x.\r\n", drive, label, serial);
         }
+
+        printf("<sd> fs_fat_fh_cnt = %d\r\n", fs_fat_fh_cnt);
+
+        for(;;){};
+        
     };
-    
+
 public:
     using cpp_os_thread::cpp_os_thread;
     
-} thread_usb_manager = {};
+} thread_fs_scan = {false};
 
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS

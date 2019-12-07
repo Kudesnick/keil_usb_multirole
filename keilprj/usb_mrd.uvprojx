@@ -10,7 +10,7 @@
       <TargetName>debug_103</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <pCCUsed>6120000::V6.12::.\ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -380,23 +380,8 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>source</GroupName>
+          <GroupName>usb</GroupName>
           <Files>
-            <File>
-              <FileName>cpp_list.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_list.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>cpp_os.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_os.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\main.cpp</FilePath>
-            </File>
             <File>
               <FileName>thread_usb_manager.cpp</FileName>
               <FileType>8</FileType>
@@ -433,9 +418,59 @@
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
             <File>
+              <FileName>USBD_User_MSC_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_MSC_0.c</FilePath>
+            </File>
+            <File>
               <FileName>USBH_MSC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>os</GroupName>
+          <Files>
+            <File>
+              <FileName>cpp_list.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\cpp_list.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>cpp_os.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\cpp_os.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\main.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>gpio</GroupName>
+          <Files>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\gpio.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>fs</GroupName>
+          <Files>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_fs_scan.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\thread_fs_scan.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -833,23 +868,8 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>source</GroupName>
+          <GroupName>usb</GroupName>
           <Files>
-            <File>
-              <FileName>cpp_list.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_list.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>cpp_os.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_os.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\main.cpp</FilePath>
-            </File>
             <File>
               <FileName>thread_usb_manager.cpp</FileName>
               <FileType>8</FileType>
@@ -886,9 +906,59 @@
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
             <File>
+              <FileName>USBD_User_MSC_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_MSC_0.c</FilePath>
+            </File>
+            <File>
               <FileName>USBH_MSC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>os</GroupName>
+          <Files>
+            <File>
+              <FileName>cpp_list.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\cpp_list.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>cpp_os.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\cpp_os.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\main.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>gpio</GroupName>
+          <Files>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\gpio.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>fs</GroupName>
+          <Files>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_fs_scan.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\thread_fs_scan.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1286,23 +1356,8 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>source</GroupName>
+          <GroupName>usb</GroupName>
           <Files>
-            <File>
-              <FileName>cpp_list.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_list.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>cpp_os.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_os.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\main.cpp</FilePath>
-            </File>
             <File>
               <FileName>thread_usb_manager.cpp</FileName>
               <FileType>8</FileType>
@@ -1339,9 +1394,59 @@
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
             <File>
+              <FileName>USBD_User_MSC_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_MSC_0.c</FilePath>
+            </File>
+            <File>
               <FileName>USBH_MSC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBH_MSC.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>os</GroupName>
+          <Files>
+            <File>
+              <FileName>cpp_list.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\cpp_list.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>cpp_os.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\cpp_os.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\main.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>gpio</GroupName>
+          <Files>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\gpio.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>fs</GroupName>
+          <Files>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread_fs_scan.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\thread_fs_scan.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1369,6 +1474,14 @@
 
   <RTE>
     <apis>
+      <api Capiversion="2.2.0" Cclass="CMSIS Driver" Cgroup="SPI" exclusive="0">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </api>
       <api Capiversion="2.3.0" Cclass="CMSIS Driver" Cgroup="USART" exclusive="0">
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
         <targetInfos>
@@ -1451,7 +1564,7 @@
         </targetInfos>
       </component>
       <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="File System" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with File System">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.2"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1459,7 +1572,7 @@
         </targetInfos>
       </component>
       <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.2"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1467,7 +1580,7 @@
         </targetInfos>
       </component>
       <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.2"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1475,7 +1588,7 @@
         </targetInfos>
       </component>
       <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.2"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1483,79 +1596,116 @@
         </targetInfos>
       </component>
       <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="TTY" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.2"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="CORE" Cvariant="LFN" Cvendor="Keil" Cversion="6.12.0" condition="CMSIS Core with RTOS and File System I/O">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="CORE" Cvariant="LFN" Cvendor="Keil" Cversion="6.13.0" condition="CMSIS Core with RTOS and File System I/O">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="USB" Cvendor="Keil" Cversion="6.12.0" condition="File System and USB Host MSC" maxInstances="2">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="Memory Card" Cvendor="Keil" Cversion="6.13.0" condition="File System and SD/MMC Driver" maxInstances="2">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
+        <targetInfos>
+          <targetInfo instances="2" name="debug_103" versionMatchMode=""/>
+          <targetInfo instances="2" name="debug_411" versionMatchMode=""/>
+          <targetInfo instances="2" name="debug_413" versionMatchMode=""/>
+        </targetInfos>
+      </component>
+      <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="USB" Cvendor="Keil" Cversion="6.13.0" condition="File System and USB Host MSC" maxInstances="2">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="CORE" Cvariant="Release" Cvendor="Keil" Cversion="6.13.6" condition="USB Core">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="CORE" Cvariant="Release" Cvendor="Keil" Cversion="6.13.7" condition="USB Core">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="4">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="CDC" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="8">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="CDC" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="8">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="4">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103" versionMatchMode=""/>
           <targetInfo name="debug_411" versionMatchMode=""/>
           <targetInfo name="debug_413" versionMatchMode=""/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance and Host Driver" maxInstances="4">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="MSC" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="4">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance and Host Driver">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Host Instance and Host Driver" maxInstances="4">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="MSC" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance, Host Driver and File System USB Drive">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="HID" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Host Instance and Host Driver">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="MSC" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Host Instance and Host Driver and File System USB Drive">
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="SPI" Cvendor="Keil" Cversion="2.2" condition="STM32F1xx CMSIS GPIO DMA">
+        <package name="STM32F1xx_DFP" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="Keil" version="2.3.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="SPI" Cvendor="Keil" Cversion="2.12" condition="STM32F4 CMSIS_Driver SPI">
+        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <targetInfos>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="2.2.0" Cclass="CMSIS Driver" Cgroup="SPI" Csub="Multi-Slave" Cvendor="Keil" Cversion="1.0.1" condition="CMSIS Core with RTOS2 and SPI Driver">
+        <package name="CMSIS-Driver" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="ARM" version="2.4.1"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1656,6 +1806,13 @@
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="SPI" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 HAL DMA">
+        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <targetInfos>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="USART" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 HAL DMA RCC">
         <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
         <targetInfos>
@@ -1698,6 +1855,16 @@
         <instance index="0">RTE\CMSIS\RTX_Config.h</instance>
         <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Library" Cvendor="ARM" Cversion="5.5.1" condition="RTOS2 RTX5 Lib"/>
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="Config\SPI_MultiSlave_Config.h" version="1.0.0">
+        <instance index="0">RTE\CMSIS_Driver\SPI_MultiSlave_Config.h</instance>
+        <component Capiversion="2.2.0" Cclass="CMSIS Driver" Cgroup="SPI" Csub="Multi-Slave" Cvendor="Keil" Cversion="1.0.1" condition="CMSIS Core with RTOS2 and SPI Driver"/>
+        <package name="CMSIS-Driver" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="ARM" version="2.4.1"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1800,18 +1967,38 @@
       </file>
       <file attr="config" category="source" name="FileSystem\Config\FS_Config.c" version="6.3.0">
         <instance index="0">RTE\File_System\FS_Config.c</instance>
-        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="CORE" Cvariant="LFN" Cvendor="Keil" Cversion="6.12.0" condition="CMSIS Core with RTOS and File System I/O"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="CORE" Cvariant="LFN" Cvendor="Keil" Cversion="6.13.0" condition="CMSIS Core with RTOS and File System I/O"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="FileSystem\Config\FS_Config_USB.h" version="6.2.0">
+      <file attr="config" category="header" name="FileSystem\Config\FS_Config_MC.h" version="6.2.0">
+        <instance index="0">RTE\File_System\FS_Config_MC_0.h</instance>
+        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="Memory Card" Cvendor="Keil" Cversion="6.13.0" condition="File System and SD/MMC Driver" maxInstances="2"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="FileSystem\Config\FS_Config_MC.h" version="6.2.0">
+        <instance index="1">RTE\File_System\FS_Config_MC_1.h</instance>
+        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="Memory Card" Cvendor="Keil" Cversion="6.13.0" condition="File System and SD/MMC Driver" maxInstances="2"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="FileSystem\Config\FS_Config_USB.h" version="6.2.0">
         <instance index="0">RTE\File_System\FS_Config_USB_0.h</instance>
-        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="USB" Cvendor="Keil" Cversion="6.12.0" condition="File System and USB Host MSC" maxInstances="2"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="USB" Cvendor="Keil" Cversion="6.13.0" condition="File System and USB Host MSC" maxInstances="2"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1820,8 +2007,8 @@
       </file>
       <file attr="config" category="source" name="USB\Config\USBD_Config.c" version="5.2.0">
         <instance index="0">RTE\USB\USBD_Config_0.c</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="4"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1840,20 +2027,20 @@
         <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
         <targetInfos/>
       </file>
-      <file attr="config" category="source" name="USB\Config\USBD_Config_CDC.h" version="5.2.0">
+      <file attr="config" category="header" name="USB\Config\USBD_Config_CDC.h" version="5.2.0">
         <instance index="0">RTE\USB\USBD_Config_CDC_0.h</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="CDC" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="8"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="CDC" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="8"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="USB\Config\USBD_Config_HID.h" version="5.0.1">
+      <file attr="config" category="header" name="USB\Config\USBD_Config_HID.h" version="5.0.1">
         <instance index="0">RTE\USB\USBD_Config_HID_0.h</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="4"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1866,30 +2053,40 @@
         <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
         <targetInfos/>
       </file>
+      <file attr="config" category="header" name="USB\Config\USBD_Config_MSC.h" version="5.1.1">
+        <instance index="0">RTE\USB\USBD_Config_MSC_0.h</instance>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="MSC" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Device Instance and Device Driver" maxInstances="4"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
+        <targetInfos>
+          <targetInfo name="debug_103"/>
+          <targetInfo name="debug_411"/>
+          <targetInfo name="debug_413"/>
+        </targetInfos>
+      </file>
       <file attr="config" category="source" name="USB\Config\USBH_Config.c" version="5.2.1">
         <instance index="0">RTE\USB\USBH_Config_0.c</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance and Host Driver" maxInstances="4"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Host Instance and Host Driver" maxInstances="4"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="USB\Config\USBH_Config_HID.h" version="5.1.0">
+      <file attr="config" category="header" name="USB\Config\USBH_Config_HID.h" version="5.1.0">
         <instance index="0">RTE\USB\USBH_Config_HID.h</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance and Host Driver"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="HID" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Host Instance and Host Driver"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="USB\Config\USBH_Config_MSC.h" version="5.0.0">
+      <file attr="config" category="header" name="USB\Config\USBH_Config_MSC.h" version="5.0.0">
         <instance index="0">RTE\USB\USBH_Config_MSC.h</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="MSC" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance, Host Driver and File System USB Drive"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="MSC" Cvendor="Keil" Cversion="6.13.7" condition="USB Core and Host Instance and Host Driver and File System USB Drive"/>
+        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.10.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
