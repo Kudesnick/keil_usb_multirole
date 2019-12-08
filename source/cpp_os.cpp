@@ -27,7 +27,7 @@
 #include <stdio.h>
 
 #ifdef RTE_Compiler_EventRecorder_DAP
-#include "EventRecorder.h"
+    #include "EventRecorder.h"
 #endif
 
 #include "cpp_list.h"
@@ -95,8 +95,8 @@ void timer_run(void * argument)
 
 void cpp_os::create_os(void)
 {
-#if defined(RTE_Compiler_EventRecorder_DAP) && defined(STATIC_CBM)
-    EventRecorderInitialize (STATIC_CBM, 1);
+#if defined(RTE_Compiler_EventRecorder_DAP)
+    EventRecorderInitialize (EventRecordError, 1);
 #endif
 
     os_chck(osKernelInitialize()); // initialize RTX

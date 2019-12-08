@@ -25,6 +25,8 @@
  *                                      INCLUDED FILES
  **************************************************************************************************/
 
+#include "RTE_Components.h"
+
 #include <stdlib.h>
 #include <stdint.h>
 
@@ -46,7 +48,9 @@
  *  @warning    If STATIC_CBM is undefined, you must up size of dynamic memory in RTX_Config.h,
  *              because control blocks located in it.
  */
-#define STATIC_CBM EventRecordError
+#ifndef RTE_Compiler_EventRecorder_DAP
+    #define STATIC_CBM
+#endif
 
 /***************************************************************************************************
  *                                      PUBLIC TYPES
