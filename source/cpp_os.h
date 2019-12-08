@@ -1,6 +1,6 @@
 /***************************************************************************************************
  *   Project:       
- *   Author:        
+ *   Author:        Stulov Tikhon (kudesnick@inbox.ru)
  ***************************************************************************************************
  *   Distribution:  
  *
@@ -9,12 +9,13 @@
  *   Compiler:      ARMCC
  ***************************************************************************************************
  *   File:          cpp_os.h
- *   Description:   Объектная обертка над примитивами операционной системы. Классы обеспечивают
- *                  статическое выделение памяти под нужды элементов ОС (стеки, очереди и пр.) и
- *                  предоставляют объектный интерфейс для управления элементами. 
+ *   Description:   Object wrapper for RTX-5 primitives.
+ *                  Classes provide static memory allocation for stacks, queues and so on.
+ *                  Сlasses provide an interface for using OS functions within the C ++ paradigm. 
  *
  ***************************************************************************************************
  *   History:       27.05.2019 - file created
+ *                  08.12.2019 - v0.1.0 - added all primitives and Debug Access Port (DAP) support
  *
  **************************************************************************************************/
 
@@ -60,6 +61,7 @@
  **************************************************************************************************/
 
 void thread_run(void * argument);
+void timer_run(void * argument);
 
 /***************************************************************************************************
  *                               PUBLIC CLASS
@@ -124,7 +126,7 @@ public:
     static constexpr uint32_t flags_no_clear = osFlagsNoClear;
     static constexpr uint32_t flags_wait_any_no_clr = osFlagsWaitAny | osFlagsNoClear;
     static constexpr uint32_t flags_wait_all_no_clr = osFlagsWaitAll | osFlagsNoClear;
-    
+
     static constexpr uint32_t mutex_recursive    = osMutexRecursive;
     static constexpr uint32_t mutex_prio_inherit = osMutexPrioInherit;
     static constexpr uint32_t mutex_robust       = osMutexRobust;
@@ -291,6 +293,79 @@ public:
     uint32_t flags_set(uint32_t _flags)
     {
         return osThreadFlagsSet(id_, _flags);
+    };
+};
+
+//-- Timer
+
+// Класс таймера
+class cpp_os_timer : public cpp_os
+{
+private:
+
+#ifdef STATIC_CBM
+    osRtxTimer_t  tcb;
+#endif
+    bool          repeat;
+    uint32_t      interval;
+
+    friend void timer_run(void * argument);
+    
+    // Виртуальная функция тела таймера. Должна быть реализована в дочернем классе.
+    virtual void timer_func(void) = 0;
+
+protected:
+    osTimerId_t id_;
+
+public:
+    // Constructor
+    cpp_os_timer(const uint32_t _interval, const bool _repeat):
+        cpp_os(),
+        interval(_interval),
+        repeat(_repeat)
+    {};
+
+    // Инициализация таймера
+    osTimerId_t create(void)
+    {
+        const osTimerAttr_t attr =
+        {
+#ifdef STATIC_CBM
+            .cb_mem     = &tcb,
+            .cb_size    = sizeof(tcb),
+#endif
+        };
+        
+        const osTimerType_t type = (repeat) ? osTimerPeriodic : osTimerOnce;
+        
+        id_ = osTimerNew(timer_run, type, this, &attr);
+        
+        return id_;
+    };
+    
+    const char * get_name(void)
+    {
+        return osTimerGetName(id_);
+    };
+    
+    osStatus_t start(void)
+    {
+        return osTimerStart(id_, interval);	
+    };
+    
+    osStatus_t start(const uint32_t _interval)
+    {
+        return osTimerStart(id_, _interval);	
+    };
+    
+    osStatus_t stop(void)
+    {
+        return osTimerStop(id_);
+    };
+    
+    bool is_runing(void)
+    {
+        return static_cast<bool>(osTimerIsRunning(id_));
     };
 };
 

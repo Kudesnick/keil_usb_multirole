@@ -76,6 +76,11 @@ void thread_run(void * argument)
     static_cast<cpp_os_thread<> *>(argument)->thread_func();
 }
 
+void timer_run(void * argument)
+{
+    static_cast<cpp_os_timer *>(argument)->timer_func();
+}
+
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS
  **************************************************************************************************/
