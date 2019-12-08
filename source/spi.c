@@ -77,16 +77,19 @@ void SPI_Control_SlaveSelect(uint32_t device, uint32_t ss_state)
     if (!pins_is_initialized)
     {
         pins_is_initialized = true;
-    
+
         gpio_out_od_config(PIN_CS_MICROSD_0);
-        gpio_write(PIN_CS_MICROSD_0, true);
         gpio_out_od_config(PIN_CS_MICROSD_1);
-        gpio_write(PIN_CS_MICROSD_1, true);
 #ifdef PIN_CS_ONBOARD
         gpio_out_pp_config(PIN_CS_ONBOARD  );
-        gpio_write(PIN_CS_ONBOARD  , true);
 #endif
     }
+    gpio_write(PIN_CS_MICROSD_0, true);
+    gpio_write(PIN_CS_MICROSD_1, true);
+#ifdef PIN_CS_ONBOARD
+    gpio_write(PIN_CS_ONBOARD  , true);
+#endif
+    
     
     switch(device)
     {
