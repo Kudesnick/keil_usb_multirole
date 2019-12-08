@@ -44,7 +44,7 @@
 //   <i> Defines the combined global dynamic memory size.
 //   <i> Default: 4096
 #ifndef OS_DYNAMIC_MEM_SIZE
-#define OS_DYNAMIC_MEM_SIZE         256
+#define OS_DYNAMIC_MEM_SIZE         4096
 #endif
  
 //   <o>Kernel Tick Frequency [Hz] <1-1000000>
@@ -343,7 +343,7 @@
 //   <e>Global Initialization
 //   <i> Initialize Event Recorder during 'osKernelInitialize'.
 #ifndef OS_EVR_INIT
-#define OS_EVR_INIT                 0
+#define OS_EVR_INIT                 1
 #endif
  
 //     <q>Start recording
@@ -360,7 +360,7 @@
 //       <o.3>Detailed operation events
 //     </h>
 #ifndef OS_EVR_LEVEL
-#define OS_EVR_LEVEL                0x00U
+#define OS_EVR_LEVEL                0x01U
 #endif
  
 //     <h>RTOS Event Filter Setup
@@ -397,7 +397,7 @@
 //         <o.3>Detailed operation events
 //       </h>
 #ifndef OS_EVR_THREAD_LEVEL 
-#define OS_EVR_THREAD_LEVEL         0x05U
+#define OS_EVR_THREAD_LEVEL         0x01U
 #endif
  
 //       <h>Generic Wait
