@@ -526,6 +526,11 @@
               <FileType>1</FileType>
               <FilePath>..\source\gpio.c</FilePath>
             </File>
+            <File>
+              <FileName>pin_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\pin_config.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1083,6 +1088,11 @@
               <FileType>1</FileType>
               <FilePath>..\source\gpio.c</FilePath>
             </File>
+            <File>
+              <FileName>pin_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\pin_config.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1570,6 +1580,11 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>pin_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\pin_config.h</FilePath>
             </File>
           </Files>
         </Group>
