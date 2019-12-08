@@ -46,7 +46,7 @@
  *  @warning    If STATIC_CBM is undefined, you must up size of dynamic memory in RTX_Config.h,
  *              because control blocks located in it.
  */
-#define STATIC_CBM
+#define STATIC_CBM EventRecordError
 
 /***************************************************************************************************
  *                                      PUBLIC TYPES
