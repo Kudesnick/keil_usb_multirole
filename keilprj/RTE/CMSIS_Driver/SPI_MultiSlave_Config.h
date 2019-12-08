@@ -36,8 +36,9 @@
 // <h>SPI Multi-Slave Driver Configuration
 
 //   <o>Connect to hardware via Driver_SPI# <0-255>
-//   <i>Select driver control block for hardware interface
-#define SPI_DRIVER              1
+//   <i>Select driver control block for hardware interface. If you selected 0, then driver can be
+//   <i>autodetect from "RTE_Device.h". It working if you configure one SPI unit only.
+#define SPI_DRIVER              0
 
 //   <e0>Slave Device 0
 //   <i>Enable or disable slave device
@@ -76,5 +77,26 @@
 #define SPI_DRIVER_SLAVE_3      13
 
 // </h>
+
+#include "RTE_Device.h"
+
+#if (SPI_DRIVER == 0)
+    #undef SPI_DRIVER
+    #if   (RTE_SPI1 != 0)
+        #define SPI_DRIVER 1
+    #elif (RTE_SPI2 != 0)
+        #define SPI_DRIVER 2
+    #elif (RTE_SPI3 != 0)
+        #define SPI_DRIVER 3
+    #elif (RTE_SPI4 != 0)
+        #define SPI_DRIVER 4
+    #elif (RTE_SPI5 != 0)
+        #define SPI_DRIVER 5
+    #elif (RTE_SPI6 != 0)
+        #define SPI_DRIVER 6
+    #else
+        #error SPI_DRIVER not configured!
+    #endif
+#endif
 
 //------------- <<< end of configuration section >>> -------------------------

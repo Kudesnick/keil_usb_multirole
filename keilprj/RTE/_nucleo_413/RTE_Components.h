@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'usb_mrd' 
- * Target:  'debug_411' 
+ * Target:  'nucleo_413' 
  */
 
 #ifndef RTE_COMPONENTS_H

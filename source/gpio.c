@@ -137,6 +137,76 @@
 
 #ifdef RTE_DEVICE_HAL_COMMON
 
+#ifdef RTE_DEVICE_FRAMEWORK_CLASSIC
+/**
+  \fn          void Enable_GPIO_Clock (GPIO_TypeDef *port)
+  \brief       Enable GPIO clock
+*/
+static void _enable_gpio_clock(const GPIO_TypeDef *GPIOx)
+{
+    if      (GPIOx == GPIOA)
+    {
+        __HAL_RCC_GPIOA_CLK_ENABLE();
+    }
+    else if (GPIOx == GPIOB)
+    {
+        __HAL_RCC_GPIOB_CLK_ENABLE();
+    }
+    else if (GPIOx == GPIOC)
+    {
+        __HAL_RCC_GPIOC_CLK_ENABLE();
+    }
+#if defined(GPIOD)
+  else if (GPIOx == GPIOD)
+  {
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+  }
+#endif
+#if defined(GPIOE)
+  else if (GPIOx == GPIOE)
+  {
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+  }
+#endif
+#if defined(GPIOF)
+  else if (GPIOx == GPIOF)
+  {
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+  }
+#endif
+#if defined(GPIOG)
+  else if (GPIOx == GPIOG)
+  {
+    __HAL_RCC_GPIOG_CLK_ENABLE();
+  }
+#endif
+#if defined(GPIOH)
+  else if (GPIOx == GPIOH)
+  {
+    __HAL_RCC_GPIOH_CLK_ENABLE();
+  }
+#endif
+#if defined(GPIOI)
+  else if (GPIOx == GPIOI)
+  {
+    __HAL_RCC_GPIOI_CLK_ENABLE();
+  }
+#endif
+#if defined(GPIOJ)
+  else if (GPIOx == GPIOJ)
+  {
+    __HAL_RCC_GPIOJ_CLK_ENABLE();
+  }
+#endif
+#if defined(GPIOK)
+  else if (GPIOx == GPIOK)
+  {
+    __HAL_RCC_GPIOK_CLK_ENABLE();
+  }
+#endif
+}
+#endif
+
 void gpio_out_pp_config(const uint8_t _port_pin)
 {
     GPIO_InitTypeDef GPIO_Init =
@@ -146,6 +216,10 @@ void gpio_out_pp_config(const uint8_t _port_pin)
         .Speed = GPIO_SPEED_FREQ_MEDIUM,
         .Pull  = GPIO_NOPULL,
     };
+    
+#ifdef RTE_DEVICE_FRAMEWORK_CLASSIC
+    _enable_gpio_clock(GPIO_PORT(_port_pin));
+#endif
 
     HAL_GPIO_Init(GPIO_PORT(_port_pin), &GPIO_Init);
 }
@@ -159,6 +233,10 @@ void gpio_out_od_config(const uint8_t _port_pin)
         .Speed = GPIO_SPEED_FREQ_MEDIUM,
         .Pull  = GPIO_PULLUP,
     };
+    
+#ifdef RTE_DEVICE_FRAMEWORK_CLASSIC
+    _enable_gpio_clock(GPIO_PORT(_port_pin));
+#endif
 
     HAL_GPIO_Init(GPIO_PORT(_port_pin), &GPIO_Init);
 }
@@ -171,6 +249,10 @@ void gpio_in_flt_config(const uint8_t _port_pin)
         .Mode  = GPIO_MODE_INPUT,
         .Pull  = GPIO_NOPULL,   
     };
+    
+#ifdef RTE_DEVICE_FRAMEWORK_CLASSIC
+    _enable_gpio_clock(GPIO_PORT(_port_pin));
+#endif
 
     HAL_GPIO_Init(GPIO_PORT(_port_pin), &GPIO_Init);
 }
@@ -183,6 +265,10 @@ void gpio_in_pup_config(const uint8_t _port_pin)
         .Mode  = GPIO_MODE_INPUT,
         .Pull  = GPIO_PULLUP,   
     };
+    
+#ifdef RTE_DEVICE_FRAMEWORK_CLASSIC
+    _enable_gpio_clock(GPIO_PORT(_port_pin));
+#endif
 
     HAL_GPIO_Init(GPIO_PORT(_port_pin), &GPIO_Init);
 }
@@ -204,7 +290,15 @@ __INLINE void gpio_out_pp_config(const uint8_t _port_pin)
     GPIO_PinConfigure(GPIO_PORT(_port_pin),
                       GPIO_PIN_SOURCE(_port_pin),
                       GPIO_OUT_PUSH_PULL,
-                      GPIO_MODE_OUT10MHZ);
+                      GPIO_MODE_OUT2MHZ);
+}
+
+__INLINE void gpio_out_od_config(const uint8_t _port_pin)
+{
+    GPIO_PinConfigure(GPIO_PORT(_port_pin),
+                      GPIO_PIN_SOURCE(_port_pin),
+                      GPIO_OUT_OPENDRAIN,
+                      GPIO_MODE_OUT2MHZ);
 }
 
 __INLINE void gpio_in_flt_config(const uint8_t _port_pin)

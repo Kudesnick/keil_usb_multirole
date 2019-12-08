@@ -1222,10 +1222,10 @@
 
 // <e> SPI1 (Serial Peripheral Interface 1) [Driver_SPI1]
 // <i> Configuration settings for Driver_SPI1 in component ::CMSIS Driver:SPI
-#define RTE_SPI1                        0
+#define RTE_SPI1                        1
 
 //   <o> SPI1_MISO Pin <0=>Not Used <1=>PA6 <2=>PB4
-#define RTE_SPI1_MISO_PORT_ID           0
+#define RTE_SPI1_MISO_PORT_ID           1
 #if    (RTE_SPI1_MISO_PORT_ID == 0)
 #define RTE_SPI1_MISO                   0
 #elif  (RTE_SPI1_MISO_PORT_ID == 1)
@@ -1241,7 +1241,7 @@
 #endif
 
 //   <o> SPI1_MOSI Pin <0=>Not Used <1=>PA7 <2=>PB5
-#define RTE_SPI1_MOSI_PORT_ID           0
+#define RTE_SPI1_MOSI_PORT_ID           1
 #if    (RTE_SPI1_MOSI_PORT_ID == 0)
 #define RTE_SPI1_MOSI                   0
 #elif  (RTE_SPI1_MOSI_PORT_ID == 1)
@@ -1294,7 +1294,7 @@
 //     <o4> Priority <0=>Low <1=>Medium <2=>High <3=>Very High
 //     <i>  Selects DMA Priority
 //   </e>
-#define RTE_SPI1_RX_DMA                 0
+#define RTE_SPI1_RX_DMA                 1
 #define RTE_SPI1_RX_DMA_NUMBER          2
 #define RTE_SPI1_RX_DMA_STREAM          0
 #define RTE_SPI1_RX_DMA_CHANNEL         3
@@ -1310,7 +1310,7 @@
 //     <o4> Priority <0=>Low <1=>Medium <2=>High <3=>Very High
 //     <i>  Selects DMA Priority
 //   </e>
-#define RTE_SPI1_TX_DMA                 0
+#define RTE_SPI1_TX_DMA                 1
 #define RTE_SPI1_TX_DMA_NUMBER          2
 #define RTE_SPI1_TX_DMA_STREAM          5
 #define RTE_SPI1_TX_DMA_CHANNEL         3
@@ -1324,7 +1324,7 @@
 #define RTE_SPI2                        0
 
 //   <o> SPI2_MISO Pin <0=>Not Used <1=>PB14 <2=>PC2 <3=>PI2 <4=>PA12
-#define RTE_SPI2_MISO_PORT_ID           0
+#define RTE_SPI2_MISO_PORT_ID           4
 #if    (RTE_SPI2_MISO_PORT_ID == 0)
 #define RTE_SPI2_MISO                   0
 #elif  (RTE_SPI2_MISO_PORT_ID == 1)
@@ -1348,7 +1348,7 @@
 #endif
 
 //   <o> SPI2_MOSI Pin <0=>Not Used <1=>PB15 <2=>PC3 <3=>PI3 <4=>PA10
-#define RTE_SPI2_MOSI_PORT_ID           0
+#define RTE_SPI2_MOSI_PORT_ID           4
 #if    (RTE_SPI2_MOSI_PORT_ID == 0)
 #define RTE_SPI2_MOSI                   0
 #elif  (RTE_SPI2_MOSI_PORT_ID == 1)
@@ -1372,7 +1372,7 @@
 #endif
 
 //   <o> SPI2_SCK Pin <0=>PB10 <1=>PB13 <2=>PC7 <3=>PD3 <4=>PI1 <5=>PA9
-#define RTE_SPI2_SCL_PORT_ID            0
+#define RTE_SPI2_SCL_PORT_ID            5
 #if    (RTE_SPI2_SCL_PORT_ID == 0)
 #define RTE_SPI2_SCL_PORT               GPIOB
 #define RTE_SPI2_SCL_BIT                10
@@ -1429,7 +1429,7 @@
 //     <o4> Priority <0=>Low <1=>Medium <2=>High <3=>Very High
 //     <i>  Selects DMA Priority
 //   </e>
-#define RTE_SPI2_RX_DMA                 0
+#define RTE_SPI2_RX_DMA                 1
 #define RTE_SPI2_RX_DMA_NUMBER          1
 #define RTE_SPI2_RX_DMA_STREAM          3
 #define RTE_SPI2_RX_DMA_CHANNEL         0
@@ -1445,7 +1445,7 @@
 //     <o4> Priority <0=>Low <1=>Medium <2=>High <3=>Very High
 //     <i>  Selects DMA Priority
 //   </e>
-#define RTE_SPI2_TX_DMA                 0
+#define RTE_SPI2_TX_DMA                 1
 #define RTE_SPI2_TX_DMA_NUMBER          1
 #define RTE_SPI2_TX_DMA_STREAM          4
 #define RTE_SPI2_TX_DMA_CHANNEL         0
@@ -2471,7 +2471,7 @@
 
 //     <o0.0> VBUS Sensing Pin
 //     <i> Enable or disable VBUS sensing
-#define RTE_OTG_FS_VBUS_SENSING_PIN     0
+#define RTE_OTG_FS_VBUS_SENSING_PIN     1
 //   </e>
 
 //   <e> Host [Driver_USBH0]

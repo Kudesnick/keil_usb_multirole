@@ -25,15 +25,17 @@
 
 #include "Driver_SPI.h"
 
-#include "gpio.h"
+#include "pin_config.h"
 
 /***************************************************************************************************
  *                                       DEFINITIONS
  **************************************************************************************************/
 
-#define PIN_CS_MICROSD_0 PORTA_02
-#define PIN_CS_MICROSD_1 PORTA_03
-#define PIN_CS_ONBOARD   PORTA_04
+#ifdef PIN_SPI_CS0
+#define PIN_CS_ONBOARD   PIN_SPI_CS0
+#endif
+#define PIN_CS_MICROSD_0 PIN_SPI_CS1
+#define PIN_CS_MICROSD_1 PIN_SPI_CS2
 
 /***************************************************************************************************
  *                                      PRIVATE TYPES
@@ -74,22 +76,33 @@ void SPI_Control_SlaveSelect(uint32_t device, uint32_t ss_state)
     
     if (!pins_is_initialized)
     {
-        gpio_out_pp_config(PIN_CS_MICROSD_0);
-        gpio_out_pp_config(PIN_CS_MICROSD_1);
+        pins_is_initialized = true;
+
+        gpio_out_od_config(PIN_CS_MICROSD_0);
+        gpio_out_od_config(PIN_CS_MICROSD_1);
+#ifdef PIN_CS_ONBOARD
         gpio_out_pp_config(PIN_CS_ONBOARD  );
-        gpio_write(PIN_CS_MICROSD_0, true);
-        gpio_write(PIN_CS_MICROSD_1, true);
-        gpio_write(PIN_CS_ONBOARD  , true);
+#endif
     }
+    gpio_write(PIN_CS_MICROSD_0, true);
+    gpio_write(PIN_CS_MICROSD_1, true);
+#ifdef PIN_CS_ONBOARD
+    gpio_write(PIN_CS_ONBOARD  , true);
+#endif
+    
     
     switch(device)
     {
         case 0:
-            gpio_write(PIN_CS_MICROSD_0, (ss_state == ARM_SPI_SS_INACTIVE)); break;
+            gpio_write(PIN_CS_MICROSD_0, (ss_state == ARM_SPI_SS_INACTIVE));
+            break;
         case 1:
-            gpio_write(PIN_CS_MICROSD_1, (ss_state == ARM_SPI_SS_INACTIVE)); break;
+            gpio_write(PIN_CS_MICROSD_1, (ss_state == ARM_SPI_SS_INACTIVE));
+            break;
+#ifdef PIN_CS_ONBOARD
         case 2:
             gpio_write(PIN_CS_ONBOARD  , (ss_state == ARM_SPI_SS_INACTIVE)); break;
+#endif
         default:
             printf("<spi> access error. Device %d not found.", device);
             break;

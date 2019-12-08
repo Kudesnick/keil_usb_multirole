@@ -32,7 +32,7 @@
 #include "err_strings.h"
 #include "thread_usb_device.h"
 #include "thread_usb_host.h"
-#include "gpio.h"
+#include "pin_config.h"
 
 using namespace std;
 
@@ -40,7 +40,7 @@ using namespace std;
  *                                       DEFINITIONS
  **************************************************************************************************/
 
-#define PIN_DISCONNECT PORTA_12
+#define PIN_DISCONNECT PIN_USB_DB
 
 #define USBM_STK_SZ (2048U)
 
@@ -79,6 +79,24 @@ class: public cpp_os_thread<USBM_STK_SZ>
 private:
     void(* device_thread)(void) = thread_usb_device;
     void(* host_thread)(void) = thread_usb_host;
+    
+#ifndef PIN_USB_ID
+    bool id_simulate = true;
+    
+    bool otg_detect(void)
+    {
+        id_simulate = !id_simulate;
+        
+        return id_simulate;
+    }
+#else
+    bool otg_detect(void)
+    {
+        gpio_in_pup_config(PIN_USB_ID);
+        
+        return (gpio_read(PIN_USB_ID) == false);
+    }
+#endif
 
     /// Emulate USB disconnect (USB_DP)
     void usb_disconnect_emulate(void)
@@ -90,14 +108,12 @@ private:
 
     void thread_func(void)
     {
-        for(uint8_t otg = 1; true; osDelay(TERMINATE_TOUT), otg ^=1)
+        for(;; osDelay(TERMINATE_TOUT))
         {
-            usbStatus usb_status;
-            
             // Init usb host role
-            if (otg)
+            if (otg_detect())
             {
-                usb_status = USBH_Initialize (0U);
+                usbStatus usb_status = USBH_Initialize (0U);
                 printf("<USBH> Initialize: %s\r\n", err_str_usb_status(usb_status));
                 
                 if (usb_status == usbOK)
@@ -117,7 +133,7 @@ private:
             // init usbdevice device role
             else
             {
-                usb_status = USBD_Initialize (0U);
+                usbStatus usb_status = USBD_Initialize (0U);
                 printf("<USBD> Initialize: %s\r\n", err_str_usb_status(usb_status));
                 
                 if (usb_status == usbOK)
