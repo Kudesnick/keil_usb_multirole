@@ -20,9 +20,15 @@
  *                                      INCLUDED FILES
  **************************************************************************************************/
 
+#include "RTE_Components.h"
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+
+#ifdef RTE_Compiler_EventRecorder_DAP
+#include "EventRecorder.h"
+#endif
 
 #include "cpp_list.h"
 #include "cpp_os.h"
@@ -76,6 +82,11 @@ void thread_run(void * argument)
     static_cast<cpp_os_thread<> *>(argument)->thread_func();
 }
 
+void timer_run(void * argument)
+{
+    static_cast<cpp_os_timer *>(argument)->timer_func();
+}
+
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS
  **************************************************************************************************/
@@ -84,6 +95,10 @@ void thread_run(void * argument)
 
 void cpp_os::create_os(void)
 {
+#if defined(RTE_Compiler_EventRecorder_DAP) && defined(STATIC_CBM)
+    EventRecorderInitialize (STATIC_CBM, 1);
+#endif
+
     os_chck(osKernelInitialize()); // initialize RTX
 
     all_elements_create();
