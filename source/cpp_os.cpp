@@ -24,7 +24,6 @@
 #include <stdint.h>
 #include <stdio.h>
 
-
 #include "cpp_list.h"
 #include "cpp_os.h"
 
