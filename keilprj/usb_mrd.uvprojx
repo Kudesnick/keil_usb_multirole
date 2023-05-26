@@ -10,7 +10,7 @@
       <TargetName>debug_103</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <pCCUsed>6190000::V6.19::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -338,7 +338,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define></Define>
+              <Define>__packed=__PACKED</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
             </VariousControls>
@@ -385,14 +385,9 @@
           <GroupName>source</GroupName>
           <Files>
             <File>
-              <FileName>err_strings.c</FileName>
+              <FileName>cmd_parse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\err_strings.c</FilePath>
-            </File>
-            <File>
-              <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
+              <FilePath>..\source\cmd_parse.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -400,9 +395,19 @@
               <FilePath>..\source\main.c</FilePath>
             </File>
             <File>
+              <FileName>err_strings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\err_strings.c</FilePath>
+            </File>
+            <File>
               <FileName>usb_observer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\usb_observer.c</FilePath>
+            </File>
+            <File>
+              <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -817,14 +822,9 @@
           <GroupName>source</GroupName>
           <Files>
             <File>
-              <FileName>err_strings.c</FileName>
+              <FileName>cmd_parse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\err_strings.c</FilePath>
-            </File>
-            <File>
-              <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
+              <FilePath>..\source\cmd_parse.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -832,9 +832,19 @@
               <FilePath>..\source\main.c</FilePath>
             </File>
             <File>
+              <FileName>err_strings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\err_strings.c</FilePath>
+            </File>
+            <File>
               <FileName>usb_observer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\usb_observer.c</FilePath>
+            </File>
+            <File>
+              <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1178,7 +1188,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>6</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -1249,14 +1259,9 @@
           <GroupName>source</GroupName>
           <Files>
             <File>
-              <FileName>err_strings.c</FileName>
+              <FileName>cmd_parse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\err_strings.c</FilePath>
-            </File>
-            <File>
-              <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
+              <FilePath>..\source\cmd_parse.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -1264,9 +1269,19 @@
               <FilePath>..\source\main.c</FilePath>
             </File>
             <File>
+              <FileName>err_strings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\err_strings.c</FilePath>
+            </File>
+            <File>
               <FileName>usb_observer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\usb_observer.c</FilePath>
+            </File>
+            <File>
+              <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1322,16 +1337,8 @@
           <targetInfo name="debug_413"/>
         </targetInfos>
       </api>
-      <api Capiversion="2.2.0" Cclass="CMSIS Driver" Cgroup="USB Host" exclusive="0">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
-      </api>
       <api Capiversion="1.0.0" Cclass="CMSIS" Cgroup="RTOS" exclusive="1">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1355,14 +1362,6 @@
       </api>
     </apis>
     <components>
-      <component Capiversion="2.3.0" Cclass="CMSIS Driver" Cgroup="USB Host" Csub="Custom" Cvendor="ARM" Cversion="1.0.0" custom="1">
-        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
-      </component>
       <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.6.0" condition="ARMv6_7_8-M Device">
         <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
@@ -1463,13 +1462,6 @@
         </targetInfos>
       </component>
       <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="USB Device" Csub="Full-speed" Cvendor="Keil" Cversion="2.23" condition="STM32F4 CMSIS_Driver USB0">
-        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
-        <targetInfos>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
-      </component>
-      <component Capiversion="2.0" Cclass="CMSIS Driver" Cgroup="USB Host" Csub="Full-speed" Cvendor="Keil" Cversion="2.23" condition="STM32F4 CMSIS_Driver USB0">
         <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
@@ -1599,7 +1591,7 @@
           <targetInfo name="debug_103"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" condition="STM32F1xx MD ARMCC" name="Device\Source\ARM\startup_stm32f10x_md.s" version="1.0.0">
+      <file attr="config" category="source" condition="STM32F1xx MD ARMCC" name="Device\Source\ARM\startup_stm32f10x_md.s" version="1.0.1">
         <instance index="0">RTE\Device\STM32F103C8\startup_stm32f10x_md.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32F1xx CMSIS"/>
         <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
@@ -1607,7 +1599,7 @@
           <targetInfo name="debug_103"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="Device\Source\system_stm32f10x.c" version="1.0.0">
+      <file attr="config" category="source" name="Device\Source\system_stm32f10x.c" version="1.0.1">
         <instance index="0">RTE\Device\STM32F103C8\system_stm32f10x.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32F1xx CMSIS"/>
         <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
@@ -1623,7 +1615,7 @@
           <targetInfo name="debug_411"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" condition="STM32F411xE_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f411xe.s" version="2.6.2">
+      <file attr="config" category="source" condition="STM32F411xE_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f411xe.s" version="2.6.8">
         <instance index="0">RTE\Device\STM32F411CEUx\startup_stm32f411xe.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
@@ -1631,7 +1623,7 @@
           <targetInfo name="debug_411"/>
         </targetInfos>
       </file>
-      <file attr="config" category="header" name="MDK\Templates\Inc\stm32f4xx_hal_conf.h" version="1.7.13">
+      <file attr="config" category="header" name="MDK\Templates\Inc\stm32f4xx_hal_conf.h" version="1.8.1">
         <instance index="0">RTE\Device\STM32F411CEUx\stm32f4xx_hal_conf.h</instance>
         <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 Framework Classic"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
@@ -1639,7 +1631,7 @@
           <targetInfo name="debug_411"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.3">
+      <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.8">
         <instance index="0">RTE\Device\STM32F411CEUx\system_stm32f4xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
@@ -1655,7 +1647,7 @@
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" condition="STM32F413xx_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f413xx.s" version="2.6.2">
+      <file attr="config" category="source" condition="STM32F413xx_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f413xx.s" version="2.6.8">
         <instance index="0">RTE\Device\STM32F413ZHTx\startup_stm32f413xx.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
@@ -1663,7 +1655,7 @@
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
-      <file attr="config" category="header" name="MDK\Templates\Inc\stm32f4xx_hal_conf.h" version="1.7.6">
+      <file attr="config" category="header" name="MDK\Templates\Inc\stm32f4xx_hal_conf.h" version="1.8.1">
         <instance index="0">RTE\Device\STM32F413ZHTx\stm32f4xx_hal_conf.h</instance>
         <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 Framework Classic"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
@@ -1671,7 +1663,7 @@
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.2">
+      <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.8">
         <instance index="0">RTE\Device\STM32F413ZHTx\system_stm32f4xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>

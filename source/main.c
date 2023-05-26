@@ -101,7 +101,7 @@ uint32_t HAL_GetTick(void)
   */
 static void Error_Handler(void)
 {
-    printf("<main> Error_Handler!");
+    printf("<main> Error_Handler!\r\n");
     
     for(;;);
 }
@@ -301,6 +301,12 @@ void SystemClock_Config(void)
 
 int main(void)
 {
+    // #include "string.h"
+    // extern void cmd_parse(uint8_t *buf, uint32_t cnt);
+    // char test[] = "$T+LED_ON";
+    // for (int i = 0; i < sizeof(test); i++)
+    //     cmd_parse((uint8_t *)&test[i], 1);
+
     #ifdef RTE_DEVICE_HAL_COMMON
         HAL_Init();
         // Configure the system clock
@@ -311,7 +317,7 @@ int main(void)
     printf("<main> \033[31mC\033[32mO\033[33mL\033[34mO\033[35mR\033[42m \033[0m"
        "\033[36mT\033[37mE\033[30m\033[47mS\033[0mT\r\n"); // Color test
     printf("<main> Runing main function.\r\n");
-    
+
     printf("<main> Starting OS.\r\n");
 
     if (osKernelInitialize() != osOK) // initialize RTX
@@ -328,11 +334,9 @@ int main(void)
         return -1;
     }
     
-    printf("<main> Main function terminated.");
-    
-    for(;;);
+    printf("<main> Main function terminated.\r\n");
 
-    return 0;
+    return -1;
 }
 
 /***************************************************************************************************

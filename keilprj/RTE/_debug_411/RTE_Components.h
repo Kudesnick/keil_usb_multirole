@@ -56,8 +56,6 @@
         #define RTE_Drivers_USART10             /* Driver USART10 */
 /* Keil::CMSIS Driver:USB Device:Full-speed:2.23 */
 #define RTE_Drivers_USBD0               /* Driver USBD0 */
-/* Keil::CMSIS Driver:USB Host:Full-speed:2.23 */
-#define RTE_Drivers_USBH0               /* Driver USBH0 */
 /* Keil::Device:STM32Cube Framework:Classic:1.8.1 */
 #define RTE_DEVICE_FRAMEWORK_CLASSIC
 /* Keil::Device:STM32Cube HAL:Common:1.8.1 */

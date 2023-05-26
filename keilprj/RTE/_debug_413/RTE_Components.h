@@ -22,9 +22,6 @@
 /* ARM::CMSIS:RTOS:Keil RTX5:5.5.4 */
 #define RTE_CMSIS_RTOS                  /* CMSIS-RTOS */
         #define RTE_CMSIS_RTOS_RTX5             /* CMSIS-RTOS Keil RTX5 */
-/* Keil.ARM Compiler::Compiler:I/O:File:File System:1.2.0 */
-#define RTE_Compiler_IO_File            /* Compiler I/O: File */
-          #define RTE_Compiler_IO_File_FS         /* Compiler I/O: File (File System) */
 /* Keil.ARM Compiler::Compiler:I/O:STDERR:User:1.2.0 */
 #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
           #define RTE_Compiler_IO_STDERR_User     /* Compiler I/O: STDERR User */
@@ -37,13 +34,6 @@
 /* Keil.ARM Compiler::Compiler:I/O:TTY:User:1.2.0 */
 #define RTE_Compiler_IO_TTY             /* Compiler I/O: TTY */
           #define RTE_Compiler_IO_TTY_User        /* Compiler I/O: TTY User */
-/* Keil.MDK-Plus::File System:CORE:LFN:6.15.3 */
-#define RTE_FileSystem_Core             /* File System Core */
-          #define RTE_FileSystem_LFN              /* File System with Long Filename support */
-          #define RTE_FileSystem_Release          /* File System Release Version */
-/* Keil.MDK-Plus::File System:Drive:USB:6.15.3 */
-#define RTE_FileSystem_Drive_USB_0      /* File System USB Drive 0 */
-
 /* Keil.MDK-Pro::USB:CORE:Release:6.16.1 */
 #define RTE_USB_Core                    /* USB Core */
           #define RTE_USB_Core_Release            /* USB Core Release Version */
@@ -53,16 +43,6 @@
 /* Keil.MDK-Pro::USB:Device:CDC:6.16.1 */
 #define RTE_USB_Device_CDC_0            /* USB Device CDC instance 0 */
 
-/* Keil.MDK-Pro::USB:Device:HID:6.16.1 */
-#define RTE_USB_Device_HID_0            /* USB Device HID instance 0 */
-
-/* Keil.MDK-Pro::USB:Host:6.16.1 */
-#define RTE_USB_Host_0                  /* USB Host 0 */
-
-/* Keil.MDK-Pro::USB:Host:HID:6.16.1 */
-#define RTE_USB_Host_HID                /* USB Host HID */
-/* Keil.MDK-Pro::USB:Host:MSC:6.16.1 */
-#define RTE_USB_Host_MSC                /* USB Host MSC */
 /* Keil::CMSIS Driver:USART:2.16 */
 #define RTE_Drivers_USART1              /* Driver USART1 */
         #define RTE_Drivers_USART2              /* Driver USART2 */

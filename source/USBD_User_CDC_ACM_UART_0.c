@@ -51,14 +51,16 @@
  *
  *   This file has to be adapted in case of UART flow control usage.
  */
- 
- 
+
+
 //! [code_USBD_User_CDC_ACM]
- 
+
 #include <stdbool.h>
 #include "rl_usb.h"
  
 #include "Driver_USART.h"
+
+#include "cmd_parse.h"
  
 // UART Configuration ----------------------------------------------------------
  
@@ -157,6 +159,8 @@ void USBD_CDC0_ACM_DataReceived (uint32_t len) {
     // Start USB -> UART
     cnt = USBD_CDC_ACM_ReadData(0U, uart_tx_buf, UART_BUFFER_SIZE);
     if (cnt > 0) {
+      cmd_parse(uart_tx_buf, (uint32_t)(cnt));
+      USBD_CDC_ACM_WriteData(0U, uart_tx_buf , cnt);
       ptrUART->Send(uart_tx_buf, (uint32_t)(cnt));
     }
   }
@@ -281,8 +285,8 @@ bool USBD_CDC0_ACM_GetLineCoding (CDC_LINE_CODING *line_coding) {
  
   return true;
 }
- 
- 
+
+
 // Called upon USB Host request to set control line states.
 // \param [in]  state         control line settings bitmap.
 //                - bit 0: DTR state
@@ -296,5 +300,5 @@ bool USBD_CDC0_ACM_SetControlLineState (uint16_t state) {
  
   return true;
 }
- 
+
 //! [code_USBD_User_CDC_ACM]

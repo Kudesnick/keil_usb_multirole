@@ -1,8 +1,8 @@
 ;******************** (C) COPYRIGHT 2011 STMicroelectronics ********************
 ;* File Name          : startup_stm32f10x_md.s
 ;* Author             : MCD Application Team
-;* Version            : V3.5.0
-;* Date               : 11-March-2011
+;* Version            : V3.5.1
+;* Date               : 08-September-2021
 ;* Description        : STM32F10x Medium Density Devices vector table for MDK-ARM 
 ;*                      toolchain.  
 ;*                      This module performs:
@@ -16,12 +16,14 @@
 ;*                      priority is Privileged, and the Stack is set to Main.
 ;* <<< Use Configuration Wizard in Context Menu >>>   
 ;*******************************************************************************
-; THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-; WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
-; AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
-; INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-; CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
-; INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+;*
+;* Copyright (c) 2011 STMicroelectronics.
+;* All rights reserved.
+;*
+;* This software is licensed under terms that can be found in the LICENSE file
+;* in the root directory of this software component.
+;* If no LICENSE file comes with this software, it is provided AS-IS.
+;
 ;*******************************************************************************
 
 ; Amount of memory (in bytes) allocated for Stack
@@ -304,4 +306,3 @@ __user_initial_stackheap
 
                  END
 
-;******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE*****

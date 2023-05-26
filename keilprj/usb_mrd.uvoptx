@@ -350,11 +350,6 @@
         <SubType>1</SubType>
       </ScvdPack>
       <ScvdPack>
-        <Filename>C:\tools\Keil_v5\ARM\Packs\Keil\MDK-Middleware\7.16.0\FileSystem\FileSystem.scvd</Filename>
-        <Type>Keil.MDK-Middleware.7.16.0</Type>
-        <SubType>1</SubType>
-      </ScvdPack>
-      <ScvdPack>
         <Filename>C:\tools\Keil_v5\ARM\Packs\Keil\MDK-Middleware\7.16.0\USB\USB.scvd</Filename>
         <Type>Keil.MDK-Middleware.7.16.0</Type>
         <SubType>1</SubType>
@@ -624,8 +619,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\source\err_strings.c</PathWithFileName>
-      <FilenameWithoutPath>err_strings.c</FilenameWithoutPath>
+      <PathWithFileName>..\source\cmd_parse.c</PathWithFileName>
+      <FilenameWithoutPath>cmd_parse.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -636,8 +631,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\source\USBD_User_CDC_ACM_UART_0.c</PathWithFileName>
-      <FilenameWithoutPath>USBD_User_CDC_ACM_UART_0.c</FilenameWithoutPath>
+      <PathWithFileName>..\source\main.c</PathWithFileName>
+      <FilenameWithoutPath>main.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -648,8 +643,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\source\main.c</PathWithFileName>
-      <FilenameWithoutPath>main.c</FilenameWithoutPath>
+      <PathWithFileName>..\source\err_strings.c</PathWithFileName>
+      <FilenameWithoutPath>err_strings.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -665,6 +660,18 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>5</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\source\USBD_User_CDC_ACM_UART_0.c</PathWithFileName>
+      <FilenameWithoutPath>USBD_User_CDC_ACM_UART_0.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -675,7 +682,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>2</GroupNumber>
-      <FileNumber>5</FileNumber>
+      <FileNumber>6</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -687,7 +694,7 @@
     </File>
     <File>
       <GroupNumber>2</GroupNumber>
-      <FileNumber>6</FileNumber>
+      <FileNumber>7</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -733,7 +740,7 @@
 
   <Group>
     <GroupName>::USB</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>1</RteFlg>
