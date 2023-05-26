@@ -291,8 +291,7 @@ void SystemClock_Config(void)
         Error_Handler();
     }
 }
-#else
-    #error Invalid hardware!
+
 #endif
 
 /***************************************************************************************************
@@ -301,12 +300,6 @@ void SystemClock_Config(void)
 
 int main(void)
 {
-    // #include "string.h"
-    // extern void cmd_parse(uint8_t *buf, uint32_t cnt);
-    // char test[] = "$T+LED_ON";
-    // for (int i = 0; i < sizeof(test); i++)
-    //     cmd_parse((uint8_t *)&test[i], 1);
-
     #ifdef RTE_DEVICE_HAL_COMMON
         HAL_Init();
         // Configure the system clock

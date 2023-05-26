@@ -33,6 +33,7 @@
 #include <stdbool.h>
 
 #include "err_strings.h"
+#include "gpio.h"
 
 /***************************************************************************************************
  *                                       DEFINITIONS
@@ -98,21 +99,9 @@ void thread_usb_device (void)
 /// Emulate USB disconnect (USB_DP)
 void usb_disconnect_emulate(void)
 {
-#ifdef RTE_DEVICE_HAL_COMMON
-    static GPIO_InitTypeDef GPIO_InitStruct = 
-    {
-        .Pin   = GPIO_PIN_12        ,
-        .Mode  = GPIO_MODE_OUTPUT_OD,
-        .Pull  = GPIO_NOPULL        ,
-        .Speed = GPIO_SPEED_FREQ_LOW,
-    };
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    HAL_GPIO_WritePin(GPIOA, GPIO_InitStruct.Pin, GPIO_PIN_RESET);
+    gpio_set((gpio_t){PORTA_12, GPIO_MODE_OD, LOW, OFF});
     
-    HAL_Delay(10);
-#elif
-    #error Function not implemented for SPL
-#endif
+    osDelay(10);
 }
 
 void thread_func(void *arg)
@@ -151,7 +140,6 @@ void cdc_thread_create(void)
 {
     osThreadNew(thread_func, NULL, &attr);
 }
-
 
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS
