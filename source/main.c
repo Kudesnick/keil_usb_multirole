@@ -23,6 +23,8 @@
 #include "RTE_Components.h"
 #include CMSIS_device_header
 #include "cmsis_compiler.h"
+#include "cmsis_os2.h"
+#include "rtx_os.h"
 
 #ifdef RTE_DEVICE_HAL_COMMON
     #include "stm32f4xx_hal.h" // Device header
@@ -30,9 +32,7 @@
 
 #include <stdio.h>
 
-#include "cpp_os.h"
-
-using namespace std;
+#include "usb_observer.h"
 
 /***************************************************************************************************
  *                                       DEFINITIONS
@@ -65,9 +65,6 @@ using namespace std;
 /***************************************************************************************************
  *                                    PRIVATE FUNCTIONS
  **************************************************************************************************/
-
-extern "C"
-{
 
 #ifdef RTE_DEVICE_HAL_COMMON
 
@@ -145,7 +142,11 @@ void osRtxIdleThread(void *argument)
 
     for (;;)
     {
+#ifndef DEBUG
         __WFE();
+#else
+        __NOP();
+#endif
     }
 }
  
@@ -156,7 +157,7 @@ uint32_t osRtxErrorNotify (uint32_t code, void *object_id)
     
     switch (code)
     {
-        case osRtxErrorStackUnderflow:
+        case osRtxErrorStackOverflow:
             // Stack overflow detected for thread (thread_id=object_id)
             ptr = "Stack overflow detected for thread";
             break;
@@ -258,11 +259,11 @@ void SystemClock_Config(void)
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
     RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
     
-    /** Configure the main internal regulator output voltage 
+    /** Configure the main internal regulator output voltage
     */
     __HAL_RCC_PWR_CLK_ENABLE();
     __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-    /** Initializes the CPU, AHB and APB busses clocks 
+    /** Initializes the CPU, AHB and APB busses clocks
     */
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
     RCC_OscInitStruct.HSEState = RCC_HSE_ON;
@@ -276,7 +277,7 @@ void SystemClock_Config(void)
     {
         Error_Handler();
     }
-    /** Initializes the CPU, AHB and APB busses clocks 
+    /** Initializes the CPU, AHB and APB busses clocks
     */
     RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                                 |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -294,28 +295,11 @@ void SystemClock_Config(void)
     #error Invalid hardware!
 #endif
 
-} // extern "C"
-
 /***************************************************************************************************
  *                                    PUBLIC FUNCTIONS
  **************************************************************************************************/
 
-#if defined(__ARMCC_VERSION) && !defined(__OPTIMIZE__)
-    /*
-    Without this directive, it does not start if -o0 optimization is used and the "main"
-    function without parameters.
-    see http://www.keil.com/support/man/docs/armclang_mig/armclang_mig_udb1499267612612.htm
-    */
-    __asm (".global __ARM_use_no_argv\n\t" "__ARM_use_no_argv:\n\t");
-#endif
-
-#ifdef RTE_DEVICE_FRAMEWORK_CUBE_MX
-extern "C"
-{
-int cpp_main(void)
-#else
 int main(void)
-#endif
 {
     #ifdef RTE_DEVICE_HAL_COMMON
         HAL_Init();
@@ -330,7 +314,19 @@ int main(void)
     
     printf("<main> Starting OS.\r\n");
 
-    cpp_os::create_os();
+    if (osKernelInitialize() != osOK) // initialize RTX
+    {
+        printf("<main> osKernelInitialize Error.\r\n");
+        return -1;
+    }
+
+    cdc_thread_create();
+
+    if (osKernelStart() != osOK) // start RTX kernel
+    {
+        printf("<main> osKernelStart Error.\r\n");
+        return -1;
+    }
     
     printf("<main> Main function terminated.");
     
@@ -338,9 +334,6 @@ int main(void)
 
     return 0;
 }
-#ifdef RTE_DEVICE_FRAMEWORK_CUBE_MX
-} // extern "C"
-#endif
 
 /***************************************************************************************************
  *                                       END OF FILE

@@ -8,8 +8,8 @@
  *   MCU Family:    STM32F
  *   Compiler:      ARMCC
  ***************************************************************************************************
- *   File:          thread_usb_host.c
- *   Description:   USB host thread
+ *   File:          thread_usb_manager.c
+ *   Description:   management multirole USB device
  *
  ***************************************************************************************************
  *   History:       22.09.2019 - file created
@@ -20,16 +20,27 @@
  *                                      INCLUDED FILES
  **************************************************************************************************/
 
-#include <stdio.h>
-#include <stdint.h>
 
-#include "rl_usb.h"
+#include "RTE_Components.h"
+#include CMSIS_device_header
+
+#ifdef RTE_DEVICE_HAL_COMMON
+    #include "stm32f4xx_hal.h" // Device header
+#endif
+
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
 #include "err_strings.h"
-#include "thread_usb_device.h"
 
 /***************************************************************************************************
  *                                       DEFINITIONS
  **************************************************************************************************/
+
+#define USBM_STK_SZ (2048U)
+
+#define TERMINATE_TOUT 2000
 
 /***************************************************************************************************
  *                                      PRIVATE TYPES
@@ -42,6 +53,9 @@
 /***************************************************************************************************
  *                                       PRIVATE DATA
  **************************************************************************************************/
+
+uint64_t stack[(USBM_STK_SZ + sizeof(uint64_t) - 1) / sizeof(uint64_t)]; 
+osRtxThread_t tcb;
 
 /***************************************************************************************************
  *                                       PUBLIC DATA
@@ -59,18 +73,10 @@
  *                                    PRIVATE FUNCTIONS
  **************************************************************************************************/
 
-/***************************************************************************************************
- *                                    PUBLIC FUNCTIONS
- **************************************************************************************************/
-
 void thread_usb_device (void)
 {
     
-    uint8_t buf[1];
-
-    volatile usbStatus usb_connect_status;
-    
-    usb_connect_status = USBD_Connect(0); /* USB Device 0 Connect */
+    volatile usbStatus usb_connect_status  = USBD_Connect(0); /* USB Device 0 Connect */
     printf("<USBD> device connect status: %s\r\n", err_str_usb_status(usb_connect_status)); 
     if (usb_connect_status != usbOK)
     {
@@ -84,14 +90,72 @@ void thread_usb_device (void)
         printf("<USBD> Device is configured.\r\n");
     }
     
-    for (;USBD_Configured(0); osDelay(100))
-    {   /* Loop forever */
-        USBD_HID_GetReportTrigger(0, 0, &buf[0], 1);
-        USBD_HID_GetReportTrigger(1, 0, &buf[0], 1);
-    }
+    for (;USBD_Configured(0); osDelay(100));
     
     printf("<USBD> Device is not configured.\r\n");
 }
+
+/// Emulate USB disconnect (USB_DP)
+void usb_disconnect_emulate(void)
+{
+#ifdef RTE_DEVICE_HAL_COMMON
+    static GPIO_InitTypeDef GPIO_InitStruct = 
+    {
+        .Pin   = GPIO_PIN_12        ,
+        .Mode  = GPIO_MODE_OUTPUT_OD,
+        .Pull  = GPIO_NOPULL        ,
+        .Speed = GPIO_SPEED_FREQ_LOW,
+    };
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_WritePin(GPIOA, GPIO_InitStruct.Pin, GPIO_PIN_RESET);
+    
+    HAL_Delay(10);
+#elif
+    #error Function not implemented for SPL 
+#endif
+}
+
+void thread_func(void *arg)
+{
+    (void)arg;
+    
+    for(;; osDelay(TERMINATE_TOUT))
+    {
+        usbStatus usb_status;
+        
+        usb_disconnect_emulate();
+        
+        usb_status = USBD_Initialize (0U);
+        printf("<USBD> Initialize: %s\r\n", err_str_usb_status(usb_status));
+        
+        if (usb_status == usbOK)
+        {
+            thread_usb_device();
+        }
+        
+        usb_status = USBD_Uninitialize(0);
+        printf("<USBD> Uninitialize: %s\r\n", err_str_usb_status(USBD_Uninitialize(0)));
+    }
+};
+
+
+const osThreadAttr_t attr =
+{
+    .cb_mem     = &tcb,
+    .cb_size    = sizeof(tcb),
+    .stack_mem  = stack,
+    .stack_size = sizeof(stack),
+};
+
+void cdc_thread_create(void)
+{
+    osThreadNew(thread_func, NULL, &attr);
+}
+
+
+/***************************************************************************************************
+ *                                    PUBLIC FUNCTIONS
+ **************************************************************************************************/
 
 /***************************************************************************************************
  *                                       END OF FILE

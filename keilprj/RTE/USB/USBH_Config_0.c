@@ -36,7 +36,7 @@
 //       <o>Memory Pool Size <512-1048576:4>
 //       <i>Specify size of memory pool (in bytes) that the USB Host Controller
 //       <i>will use for USB communication data.
-#define USBH0_HC_MEM_POOL_SIZE          512
+#define USBH0_HC_MEM_POOL_SIZE          4096
 
 //       <e>Relocate Memory Pool
 //         <i>Locate the Memory Pool at a specific address.
@@ -66,7 +66,7 @@
 //       <o>Memory Pool Size <512-1048576:4>
 //       <i>Specify size of memory pool (in bytes) that the USB Host Controller
 //       <i>will use for USB communication data.
-#define USBH0_HC_OHCI_MEM_POOL_SIZE     512
+#define USBH0_HC_OHCI_MEM_POOL_SIZE     4096
 
 //       <e>Relocate Memory Pool
 //         <i>Locate the Memory Pool at a specific address.
@@ -112,7 +112,7 @@
 //   <h>OS Resources Settings
 //   <i>These settings are used to optimize usage of OS resources.
 //     <o>Core Thread Stack Size <64-65536>
-#define USBH0_CORE_THREAD_STACK_SIZE    1024
+#define USBH0_CORE_THREAD_STACK_SIZE    2048
 
 //        Core Thread Priority
 #define USBH0_CORE_THREAD_PRIORITY      osPriorityAboveNormal

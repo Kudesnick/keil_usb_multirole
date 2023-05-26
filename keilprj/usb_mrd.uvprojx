@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>STM32F103C8</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F1xx_DFP.2.3.0</PackID>
+          <PackID>Keil.STM32F1xx_DFP.2.4.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x5000) IROM(0x08000000,0x10000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -185,6 +185,8 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -351,7 +353,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -383,49 +385,9 @@
           <GroupName>source</GroupName>
           <Files>
             <File>
-              <FileName>cpp_list.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_list.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>cpp_os.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_os.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>thread_usb_manager.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\thread_usb_manager.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>thread_usb_device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\thread_usb_device.c</FilePath>
-            </File>
-            <File>
-              <FileName>thread_usb_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\thread_usb_host.c</FilePath>
-            </File>
-            <File>
               <FileName>err_strings.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\err_strings.c</FilePath>
-            </File>
-            <File>
-              <FileName>hid_descriptor_decode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\hid_descriptor_decode.c</FilePath>
-            </File>
-            <File>
-              <FileName>USBD_User_HID_0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\USBD_User_HID_0.c</FilePath>
             </File>
             <File>
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
@@ -433,9 +395,29 @@
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
             <File>
-              <FileName>USBH_MSC.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\USBH_MSC.c</FilePath>
+              <FilePath>..\source\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_observer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\usb_observer.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>rtt</GroupName>
+          <Files>
+            <File>
+              <FileName>RTT_IO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\rtt\RTT_IO.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\rtt\SEGGER_RTT.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -452,9 +434,6 @@
           <GroupName>::Device</GroupName>
         </Group>
         <Group>
-          <GroupName>::File System</GroupName>
-        </Group>
-        <Group>
           <GroupName>::USB</GroupName>
         </Group>
       </Groups>
@@ -469,8 +448,8 @@
         <TargetCommonOption>
           <Device>STM32F413ZHTx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32F4xx_DFP.2.17.0</PackID>
+          <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00050000) IROM(0x08000000,0x00180000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -638,6 +617,8 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -804,7 +785,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -836,49 +817,9 @@
           <GroupName>source</GroupName>
           <Files>
             <File>
-              <FileName>cpp_list.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_list.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>cpp_os.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_os.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>thread_usb_manager.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\thread_usb_manager.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>thread_usb_device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\thread_usb_device.c</FilePath>
-            </File>
-            <File>
-              <FileName>thread_usb_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\thread_usb_host.c</FilePath>
-            </File>
-            <File>
               <FileName>err_strings.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\err_strings.c</FilePath>
-            </File>
-            <File>
-              <FileName>hid_descriptor_decode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\hid_descriptor_decode.c</FilePath>
-            </File>
-            <File>
-              <FileName>USBD_User_HID_0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\USBD_User_HID_0.c</FilePath>
             </File>
             <File>
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
@@ -886,9 +827,29 @@
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
             <File>
-              <FileName>USBH_MSC.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\USBH_MSC.c</FilePath>
+              <FilePath>..\source\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_observer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\usb_observer.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>rtt</GroupName>
+          <Files>
+            <File>
+              <FileName>RTT_IO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\rtt\RTT_IO.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\rtt\SEGGER_RTT.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -905,9 +866,6 @@
           <GroupName>::Device</GroupName>
         </Group>
         <Group>
-          <GroupName>::File System</GroupName>
-        </Group>
-        <Group>
           <GroupName>::USB</GroupName>
         </Group>
       </Groups>
@@ -916,14 +874,14 @@
       <TargetName>debug_411</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6120000::V6.12::.\ARMCLANG</pCCUsed>
+      <pCCUsed>6190000::V6.19::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F411CEUx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32F4xx_DFP.2.17.0</PackID>
+          <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IROM(0x08000000,0x00080000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -1091,6 +1049,8 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1218,7 +1178,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>6</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -1242,7 +1202,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define></Define>
+              <Define>DEBUG</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
             </VariousControls>
@@ -1257,7 +1217,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -1289,49 +1249,9 @@
           <GroupName>source</GroupName>
           <Files>
             <File>
-              <FileName>cpp_list.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_list.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>cpp_os.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\cpp_os.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>thread_usb_manager.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\thread_usb_manager.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>thread_usb_device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\thread_usb_device.c</FilePath>
-            </File>
-            <File>
-              <FileName>thread_usb_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\thread_usb_host.c</FilePath>
-            </File>
-            <File>
               <FileName>err_strings.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\err_strings.c</FilePath>
-            </File>
-            <File>
-              <FileName>hid_descriptor_decode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\hid_descriptor_decode.c</FilePath>
-            </File>
-            <File>
-              <FileName>USBD_User_HID_0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\source\USBD_User_HID_0.c</FilePath>
             </File>
             <File>
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
@@ -1339,9 +1259,29 @@
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
             </File>
             <File>
-              <FileName>USBH_MSC.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\source\USBH_MSC.c</FilePath>
+              <FilePath>..\source\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_observer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\usb_observer.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>rtt</GroupName>
+          <Files>
+            <File>
+              <FileName>RTT_IO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\rtt\RTT_IO.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\rtt\SEGGER_RTT.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1356,9 +1296,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::File System</GroupName>
         </Group>
         <Group>
           <GroupName>::USB</GroupName>
@@ -1418,144 +1355,88 @@
       </api>
     </apis>
     <components>
-      <component Capiversion="2.2.0" Cclass="CMSIS Driver" Cgroup="USB Host" Csub="Custom" Cvendor="ARM" Cversion="2.2.0">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+      <component Capiversion="2.3.0" Cclass="CMSIS Driver" Cgroup="USB Host" Csub="Custom" Cvendor="ARM" Cversion="1.0.0" custom="1">
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.3.0" condition="ARMv6_7_8-M Device">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.6.0" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Capiversion="1.0.0" Cclass="CMSIS" Cgroup="RTOS" Csub="Keil RTX5" Cvendor="ARM" Cversion="5.5.1" condition="RTOS RTX5">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+      <component Capiversion="1.0.0" Cclass="CMSIS" Cgroup="RTOS" Csub="Keil RTX5" Cvendor="ARM" Cversion="5.5.4" condition="RTOS RTX5">
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Library" Cvendor="ARM" Cversion="5.5.1" condition="RTOS2 RTX5 Lib">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+      <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Library" Cvendor="ARM" Cversion="5.5.4" condition="RTOS2 RTX5">
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="File System" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with File System">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M">
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M">
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M">
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="TTY" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M">
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="TTY" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="CORE" Cvariant="Release" Cvendor="Keil" Cversion="6.16.1" condition="CMSIS Core with RTOS">
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="CORE" Cvariant="LFN" Cvendor="Keil" Cversion="6.12.0" condition="CMSIS Core with RTOS and File System I/O">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Cvendor="Keil" Cversion="6.16.1" condition="USB Core and Device Driver and Class Instance" maxInstances="4">
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="USB" Cvendor="Keil" Cversion="6.12.0" condition="File System and USB Host MSC" maxInstances="2">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
-      </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="CORE" Cvariant="Release" Cvendor="Keil" Cversion="6.13.6" condition="USB Core">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
-      </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
-      </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="CDC" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="8">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
-      </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103" versionMatchMode=""/>
-          <targetInfo name="debug_411" versionMatchMode=""/>
-          <targetInfo name="debug_413" versionMatchMode=""/>
-        </targetInfos>
-      </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance and Host Driver" maxInstances="4">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
-      </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance and Host Driver">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
-      </component>
-      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="MSC" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance, Host Driver and File System USB Drive">
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+      <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="CDC" Cvendor="Keil" Cversion="6.16.1" condition="USB Core and Device Instance and Device Driver" maxInstances="8">
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1563,114 +1444,114 @@
         </targetInfos>
       </component>
       <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="USART" Cvendor="Keil" Cversion="2.3" condition="STM32F1xx CMSIS GPIO DMA">
-        <package name="STM32F1xx_DFP" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="Keil" version="2.3.0"/>
+        <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
         </targetInfos>
       </component>
-      <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="USART" Cvendor="Keil" Cversion="2.12" condition="STM32F4 CMSIS_Driver USART">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="USART" Cvendor="Keil" Cversion="2.16" condition="STM32F4 CMSIS_Driver USART">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="USB Device" Cvendor="Keil" Cversion="2.1" condition="STM32F102_3 CMSIS RTOS GPIO">
-        <package name="STM32F1xx_DFP" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="Keil" version="2.3.0"/>
+      <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="USB Device" Cvendor="Keil" Cversion="2.2" condition="STM32F102_3 CMSIS RTOS GPIO">
+        <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
         </targetInfos>
       </component>
-      <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="USB Device" Csub="Full-speed" Cvendor="Keil" Cversion="2.21" condition="STM32F4 CMSIS_Driver USB0">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="USB Device" Csub="Full-speed" Cvendor="Keil" Cversion="2.23" condition="STM32F4 CMSIS_Driver USB0">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Capiversion="2.0" Cclass="CMSIS Driver" Cgroup="USB Host" Csub="Full-speed" Cvendor="Keil" Cversion="2.21" condition="STM32F4 CMSIS_Driver USB0">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Capiversion="2.0" Cclass="CMSIS Driver" Cgroup="USB Host" Csub="Full-speed" Cvendor="Keil" Cversion="2.23" condition="STM32F4 CMSIS_Driver USB0">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="DMA" Cvendor="Keil" Cversion="1.2" condition="STM32F1xx CMSIS">
-        <package name="STM32F1xx_DFP" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="Keil" version="2.3.0"/>
+      <component Cclass="Device" Cgroup="DMA" Cvendor="Keil" Cversion="1.3" condition="STM32F1xx CMSIS">
+        <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="GPIO" Cvendor="Keil" Cversion="1.3" condition="STM32F1xx CMSIS">
-        <package name="STM32F1xx_DFP" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="Keil" version="2.3.0"/>
+        <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
         </targetInfos>
       </component>
-      <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 Framework Classic">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 Framework Classic">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Common" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 HAL Common">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Common" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 HAL Common">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Cortex" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 HAL">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Cortex" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 HAL">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="DMA" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 HAL">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="DMA" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 HAL">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="GPIO" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 HAL">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="GPIO" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 HAL">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="PWR" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 HAL">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="PWR" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 HAL">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="RCC" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 HAL GPIO">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="RCC" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 HAL GPIO">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="USART" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 HAL DMA RCC">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="USART" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 HAL DMA RCC">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32F1xx CMSIS">
-        <package name="STM32F1xx_DFP" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="Keil" version="2.3.0"/>
+        <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS">
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
@@ -1684,20 +1565,20 @@
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
         <targetInfos/>
       </file>
-      <file attr="config" category="source" name="CMSIS\RTOS2\RTX\Config\RTX_Config.c" version="5.1.0">
+      <file attr="config" category="source" name="CMSIS\RTOS2\RTX\Config\RTX_Config.c" version="5.1.1">
         <instance index="0">RTE\CMSIS\RTX_Config.c</instance>
-        <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Library" Cvendor="ARM" Cversion="5.5.1" condition="RTOS2 RTX5 Lib"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+        <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Library" Cvendor="ARM" Cversion="5.5.4" condition="RTOS2 RTX5"/>
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
-      <file attr="config" category="header" name="CMSIS\RTOS2\RTX\Config\RTX_Config.h" version="5.5.0">
+      <file attr="config" category="header" name="CMSIS\RTOS2\RTX\Config\RTX_Config.h" version="5.5.2">
         <instance index="0">RTE\CMSIS\RTX_Config.h</instance>
-        <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Library" Cvendor="ARM" Cversion="5.5.1" condition="RTOS2 RTX5 Lib"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+        <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Library" Cvendor="ARM" Cversion="5.5.4" condition="RTOS2 RTX5"/>
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1706,14 +1587,14 @@
       </file>
       <file attr="config" category="header" name="Config\EventRecorderConf.h" version="1.1.0">
         <instance index="0" removed="1">RTE\Compiler\EventRecorderConf.h</instance>
-        <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" condition="Cortex-M Device"/>
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.1"/>
+        <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.5.1" condition="Cortex-M Device"/>
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
         <targetInfos/>
       </file>
       <file attr="config" category="header" name="RTE_Driver\Config\RTE_Device.h" version="1.1.2">
         <instance index="0">RTE\Device\STM32F103C8\RTE_Device.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32F1xx CMSIS"/>
-        <package name="STM32F1xx_DFP" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="Keil" version="2.3.0"/>
+        <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
         </targetInfos>
@@ -1721,7 +1602,7 @@
       <file attr="config" category="source" condition="STM32F1xx MD ARMCC" name="Device\Source\ARM\startup_stm32f10x_md.s" version="1.0.0">
         <instance index="0">RTE\Device\STM32F103C8\startup_stm32f10x_md.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32F1xx CMSIS"/>
-        <package name="STM32F1xx_DFP" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="Keil" version="2.3.0"/>
+        <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
         </targetInfos>
@@ -1729,15 +1610,15 @@
       <file attr="config" category="source" name="Device\Source\system_stm32f10x.c" version="1.0.0">
         <instance index="0">RTE\Device\STM32F103C8\system_stm32f10x.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32F1xx CMSIS"/>
-        <package name="STM32F1xx_DFP" schemaVersion="1.4.0" url="http://www.keil.com/pack/" vendor="Keil" version="2.3.0"/>
+        <package name="STM32F1xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
         </targetInfos>
       </file>
       <file attr="config" category="header" name="CMSIS\Driver\Config\RTE_Device.h" version="2.4.5">
         <instance index="0">RTE\Device\STM32F411CEUx\RTE_Device.h</instance>
-        <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 Framework Classic"/>
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 Framework Classic"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
         </targetInfos>
@@ -1745,31 +1626,31 @@
       <file attr="config" category="source" condition="STM32F411xE_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f411xe.s" version="2.6.2">
         <instance index="0">RTE\Device\STM32F411CEUx\startup_stm32f411xe.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
         </targetInfos>
       </file>
-      <file attr="config" category="header" name="MDK\Templates\Inc\stm32f4xx_hal_conf.h" version="1.7.6">
+      <file attr="config" category="header" name="MDK\Templates\Inc\stm32f4xx_hal_conf.h" version="1.7.13">
         <instance index="0">RTE\Device\STM32F411CEUx\stm32f4xx_hal_conf.h</instance>
-        <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 Framework Classic"/>
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 Framework Classic"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.2">
+      <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.3">
         <instance index="0">RTE\Device\STM32F411CEUx\system_stm32f4xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_411"/>
         </targetInfos>
       </file>
       <file attr="config" category="header" name="CMSIS\Driver\Config\RTE_Device.h" version="2.4.5">
         <instance index="0">RTE\Device\STM32F413ZHTx\RTE_Device.h</instance>
-        <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 Framework Classic"/>
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 Framework Classic"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_413"/>
         </targetInfos>
@@ -1777,15 +1658,15 @@
       <file attr="config" category="source" condition="STM32F413xx_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f413xx.s" version="2.6.2">
         <instance index="0">RTE\Device\STM32F413ZHTx\startup_stm32f413xx.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
       <file attr="config" category="header" name="MDK\Templates\Inc\stm32f4xx_hal_conf.h" version="1.7.6">
         <instance index="0">RTE\Device\STM32F413ZHTx\stm32f4xx_hal_conf.h</instance>
-        <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.7.6" condition="STM32F4 Framework Classic"/>
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.8.1" condition="STM32F4 Framework Classic"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_413"/>
         </targetInfos>
@@ -1793,35 +1674,27 @@
       <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.2">
         <instance index="0">RTE\Device\STM32F413ZHTx\system_stm32f4xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
-        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.0"/>
         <targetInfos>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
       <file attr="config" category="source" name="FileSystem\Config\FS_Config.c" version="6.3.0">
-        <instance index="0">RTE\File_System\FS_Config.c</instance>
-        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="CORE" Cvariant="LFN" Cvendor="Keil" Cversion="6.12.0" condition="CMSIS Core with RTOS and File System I/O"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
+        <instance index="0" removed="1">RTE\File_System\FS_Config.c</instance>
+        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="CORE" Cvariant="LFN" Cvendor="Keil" Cversion="6.15.3" condition="CMSIS Core with RTOS and File System I/O"/>
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
+        <targetInfos/>
       </file>
-      <file attr="config" category="source" name="FileSystem\Config\FS_Config_USB.h" version="6.2.0">
-        <instance index="0">RTE\File_System\FS_Config_USB_0.h</instance>
-        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="USB" Cvendor="Keil" Cversion="6.12.0" condition="File System and USB Host MSC" maxInstances="2"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
+      <file attr="config" category="header" name="FileSystem\Config\FS_Config_USB.h" version="6.2.0">
+        <instance index="0" removed="1">RTE\File_System\FS_Config_USB_0.h</instance>
+        <component Cbundle="MDK-Plus" Cclass="File System" Cgroup="Drive" Csub="USB" Cvendor="Keil" Cversion="6.15.3" condition="File System and USB Host MSC" maxInstances="2"/>
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
+        <targetInfos/>
       </file>
       <file attr="config" category="source" name="USB\Config\USBD_Config.c" version="5.2.0">
         <instance index="0">RTE\USB\USBD_Config_0.c</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Cvendor="Keil" Cversion="6.16.1" condition="USB Core and Device Driver and Class Instance" maxInstances="4"/>
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
@@ -1840,25 +1713,21 @@
         <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
         <targetInfos/>
       </file>
-      <file attr="config" category="source" name="USB\Config\USBD_Config_CDC.h" version="5.2.0">
+      <file attr="config" category="header" name="USB\Config\USBD_Config_CDC.h" version="5.2.0">
         <instance index="0">RTE\USB\USBD_Config_CDC_0.h</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="CDC" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="8"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="CDC" Cvendor="Keil" Cversion="6.16.1" condition="USB Core and Device Instance and Device Driver" maxInstances="8"/>
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
         <targetInfos>
           <targetInfo name="debug_103"/>
           <targetInfo name="debug_411"/>
           <targetInfo name="debug_413"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="USB\Config\USBD_Config_HID.h" version="5.0.1">
-        <instance index="0">RTE\USB\USBD_Config_HID_0.h</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Device Instance and Device Driver" maxInstances="4"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
+      <file attr="config" category="header" name="USB\Config\USBD_Config_HID.h" version="5.0.2">
+        <instance index="0" removed="1">RTE\USB\USBD_Config_HID_0.h</instance>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Device" Csub="HID" Cvendor="Keil" Cversion="6.16.1" condition="USB Core and Device Instance and Device Driver" maxInstances="4"/>
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
+        <targetInfos/>
       </file>
       <file attr="config" category="source" name="USB\Config\USBD_Config_HID.h" version="5.0.1">
         <instance index="1" removed="1">RTE\USB\USBD_Config_HID_1.h</instance>
@@ -1867,39 +1736,27 @@
         <targetInfos/>
       </file>
       <file attr="config" category="source" name="USB\Config\USBH_Config.c" version="5.2.1">
-        <instance index="0">RTE\USB\USBH_Config_0.c</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance and Host Driver" maxInstances="4"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
+        <instance index="0" removed="1">RTE\USB\USBH_Config_0.c</instance>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Cvendor="Keil" Cversion="6.16.1" condition="USB Core and Host Driver and Class Instance" maxInstances="4"/>
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
+        <targetInfos/>
       </file>
-      <file attr="config" category="source" name="USB\Config\USBH_Config_HID.h" version="5.1.0">
-        <instance index="0">RTE\USB\USBH_Config_HID.h</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="HID" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance and Host Driver"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
+      <file attr="config" category="header" name="USB\Config\USBH_Config_HID.h" version="5.1.0">
+        <instance index="0" removed="1">RTE\USB\USBH_Config_HID.h</instance>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="HID" Cvendor="Keil" Cversion="6.16.1" condition="USB Core and Host Instance and Host Driver"/>
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
+        <targetInfos/>
       </file>
-      <file attr="config" category="source" name="USB\Config\USBH_Config_MSC.h" version="5.0.0">
-        <instance index="0">RTE\USB\USBH_Config_MSC.h</instance>
-        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="MSC" Cvendor="Keil" Cversion="6.13.6" condition="USB Core, Host Instance, Host Driver and File System USB Drive"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
-        <targetInfos>
-          <targetInfo name="debug_103"/>
-          <targetInfo name="debug_411"/>
-          <targetInfo name="debug_413"/>
-        </targetInfos>
+      <file attr="config" category="header" name="USB\Config\USBH_Config_MSC.h" version="5.0.0">
+        <instance index="0" removed="1">RTE\USB\USBH_Config_MSC.h</instance>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="Host" Csub="MSC" Cvendor="Keil" Cversion="6.16.1" condition="USB Core and Host Instance and Host Driver and File System USB Drive"/>
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
+        <targetInfos/>
       </file>
       <file attr="config" category="source" name="USB\Config\USB_Debug.c" version="1.0.0">
         <instance index="0" removed="1">RTE\USB\USB_Debug.c</instance>
-        <component Cbundle="MDK-Plus" Cclass="USB" Cgroup="CORE" Cvariant="Debug" Cvendor="Keil" Cversion="6.13.6" condition="USB Core and Event Recorder"/>
-        <package name="MDK-Middleware" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="7.9.0"/>
+        <component Cbundle="MDK-Pro" Cclass="USB" Cgroup="CORE" Cvariant="Debug" Cvendor="Keil" Cversion="6.16.1" condition="CMSIS Core with RTOS and Event Recorder"/>
+        <package name="MDK-Middleware" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="7.16.0"/>
         <targetInfos/>
       </file>
     </files>

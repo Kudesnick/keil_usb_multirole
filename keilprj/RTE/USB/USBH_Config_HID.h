@@ -16,7 +16,7 @@
 //   <h>OS Resources Settings
 //   <i>These settings are used to optimize usage of OS resources.
 //     <o>HID Interrupt In Pipe handling Thread Stack Size <64-65536>
-#define USBH_HID_INT_IN_THREAD_STACK_SIZE   512
+#define USBH_HID_INT_IN_THREAD_STACK_SIZE   2048
 
 //        HID Interrupt In Pipe handling Thread Priority
 #define USBH_HID_INT_IN_THREAD_PRIORITY     osPriorityAboveNormal
