@@ -5,37 +5,73 @@
 #include <stdbool.h>
 
 #include "cmd_parse.h"
+#include "gpio.h"
 
 typedef struct
 {
     char *cmd;
-    uint32_t param;
-    void(*func)(uint32_t);
+    union
+    {
+        uint32_t param;
+        gpio_t   gpio;
+    };
+    char*(*func)(uint32_t);
 } cmd_t;
 
-void cmd_func_dummy(uint32_t param)
+char* cmd_func_dummy(uint32_t arg)
 {
-    printf("<cmd> dummy with param %d.\r\n", param);
+    static const char ret[] = "ok\r";
+    printf("<cmd> dummy with param %d.\r", arg);
+    return (char*)ret;
+}
+
+char* cmd_func_gpio_set(uint32_t arg)
+{
+    const gpio_t gpio = *(gpio_t*)&arg;
+    gpio_set(gpio);
+    char ports[] = "ABCDEFGHIJKLMNOP";
+    static char buf[32];
+    sprintf(buf, "PORT%c_%d %s\r", ports[GPIO_PORT_SOURCE(gpio.pin)], GPIO_PIN_SOURCE(gpio.pin), gpio.state ? "on" : "off");
+    return buf;
+}
+
+char* echo(uint32_t arg)
+{
+    extern void set_echo(bool);
+    set_echo(arg);
+    
+    return (arg) ? "echo on\r"  : "echo off\r";
 }
 
 const cmd_t commands[] =
 {
     {
-        .cmd   = "LED_ON",
+        .cmd   = "ECHO_ON",
+        .param = 1,
+        .func  = echo,
+    },
+    {
+        .cmd   = "ECHO_OFF",
         .param = 0,
-        .func  = cmd_func_dummy,
+        .func  = echo,
+    },    
+    {
+        .cmd   = "LED_ON",
+        .gpio  = {PORTC_13, GPIO_MODE_OD, HI, ON},
+        .func  = cmd_func_gpio_set,
     },
     {
         .cmd   = "LED_OFF",
-        .param = 1,
-        .func  = cmd_func_dummy,
+        .gpio  = {PORTC_13, GPIO_MODE_OD, HI, OFF},
+        .func  = cmd_func_gpio_set,
     },
 };
 
 char buffer[32];
 
-void cmd_parse(uint8_t *buf, uint32_t cnt)
+char* cmd_parse(uint8_t *buf, uint32_t cnt)
 {
+    char *ret = NULL;
     static uint32_t idx  = 0;
     static const char prefix[] = "$T+";
 
@@ -70,7 +106,7 @@ void cmd_parse(uint8_t *buf, uint32_t cnt)
                     }
                     else if (strlen(commands[j].cmd) == buf_index && ch == '\0')
                     {
-                        commands[j].func(commands[j].param);
+                        ret = commands[j].func(commands[j].param);
                         must_be_cmd = false;
                         break;
                     }
@@ -87,4 +123,6 @@ void cmd_parse(uint8_t *buf, uint32_t cnt)
             }
         }
     }
+    
+    return ret;
 }

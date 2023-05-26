@@ -314,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -329,8 +329,8 @@
             <uC99>1</uC99>
             <uGnu>1</uGnu>
             <useXO>0</useXO>
-            <v6Lang>6</v6Lang>
-            <v6LangP>4</v6LangP>
+            <v6Lang>3</v6Lang>
+            <v6LangP>5</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
@@ -403,6 +403,11 @@
               <FileName>usb_observer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\usb_observer.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\gpio.c</FilePath>
             </File>
             <File>
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
@@ -842,6 +847,11 @@
               <FilePath>..\source\usb_observer.c</FilePath>
             </File>
             <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\gpio.c</FilePath>
+            </File>
+            <File>
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\USBD_User_CDC_ACM_UART_0.c</FilePath>
@@ -1277,6 +1287,11 @@
               <FileName>usb_observer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\usb_observer.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\source\gpio.c</FilePath>
             </File>
             <File>
               <FileName>USBD_User_CDC_ACM_UART_0.c</FileName>

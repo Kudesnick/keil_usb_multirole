@@ -101,7 +101,7 @@ uint32_t HAL_GetTick(void)
   */
 static void Error_Handler(void)
 {
-    printf("<main> Error_Handler!\r\n");
+    printf("<main> Error_Handler!\r");
     
     for(;;);
 }
@@ -117,7 +117,7 @@ static void Error_Handler(void)
 void assert_failed(uint8_t* file, uint32_t line)
 { 
     // User can add his own implementation to report the file name and line number
-    printf("<main> Wrong parameters value: file %s on line %d\r\n", file, line);
+    printf("<main> Wrong parameters value: file %s on line %d\r", file, line);
     
     for(;;);
 }
@@ -128,7 +128,7 @@ void assert_failed(uint8_t* file, uint32_t line)
 /// System hard fault
 void HardFault_Handler(void)
 {
-    printf("<main> HardFault!\r\n");
+    printf("<main> HardFault!\r");
     
     return;
 }
@@ -194,7 +194,7 @@ uint32_t osRtxErrorNotify (uint32_t code, void *object_id)
     }
     else
     {
-        printf("\r\n");
+        printf("\r");
     }
     
     return 0U;
@@ -315,14 +315,14 @@ int main(void)
     SystemCoreClockUpdate();
 
     printf("<main> \033[31mC\033[32mO\033[33mL\033[34mO\033[35mR\033[42m \033[0m"
-       "\033[36mT\033[37mE\033[30m\033[47mS\033[0mT\r\n"); // Color test
-    printf("<main> Runing main function.\r\n");
+       "\033[36mT\033[37mE\033[30m\033[47mS\033[0mT\r"); // Color test
+    printf("<main> Runing main function.\r");
 
-    printf("<main> Starting OS.\r\n");
+    printf("<main> Starting OS.\r");
 
     if (osKernelInitialize() != osOK) // initialize RTX
     {
-        printf("<main> osKernelInitialize Error.\r\n");
+        printf("<main> osKernelInitialize Error.\r");
         return -1;
     }
 
@@ -330,11 +330,11 @@ int main(void)
 
     if (osKernelStart() != osOK) // start RTX kernel
     {
-        printf("<main> osKernelStart Error.\r\n");
+        printf("<main> osKernelStart Error.\r");
         return -1;
     }
     
-    printf("<main> Main function terminated.\r\n");
+    printf("<main> Main function terminated.\r");
 
     return -1;
 }

@@ -38,7 +38,7 @@
  *                                       DEFINITIONS
  **************************************************************************************************/
 
-#define USBM_STK_SZ (2048U)
+#define USBM_STK_SZ (512U)
 
 #define TERMINATE_TOUT 2000
 
@@ -77,7 +77,7 @@ void thread_usb_device (void)
 {
     
     volatile usbStatus usb_connect_status  = USBD_Connect(0); /* USB Device 0 Connect */
-    printf("<USBD> device connect status: %s\r\n", err_str_usb_status(usb_connect_status)); 
+    printf("<USBD> device connect status: %s\n", err_str_usb_status(usb_connect_status)); 
     if (usb_connect_status != usbOK)
     {
         osThreadExit();
@@ -87,12 +87,12 @@ void thread_usb_device (void)
 
     if (USBD_Configured(0))
     {
-        printf("<USBD> Device is configured.\r\n");
+        printf("<USBD> Device is configured.\n");
     }
     
     for (;USBD_Configured(0); osDelay(100));
     
-    printf("<USBD> Device is not configured.\r\n");
+    printf("<USBD> Device is not configured.\n");
 }
 
 /// Emulate USB disconnect (USB_DP)
@@ -111,7 +111,7 @@ void usb_disconnect_emulate(void)
     
     HAL_Delay(10);
 #elif
-    #error Function not implemented for SPL 
+    #error Function not implemented for SPL
 #endif
 }
 
@@ -126,7 +126,7 @@ void thread_func(void *arg)
         usb_disconnect_emulate();
         
         usb_status = USBD_Initialize (0U);
-        printf("<USBD> Initialize: %s\r\n", err_str_usb_status(usb_status));
+        printf("<USBD> Initialize: %s\n", err_str_usb_status(usb_status));
         
         if (usb_status == usbOK)
         {
@@ -134,7 +134,7 @@ void thread_func(void *arg)
         }
         
         usb_status = USBD_Uninitialize(0);
-        printf("<USBD> Uninitialize: %s\r\n", err_str_usb_status(USBD_Uninitialize(0)));
+        printf("<USBD> Uninitialize: %s\n", err_str_usb_status(USBD_Uninitialize(0)));
     }
 };
 

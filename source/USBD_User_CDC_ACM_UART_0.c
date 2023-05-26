@@ -56,6 +56,7 @@
 //! [code_USBD_User_CDC_ACM]
 
 #include <stdbool.h>
+#include <string.h>
 #include "rl_usb.h"
  
 #include "Driver_USART.h"
@@ -86,7 +87,8 @@ static   volatile int32_t       usb_tx_cnt          =   0;
  
 static   osThreadId             cdc_acm_bridge_tid  =   0U;
 static   CDC_LINE_CODING        cdc_acm_line_coding = { 0U, 0U, 0U, 0U };
- 
+
+static   bool                   echo_on = false;
  
 // Called when UART has transmitted or received requested number of bytes.
 // \param[in]   event         UART event
@@ -96,11 +98,6 @@ static void UART_Callback (uint32_t event) {
   int32_t cnt;
  
   if (event & ARM_USART_EVENT_SEND_COMPLETE) {
-    // USB -> UART
-    cnt = USBD_CDC_ACM_ReadData(0U, uart_tx_buf, UART_BUFFER_SIZE);
-    if (cnt > 0) {
-      ptrUART->Send(uart_tx_buf, (uint32_t)(cnt));
-    }
   }
  
   if (event & ARM_USART_EVENT_RECEIVE_COMPLETE) {
@@ -118,7 +115,7 @@ void CDC0_ACM_UART_to_USB_Thread (void const *arg) {
   (void)(arg);
  
   while (1) {
-    // UART - > USB
+    // UART -> USB
     if (ptrUART->GetStatus().rx_busy != 0U) {
       cnt  = uart_rx_cnt;
       cnt += ptrUART->GetRxCount();
@@ -139,6 +136,19 @@ void CDC0_ACM_UART_to_USB_Thread (void const *arg) {
         }
       }
     }
+    
+    // USB -> UART
+    if (ptrUART->GetStatus().tx_busy == 0U) {
+      int32_t cnt = USBD_CDC_ACM_ReadData(0U, uart_tx_buf, UART_BUFFER_SIZE);
+      if (cnt > 0) {
+        char *req = cmd_parse(uart_tx_buf, (uint32_t)(cnt));
+        if (echo_on)
+            USBD_CDC_ACM_WriteData(0U, uart_tx_buf, (uint32_t)(cnt));
+        if (req != NULL)
+            USBD_CDC_ACM_WriteData(0U, (uint8_t *)req, strlen(req));
+        ptrUART->Send(uart_tx_buf, (uint32_t)(cnt));
+      }
+    }
     osDelay(10U);
   }
 }
@@ -151,19 +161,7 @@ osThreadDef (CDC0_ACM_UART_to_USB_Thread, osPriorityNormal, 1U, 0U);
 // Called when new data was received from the USB Host.
 // \param[in]   len           number of bytes available to read.
 void USBD_CDC0_ACM_DataReceived (uint32_t len) {
-  int32_t cnt;
- 
   (void)(len);
- 
-  if (ptrUART->GetStatus().tx_busy == 0U) {
-    // Start USB -> UART
-    cnt = USBD_CDC_ACM_ReadData(0U, uart_tx_buf, UART_BUFFER_SIZE);
-    if (cnt > 0) {
-      cmd_parse(uart_tx_buf, (uint32_t)(cnt));
-      USBD_CDC_ACM_WriteData(0U, uart_tx_buf , cnt);
-      ptrUART->Send(uart_tx_buf, (uint32_t)(cnt));
-    }
-  }
 }
  
 // Called during USBD_Initialize to initialize the USB CDC class instance (ACM).
@@ -302,3 +300,8 @@ bool USBD_CDC0_ACM_SetControlLineState (uint16_t state) {
 }
 
 //! [code_USBD_User_CDC_ACM]
+
+void set_echo(bool state)
+{
+  echo_on = state;
+}
