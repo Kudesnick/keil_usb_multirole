@@ -57,27 +57,69 @@
 
 #include <stdbool.h>
 #include <string.h>
-#include "rl_usb.h"
- 
-#include "Driver_USART.h"
 
+#include "rl_usb.h"
+#include "Driver_USART.h"
 #include "cmd_parse.h"
+#include "RTE_Device.h"
  
 // UART Configuration ----------------------------------------------------------
- 
-#define  UART_PORT              2       // UART Port number
-#define  UART_BUFFER_SIZE       512     // UART Buffer Size
- 
+
+#if RTE_USART1
+    #define  UART_PORT 1
+    #define  CTS_FLAG (RTE_USART1_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_USART1_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#elif RTE_USART2
+    #define  UART_PORT 2
+    #define  CTS_FLAG (RTE_USART2_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_USART2_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#elif RTE_USART3
+    #define  UART_PORT 3
+    #define  CTS_FLAG (RTE_USART3_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_USART3_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#elif RTE_UART4
+    #define  UART_PORT 4
+    #define  CTS_FLAG (RTE_UART4_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_UART4_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#elif RTE_UART5
+    #define  UART_PORT 5
+    #define  CTS_FLAG (RTE_UART5_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_UART5_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#elif RTE_USART6
+    #define  UART_PORT 6
+    #define  CTS_FLAG (RTE_USART6_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_USART6_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#elif RTE_UART7
+    #define  UART_PORT 7
+    #define  CTS_FLAG (RTE_UART7_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_UART7_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#elif RTE_UART8
+    #define  UART_PORT 8
+    #define  CTS_FLAG (RTE_UART8_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_UART8_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#elif RTE_UART9
+    #define  UART_PORT 9
+    #define  CTS_FLAG (RTE_UART9_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_UART9_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#elif RTE_UART10
+    #define  UART_PORT 10
+    #define  CTS_FLAG (RTE_UART10_CTS_ID ? ARM_USART_FLOW_CONTROL_CTS : 0)
+    #define  RTS_FLAG (RTE_UART10_RTS_ID ? ARM_USART_FLOW_CONTROL_RTS : 0)
+#else
+    #error "UART port not  set in RTE_Device.h"
+#endif
+#define  UART_BUFFER_SIZE       64      // UART Buffer Size
+
 //------------------------------------------------------------------------------
- 
+
 #define _UART_Driver_(n)        Driver_USART##n
 #define  UART_Driver_(n)       _UART_Driver_(n)
 extern   ARM_DRIVER_USART       UART_Driver_(UART_PORT);
 #define  ptrUART              (&UART_Driver_(UART_PORT))
- 
+
 // External functions
 extern   void                   CDC0_ACM_UART_to_USB_Thread (void const *arg) __attribute((noreturn));
- 
+
 // Local Variables
 static            uint8_t       uart_rx_buf[UART_BUFFER_SIZE];
 static            uint8_t       uart_tx_buf[UART_BUFFER_SIZE];
@@ -252,7 +294,7 @@ bool USBD_CDC0_ACM_SetLineCoding (const CDC_LINE_CODING *line_coding) {
                             data_bits                    |
                             parity                       |
                             stop_bits                    |
-                            ARM_USART_FLOW_CONTROL_NONE  ,
+                            CTS_FLAG | RTS_FLAG          ,
                             line_coding->dwDTERate       );
 
   if (status != ARM_DRIVER_OK) {

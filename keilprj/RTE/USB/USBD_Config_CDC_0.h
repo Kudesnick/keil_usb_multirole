@@ -166,7 +166,7 @@
 //         <8=>      8 Bytes <16=>    16 Bytes <32=>    32 Bytes <64=>      64 Bytes
 //         <128=>  128 Bytes <256=>  256 Bytes <512=>  512 Bytes <1024=>  1024 Bytes
 //         <2048=>2048 Bytes <4096=>4096 Bytes <8192=>8192 Bytes <16384=>16384 Bytes
-#define USBD_CDC0_ACM_SEND_BUF_SIZE      1024
+#define USBD_CDC0_ACM_SEND_BUF_SIZE      256
 
 //       <o>Maximum Communication Device Receive Buffer Size
 //       <i>Specifies size of buffer used for receiving of data from USB Host.
@@ -175,7 +175,7 @@
 //         <8=>      8 Bytes <16=>    16 Bytes <32=>    32 Bytes <64=>      64 Bytes
 //         <128=>  128 Bytes <256=>  256 Bytes <512=>  512 Bytes <1024=>  1024 Bytes
 //         <2048=>2048 Bytes <4096=>4096 Bytes <8192=>8192 Bytes <16384=>16384 Bytes
-#define USBD_CDC0_ACM_RECEIVE_BUF_SIZE   2048
+#define USBD_CDC0_ACM_RECEIVE_BUF_SIZE   256
 
 //     </h>
 
@@ -349,13 +349,13 @@
 //   <h>OS Resources Settings
 //   <i>These settings are used to optimize usage of OS resources.
 //     <o>Communication Device Class Interrupt Endpoint Thread Stack Size <64-65536>
-#define USBD_CDC0_INT_THREAD_STACK_SIZE  512
+#define USBD_CDC0_INT_THREAD_STACK_SIZE  256
 
 //        Communication Device Class Interrupt Endpoint Thread Priority
 #define USBD_CDC0_INT_THREAD_PRIORITY    osPriorityAboveNormal
 
 //     <o>Communication Device Class Bulk Endpoints Thread Stack Size <64-65536>
-#define USBD_CDC0_BULK_THREAD_STACK_SIZE 512
+#define USBD_CDC0_BULK_THREAD_STACK_SIZE 256
 
 //        Communication Device Class Bulk Endpoints Thread Priority
 #define USBD_CDC0_BULK_THREAD_PRIORITY   osPriorityAboveNormal

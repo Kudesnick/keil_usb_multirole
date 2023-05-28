@@ -7,6 +7,8 @@
 #include "cmd_parse.h"
 #include "gpio.h"
 
+#define countof(a) (sizeof(a)/sizeof(a[0]))
+
 typedef struct
 {
     char *cmd;
@@ -54,20 +56,57 @@ const cmd_t commands[] =
         .cmd   = "ECHO_OFF",
         .param = 0,
         .func  = echo,
-    },    
-    {
-        .cmd   = "LED_ON",
-        .gpio  = {PORTC_13, GPIO_MODE_OD, HI, ON},
-        .func  = cmd_func_gpio_set,
     },
-    {
-        .cmd   = "LED_OFF",
-        .gpio  = {PORTC_13, GPIO_MODE_OD, HI, OFF},
-        .func  = cmd_func_gpio_set,
-    },
+#ifdef LED_PIN
+    {.cmd   = "LED_ON"        , .gpio  = {LED_PIN       , ON }, .func  = cmd_func_gpio_set},
+    {.cmd   = "LED_OFF"       , .gpio  = {LED_PIN       , OFF}, .func  = cmd_func_gpio_set},
+#endif                                                  
+#ifdef PWR_PIN                                          
+    {.cmd   = "PWR_ON"        , .gpio  = {PWR_PIN       , ON }, .func  = cmd_func_gpio_set},
+    {.cmd   = "PWR_OFF"       , .gpio  = {PWR_PIN       , OFF}, .func  = cmd_func_gpio_set},
+#endif                                                  
+#ifdef PWRKEY_PIN                                        
+    {.cmd   = "PWRKEY_ON"     , .gpio  = {PWRKEY_PIN    , ON }, .func  = cmd_func_gpio_set},
+    {.cmd   = "PWRKEY_OFF"    , .gpio  = {PWRKEY_PIN    , OFF}, .func  = cmd_func_gpio_set},
+#endif                                                  
+#ifdef RESET_PIN                                        
+    {.cmd   = "RESET_ON"      , .gpio  = {RESET_PIN     , ON }, .func  = cmd_func_gpio_set},
+    {.cmd   = "RESET_OFF"     , .gpio  = {RESET_PIN     , OFF}, .func  = cmd_func_gpio_set},
+#endif
+#ifdef GNSS_PWR_PIN
+    {.cmd   = "GNSS_PWR_ON"   , .gpio  = {GNSS_PWR_PIN  , ON }, .func  = cmd_func_gpio_set},
+    {.cmd   = "GNSS_PWR_OFF"  , .gpio  = {GNSS_PWR_PIN  , OFF}, .func  = cmd_func_gpio_set},
+#endif
+#ifdef GNSS_RESET_PIN
+    {.cmd   = "GNSS_RESET_ON" , .gpio  = {GNSS_RESET_PIN, ON }, .func  = cmd_func_gpio_set},
+    {.cmd   = "GNSS_RESET_OFF", .gpio  = {GNSS_RESET_PIN, OFF}, .func  = cmd_func_gpio_set},
+#endif
+#ifdef GNSS_STB_PIN
+    {.cmd   = "GNSS_STB_ON"   , .gpio  = {GNSS_STB_PIN  , ON }, .func  = cmd_func_gpio_set},
+    {.cmd   = "GNSS_STB_OFF"  , .gpio  = {GNSS_STB_PIN  , OFF}, .func  = cmd_func_gpio_set},
+#endif                                                  
+#ifdef GNSS_ANT_PIN                                     
+    {.cmd   = "GNSS_ANT_ON"   , .gpio  = {GNSS_ANT_PIN  , ON }, .func  = cmd_func_gpio_set},
+    {.cmd   = "GNSS_ANT_OFF"  , .gpio  = {GNSS_ANT_PIN  , OFF}, .func  = cmd_func_gpio_set},
+#endif
+#ifdef NRF_RES_PIN
+    {.cmd   = "NRF_RES_ON"    , .gpio  = {NRF_RES_PIN   , ON }, .func  = cmd_func_gpio_set},
+    {.cmd   = "NRF_RES_OFF"   , .gpio  = {NRF_RES_PIN   , OFF}, .func  = cmd_func_gpio_set},
+#endif
 };
 
 char buffer[32];
+
+void cmd_parse_init(void)
+{
+    for (int i = 1; i < countof(commands); i += 2)
+    {
+        if (commands[i].func == cmd_func_gpio_set)
+            gpio_init(commands[i].gpio);
+        else
+            commands[i].func(commands[i].param);
+    }
+}
 
 char* cmd_parse(uint8_t *buf, uint32_t cnt)
 {
@@ -96,7 +135,7 @@ char* cmd_parse(uint8_t *buf, uint32_t cnt)
             buffer[buf_index] = ch;
             
             bool must_be_cmd = false;
-            for(uint32_t j = 0; j < sizeof(commands)/sizeof(commands[0]); j++)
+            for(uint32_t j = 0; j < countof(commands); j++)
             {
                 if (memcmp(commands[j].cmd, buffer, buf_index + 1) == 0)
                 {

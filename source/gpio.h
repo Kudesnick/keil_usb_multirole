@@ -209,7 +209,7 @@ extern const uint32_t gpio_exti_line[0x10];
  * @brief Включение тактирования периферии порта
  * @param _GPIO GPIO пин
  */
-#define HAL_RCC_GPIO_CLK_ENABLE(_GPIO)                  \
+#define HAL_RCC_GPIO_CLK_ENABLE(_GPIO)                      \
     do {                                                    \
         __IO uint32_t tmpreg = 0x00U;                       \
         uint32_t rcc_bit = (1 << GPIO_PORT_SOURCE(_GPIO));  \
@@ -240,6 +240,7 @@ typedef struct
 #define OFF 0
 #define ON  1
 
+void gpio_init(gpio_t arg);
 void gpio_set(gpio_t arg);
 
 /***************************************************************************************************

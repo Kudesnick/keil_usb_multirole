@@ -39,7 +39,7 @@
  *                                       DEFINITIONS
  **************************************************************************************************/
 
-#define USBM_STK_SZ (512U)
+#define USBM_STK_SZ (256U)
 
 #define TERMINATE_TOUT 2000
 
@@ -76,7 +76,6 @@ osRtxThread_t tcb;
 
 void thread_usb_device (void)
 {
-    
     volatile usbStatus usb_connect_status  = USBD_Connect(0); /* USB Device 0 Connect */
     printf("<USBD> device connect status: %s\n", err_str_usb_status(usb_connect_status)); 
     if (usb_connect_status != usbOK)
@@ -126,7 +125,6 @@ void thread_func(void *arg)
         printf("<USBD> Uninitialize: %s\n", err_str_usb_status(USBD_Uninitialize(0)));
     }
 };
-
 
 const osThreadAttr_t attr =
 {
