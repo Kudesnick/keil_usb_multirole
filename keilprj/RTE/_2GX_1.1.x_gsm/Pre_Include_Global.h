@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'usb_mrd' 
- * Target:  'debug_413' 
+ * Target:  '2GX 1.1.x gsm' 
  */
 
 #ifndef PRE_INCLUDE_GLOBAL_H

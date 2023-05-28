@@ -2,6 +2,8 @@
 #pragma once
 
 // Igla-x M95 (stm32f413) nRF USART2, GSM USART3, GNSS UART4
+#define UART_PORT 3
+
 #define LED_PIN             PORTA_10, GPIO_MODE_OD, HI // green
 // #define PWR_PIN             PORTB_07, GPIO_MODE_PP, LOW // not used
 #define PWRKEY_PIN          PORTC_08, GPIO_MODE_PP, LOW // pulse
