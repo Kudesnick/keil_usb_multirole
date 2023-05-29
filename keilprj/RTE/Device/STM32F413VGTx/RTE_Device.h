@@ -160,7 +160,7 @@
 
 // <e> USART2 (Universal synchronous asynchronous receiver transmitter) [Driver_USART2]
 // <i> Configuration settings for Driver_USART2 in component ::CMSIS Driver:USART
-#define RTE_USART2                      0
+#define RTE_USART2                      1
 
 //   <o> USART2_TX Pin <0=>Not Used <1=>PA2 <2=>PD5
 #define RTE_USART2_TX_ID                1
@@ -211,7 +211,7 @@
 #endif
 
 //   <o> USART2_CTS Pin <0=>Not Used <1=>PA0 <2=>PD3
-#define RTE_USART2_CTS_ID               0
+#define RTE_USART2_CTS_ID               1
 #if    (RTE_USART2_CTS_ID == 0)
 #define RTE_USART2_CTS                  0
 #elif  (RTE_USART2_CTS_ID == 1)
@@ -227,7 +227,7 @@
 #endif
 
 //   <o> USART2_RTS Pin <0=>Not Used <1=>PA1 <2=>PD4
-#define RTE_USART2_RTS_ID               0
+#define RTE_USART2_RTS_ID               1
 #if    (RTE_USART2_RTS_ID == 0)
 #define RTE_USART2_RTS                  0
 #elif  (RTE_USART2_RTS_ID == 1)
@@ -387,7 +387,7 @@
 //     <o4> Priority <0=>Low <1=>Medium <2=>High <3=>Very High
 //     <i>  Selects DMA Priority
 //   </e>
-#define RTE_USART3_RX_DMA               0
+#define RTE_USART3_RX_DMA               1
 #define RTE_USART3_RX_DMA_NUMBER        1
 #define RTE_USART3_RX_DMA_STREAM        1
 #define RTE_USART3_RX_DMA_CHANNEL       4
@@ -403,7 +403,7 @@
 //     <o4> Priority <0=>Low <1=>Medium <2=>High <3=>Very High
 //     <i>  Selects DMA Priority
 //   </e>
-#define RTE_USART3_TX_DMA               0
+#define RTE_USART3_TX_DMA               1
 #define RTE_USART3_TX_DMA_NUMBER        1
 #define RTE_USART3_TX_DMA_STREAM        3
 #define RTE_USART3_TX_DMA_CHANNEL       4
@@ -414,10 +414,10 @@
 
 // <e> UART4 (Universal asynchronous receiver transmitter) [Driver_USART4]
 // <i> Configuration settings for Driver_USART4 in component ::CMSIS Driver:USART
-#define RTE_UART4                       0
+#define RTE_UART4                       1
 
 //   <o> UART4_TX Pin <0=>Not Used <1=>PA0 <2=>PC10 <3=>PD10 <4=>PA12 <5=>PD1
-#define RTE_UART4_TX_ID                 0
+#define RTE_UART4_TX_ID                 3
 #if    (RTE_UART4_TX_ID == 0)
 #define RTE_UART4_TX                    0
 #elif  (RTE_UART4_TX_ID == 1)
@@ -445,7 +445,7 @@
 #endif
 
 //   <o> UART4_RX Pin <0=>Not Used <1=>PA1 <2=>PC11 <3=>PA11 <4=>PD0
-#define RTE_UART4_RX_ID                 0
+#define RTE_UART4_RX_ID                 2
 #if    (RTE_UART4_RX_ID == 0)
 #define RTE_UART4_RX                    0
 #elif  (RTE_UART4_RX_ID == 1)
@@ -478,7 +478,7 @@
 //     <o4> Priority <0=>Low <1=>Medium <2=>High <3=>Very High
 //     <i>  Selects DMA Priority
 //   </e>
-#define RTE_UART4_RX_DMA                0
+#define RTE_UART4_RX_DMA                1
 #define RTE_UART4_RX_DMA_NUMBER         1
 #define RTE_UART4_RX_DMA_STREAM         2
 #define RTE_UART4_RX_DMA_CHANNEL        4
@@ -494,7 +494,7 @@
 //     <o4> Priority <0=>Low <1=>Medium <2=>High <3=>Very High
 //     <i>  Selects DMA Priority
 //   </e>
-#define RTE_UART4_TX_DMA                0
+#define RTE_UART4_TX_DMA                1
 #define RTE_UART4_TX_DMA_NUMBER         1
 #define RTE_UART4_TX_DMA_STREAM         4
 #define RTE_UART4_TX_DMA_CHANNEL        4
@@ -2471,13 +2471,13 @@
 
 //     <o0.0> VBUS Sensing Pin
 //     <i> Enable or disable VBUS sensing
-#define RTE_OTG_FS_VBUS_SENSING_PIN     0
+#define RTE_OTG_FS_VBUS_SENSING_PIN     1
 //   </e>
 
 //   <e> Host [Driver_USBH0]
 //   <i> Configuration settings for Driver_USBH0 in component ::CMSIS Driver:USB Host
 
-#define RTE_USB_OTG_FS_HOST             1
+#define RTE_USB_OTG_FS_HOST             0
 
 //     <e> VBUS Power On/Off Pin
 //     <i> Configure Pin for driving VBUS
@@ -2491,9 +2491,9 @@
 //       <i>  Selects Port Bit
 //     </e>
 #define RTE_OTG_FS_VBUS_PIN             1
-#define RTE_OTG_FS_VBUS_ACTIVE          1
-#define RTE_OTG_FS_VBUS_PORT            GPIO_PORT(6)
-#define RTE_OTG_FS_VBUS_BIT             6
+#define RTE_OTG_FS_VBUS_ACTIVE          0
+#define RTE_OTG_FS_VBUS_PORT            GPIO_PORT(7)
+#define RTE_OTG_FS_VBUS_BIT             5
 
 //     <e> Overcurrent Detection Pin
 //     <i> Configure Pin for overcurrent detection
@@ -2508,8 +2508,8 @@
 //     </e>
 #define RTE_OTG_FS_OC_PIN               1
 #define RTE_OTG_FS_OC_ACTIVE            0
-#define RTE_OTG_FS_OC_PORT              GPIO_PORT(6)
-#define RTE_OTG_FS_OC_BIT               7
+#define RTE_OTG_FS_OC_PORT              GPIO_PORT(5)
+#define RTE_OTG_FS_OC_BIT               11
 //   </e>
 
 // </e>
@@ -2642,7 +2642,7 @@
 //     <o0.0> VBUS Sensing Pin
 //     <i> Enable or disable VBUS sensing
 //     <i> Relevant only if PHY Interface On-chip full-speed PHY is selected
-#define RTE_OTG_HS_VBUS_SENSING_PIN     0
+#define RTE_OTG_HS_VBUS_SENSING_PIN     1
 //   </e>
 
 //   <e> Host [Driver_USBH1]
